@@ -11,7 +11,8 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
  typography: {
-  fontFamily: "'Poppins', sans-serif",
+  //   fontFamily: "'Poppins', sans-serif",
+  fontFamily: '"Inter", sans-serif',
   caption: {
    fontFamily: "'Open Sans', sans-serif",
   },
@@ -22,6 +23,10 @@ const theme = createTheme({
    light: "#F4F5F7",
    dark: "#05004E",
   },
+  secondary: {
+   main: "#1880C9",
+   dark: "#1f2937",
+  },
  },
  components: {
   MuiCssBaseline: {
@@ -29,7 +34,8 @@ const theme = createTheme({
     body: {
      maxHeight: "100vh",
      maxWidth: "100vw",
-     backgroundColor: "#1880C9",
+     //  backgroundColor: "#1880C9",
+     backgroundColor: "#1f2937",
      color: "#05004E",
      transition: "all 300ms ease",
     },

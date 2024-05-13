@@ -10,8 +10,9 @@ export default function DialogComponent({
  width,
  tableMode,
  headerAction,
+ noDivider,
 }: {
- title?: string;
+ title?: React.ReactNode;
  dialogOpen: boolean;
  dialogClose?: () => void;
  children?: React.ReactNode;
@@ -19,6 +20,7 @@ export default function DialogComponent({
  width?: number | string;
  tableMode?: boolean;
  headerAction?: React.ReactNode;
+ noDivider?: boolean;
 }) {
  return (
   <Dialog
@@ -49,7 +51,7 @@ export default function DialogComponent({
      {headerAction}
     </DialogTitle>
    )}
-   <DialogContent dividers sx={{ p: tableMode ? 0 : "16px 24px" }}>
+   <DialogContent dividers={noDivider} sx={{ p: tableMode ? 0 : "16px 24px" }}>
     {children}
    </DialogContent>
    {dialogFooter}

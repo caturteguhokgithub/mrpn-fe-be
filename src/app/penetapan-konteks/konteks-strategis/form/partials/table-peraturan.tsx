@@ -1,6 +1,7 @@
 import React from "react";
 import {
  Button,
+ DialogActions,
  Icon,
  IconButton,
  Paper,
@@ -18,8 +19,21 @@ import theme from "@/theme";
 import { AddCircle } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
+import DialogComponent from "@/app/components/dialog";
+import FormROKunci from "./form-ro-kunci";
+import FormPeraturan from "./form-peraturan";
 
 export default function TablePeraturan({ mode }: { mode?: string }) {
+ const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
+
+ const handleModalOpenAdd = () => {
+  setModalOpenAdd(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpenAdd(false);
+ };
+
  function createData(id: number, peraturan: string, amanat: string) {
   return { id, peraturan, amanat };
  }
@@ -42,6 +56,15 @@ export default function TablePeraturan({ mode }: { mode?: string }) {
   ),
  ];
 
+ const dialogActionFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button variant="contained" type="submit">
+    Simpan
+   </Button>
+  </DialogActions>
+ );
+
  return (
   <>
    <Stack
@@ -57,6 +80,7 @@ export default function TablePeraturan({ mode }: { mode?: string }) {
       size="small"
       startIcon={<AddCircle />}
       sx={{ lineHeight: 1, py: 1 }}
+      onClick={handleModalOpenAdd}
      >
       Tambah Peraturan Terkait
      </Button>
@@ -113,6 +137,15 @@ export default function TablePeraturan({ mode }: { mode?: string }) {
      </TableBody>
     </Table>
    </TableContainer>
+   <DialogComponent
+    width={320}
+    dialogOpen={modalOpenAdd}
+    dialogClose={handleModalClose}
+    title="Tambah Peraturan"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormPeraturan mode="add" />
+   </DialogComponent>
   </>
  );
 }

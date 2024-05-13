@@ -1,4 +1,5 @@
-import { Checkbox, FormControlLabel, Stack } from "@mui/material";
+import theme from "@/theme";
+import { Checkbox, FormControlLabel, Stack, Typography } from "@mui/material";
 
 export default function SearchResult(props: any) {
  const { title, body } = props;
@@ -8,7 +9,8 @@ export default function SearchResult(props: any) {
    control={<Checkbox />}
    label={
     <Stack direction="row" gap={1}>
-     {title} - {body}
+     <Typography color={theme.palette.secondary.dark}>{title}</Typography> -{" "}
+     <Typography color={theme.palette.secondary.dark}>{body}</Typography>
     </Stack>
    }
   />

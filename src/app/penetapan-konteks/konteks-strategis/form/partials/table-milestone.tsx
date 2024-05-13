@@ -1,6 +1,7 @@
 import React from "react";
 import {
  Button,
+ DialogActions,
  Icon,
  IconButton,
  Paper,
@@ -18,8 +19,21 @@ import theme from "@/theme";
 import { AddCircle } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
+import DialogComponent from "@/app/components/dialog";
+import FormROKunci from "./form-ro-kunci";
+import FormMilestone from "./form-milestone";
 
 export default function TableMilestone({ mode }: { mode?: string }) {
+ const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
+
+ const handleModalOpenAdd = () => {
+  setModalOpenAdd(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpenAdd(false);
+ };
+
  function createData(
   id: number,
   program: string,
@@ -73,6 +87,15 @@ export default function TableMilestone({ mode }: { mode?: string }) {
   ),
  ];
 
+ const dialogActionFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button variant="contained" type="submit">
+    Simpan
+   </Button>
+  </DialogActions>
+ );
+
  return (
   <>
    <Stack
@@ -88,6 +111,7 @@ export default function TableMilestone({ mode }: { mode?: string }) {
       size="small"
       startIcon={<AddCircle />}
       sx={{ lineHeight: 1, py: 1 }}
+      onClick={handleModalOpenAdd}
      >
       Tambah Milestone
      </Button>
@@ -150,6 +174,14 @@ export default function TableMilestone({ mode }: { mode?: string }) {
      </TableBody>
     </Table>
    </TableContainer>
+   <DialogComponent
+    dialogOpen={modalOpenAdd}
+    dialogClose={handleModalClose}
+    title="Tambah Rincian Output Kunci"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormMilestone mode="add" />
+   </DialogComponent>
   </>
  );
 }

@@ -59,14 +59,14 @@ export const MenuItem = ({
  const MenuText = (
   <ListItemText sx={{ textTransform: "capitalize", my: isExpanded ? 1 : 0 }}>
    <Typography
-    fontSize={isExpanded ? "14px" : "8px"}
+    fontSize={isExpanded ? "15px" : "8px"}
     textAlign={isExpanded ? "left" : "center"}
     lineHeight={isExpanded ? "1.3" : "1.3"}
    >
     {label.length >= 20 ? (
      <Typography
       component="span"
-      fontSize={isExpanded ? "13px" : "8px"}
+      fontSize={isExpanded ? "14px" : "8px"}
       lineHeight="1.3"
      >
       {label}
@@ -120,7 +120,7 @@ export const MenuItem = ({
    ...(isExpanded && {
     gap: 2,
     borderRadius: "50px",
-    mx: "20px",
+    mx: "16px",
     flexDirection: "row",
     ".MuiIcon-root, p": {
      color: theme.palette.primary.light,
@@ -265,7 +265,7 @@ export const MenuItem = ({
      openSubmenu || activeSubmenuCollapse ? "down" : "right"
     }`}
     sx={{
-     fontSize: "12px",
+     fontSize: "15px",
      color: isExpanded
       ? theme.palette.primary.main
       : theme.palette.primary.light,

@@ -67,33 +67,82 @@ export default function DashboardLayout({
   };
  }, []);
 
- return (
-  <Box
-   sx={{
-    display: "grid",
-    gridTemplateColumns: checked ? "280px 1fr" : "64px 1fr",
-    gridTemplateRows: "auto 1fr auto",
-    gridTemplateAreas: `'aside header' 'aside main' 'aside footer'`,
-    height: "100vh",
-    transition: "grid-template-columns 600ms ease",
-    [theme.breakpoints.down("md")]: {
-     gridTemplateColumns: "1fr",
-     gridTemplateAreas: `'header' 'main' 'footer'`,
-    },
-   }}
-  >
-   <Box
-    component="aside"
-    sx={{
-     gridArea: "aside",
-     bgcolor: theme.palette.primary.main,
-     width: checked ? 280 : 64,
-     transition: "width 600ms ease",
-     [theme.breakpoints.down("md")]: {
-      display: "none",
+ const flagPathnameTheme = [pathname === "/", pathname === "/tema"].includes(
+  true
+ );
+
+ const sxMain = {
+  borderTopLeftRadius: "50px",
+  transition: "all 600ms ease",
+  [theme.breakpoints.down("md")]: {
+   borderTopLeftRadius: 0,
+   p: 3,
+   maxWidth: "100%",
+   overflow: "auto",
+  },
+  ".table-collapsed": {
+   ".MuiTableContainer-root": {
+    //  maxWidth: checked ? "calc(100vw - 364px)" : "calc(100vw - 163px)",
+    maxWidth: checked ? "calc(100vw - 364px)" : "calc(100vw - 132px)",
+    thead: {
+     tr: {
+      "&:not(:last-of-type)": {
+       boxShadow: "none",
+       th: {
+        "&[colspan='1']": {
+         borderBottom: 0,
+        },
+        "&:not([colspan='1'])": {
+         backgroundColor: grey[200],
+        },
+       },
+      },
      },
-    }}
-   >
+    },
+    ".MuiTableRow-root": {
+     boxShadow: "none",
+    },
+   },
+   "&.perlakuan-risiko": {
+    ".MuiTableContainer-root": {
+     maxWidth: checked ? "calc(100vw - 348px)" : "calc(100vw - 132px)",
+    },
+   },
+  },
+ };
+
+ const sxAside = {
+  gridArea: "aside",
+  //  bgcolor: theme.palette.primary.main,
+  bgcolor: theme.palette.secondary.dark,
+  width: checked ? 280 : 64,
+  transition: "width 600ms ease",
+  [theme.breakpoints.down("md")]: {
+   display: "none",
+  },
+ };
+
+ const sxWrapper = {
+  display: "grid",
+  gridTemplateColumns: checked
+   ? "280px 1fr"
+   : flagPathnameTheme && !checked
+   ? "0 1fr"
+   : "64px 1fr",
+  gridTemplateRows: "auto 1fr auto",
+  gridTemplateAreas: `'aside header' 'aside main' 'aside footer'`,
+  height: "100vh",
+  transition: "grid-template-columns 600ms ease",
+  [theme.breakpoints.down("md")]: {
+   gridTemplateColumns: "1fr",
+   gridTemplateAreas: `'header' 'main' 'footer'`,
+  },
+ };
+
+ return (
+  <Box sx={sxWrapper}>
+   {/* <Box component="aside" sx={sxAside} onMouseOver={handleChange}></Box> */}
+   <Box component="aside" sx={sxAside}>
     <Collapse
      orientation="horizontal"
      in={checked}
@@ -110,32 +159,34 @@ export default function DashboardLayout({
     </Collapse>
    </Box>
    <Box component="header" sx={{ gridArea: "header", p: "20px 0" }}>
-    <Zoom
-     in={!checked}
-     style={{
-      transitionDelay: "200ms",
-     }}
-    >
-     <Box
-      mt={0}
-      position="absolute"
-      left={25}
-      zIndex={999}
-      sx={{
-       [theme.breakpoints.down("md")]: {
-        display: "none",
-       },
+    {flagPathnameTheme ? null : (
+     <Zoom
+      in={!checked}
+      style={{
+       transitionDelay: "200ms",
       }}
      >
-      <Image
-       width={50}
-       height={53}
-       src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
-       alt="MRPN 2024"
-       priority
-      />
-     </Box>
-    </Zoom>
+      <Box
+       mt={0}
+       position="absolute"
+       left={25}
+       zIndex={999}
+       sx={{
+        [theme.breakpoints.down("md")]: {
+         display: "none",
+        },
+       }}
+      >
+       <Image
+        width={50}
+        height={53}
+        src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
+        alt="MRPN 2024"
+        priority
+       />
+      </Box>
+     </Zoom>
+    )}
     <Header />
    </Box>
    <Box
@@ -146,58 +197,21 @@ export default function DashboardLayout({
     pb="24px"
     position="relative"
     className={checked ? "" : "collapse-active"}
-    sx={{
-     borderTopLeftRadius: "50px",
-     transition: "all 600ms ease",
-     [theme.breakpoints.down("md")]: {
-      borderTopLeftRadius: 0,
-      p: 3,
-      maxWidth: "100%",
-      overflow: "auto",
-     },
-     ".table-collapsed": {
-      ".MuiTableContainer-root": {
-       //  maxWidth: checked ? "calc(100vw - 364px)" : "calc(100vw - 163px)",
-       maxWidth: checked ? "calc(100vw - 364px)" : "calc(100vw - 132px)",
-       thead: {
-        tr: {
-         "&:not(:last-of-type)": {
-          boxShadow: "none",
-          th: {
-           "&[colspan='1']": {
-            borderBottom: 0,
-           },
-           "&:not([colspan='1'])": {
-            backgroundColor: grey[200],
-           },
-          },
-         },
-        },
-       },
-       ".MuiTableRow-root": {
-        boxShadow: "none",
-       },
-      },
-      "&.perlakuan-risiko": {
-       ".MuiTableContainer-root": {
-        maxWidth: checked ? "calc(100vw - 348px)" : "calc(100vw - 132px)",
-       },
-      },
-     },
-    }}
+    sx={sxMain}
+    // onMouseOver={handleChange}
    >
     <Stack
      borderRadius="50%"
-     bgcolor={theme.palette.primary.main}
+     bgcolor={flagPathnameTheme ? "transparent" : theme.palette.primary.main}
      justifyContent="center"
      alignItems="center"
      position="absolute"
-     top="42px"
-     left="-15px"
+     top={flagPathnameTheme ? "107px" : "42px"}
+     left={flagPathnameTheme ? "42px" : "-15px"}
      onClick={handleChange}
      width="22px"
      height="22px"
-     border="5px solid"
+     border={flagPathnameTheme ? 0 : "5px solid"}
      borderColor={theme.palette.primary.light}
      boxSizing="content-box"
      sx={{
@@ -207,19 +221,35 @@ export default function DashboardLayout({
       },
      }}
     >
-     <Icon
-      baseClassName="fas"
-      className={`fa-chevron-right`}
-      sx={{
-       fontSize: "12px",
-       color: "white",
-       transform: checked ? "rotate(180deg)" : "rotate(0deg)",
-       transition: "all 1s ease",
-       position: "relative",
-       top: checked ? -1 : 0,
-       left: 0,
-      }}
-     />
+     {flagPathnameTheme ? (
+      <Icon
+       baseClassName="fas"
+       className={`fa-bars-staggered`}
+       sx={{
+        fontSize: "20px",
+        color: "white",
+        // transform: checked ? "rotate(180deg)" : "rotate(0deg)",
+        // transition: "all 1s ease",
+        // position: "relative",
+        // top: checked ? -1 : 0,
+        // left: 0,
+       }}
+      />
+     ) : (
+      <Icon
+       baseClassName="fas"
+       className={`fa-chevron-right`}
+       sx={{
+        fontSize: "12px",
+        color: "white",
+        transform: checked ? "rotate(180deg)" : "rotate(0deg)",
+        transition: "all 1s ease",
+        position: "relative",
+        top: checked ? -1 : 0,
+        left: 0,
+       }}
+      />
+     )}
     </Stack>
     {children}
    </Box>

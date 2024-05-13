@@ -19,6 +19,7 @@ import { IconKeluar } from "../icons";
 import { IconFA } from "../icons/icon-fa";
 import Image from "next/image";
 import Aside from "./aside";
+import { usePathname } from "next/navigation";
 
 export default function Header({}) {
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -35,6 +36,11 @@ export default function Header({}) {
  const toggleDrawerMobile = (newOpen: boolean) => () => {
   setOpenDrawerMobile(newOpen);
  };
+
+ const pathname = usePathname();
+ const flagPathnameTheme = [pathname === "/", pathname === "/tema"].includes(
+  true
+ );
 
  return (
   <Box
@@ -70,71 +76,96 @@ export default function Header({}) {
      >
       MRPN 2024
      </Typography> */}
-     <Box
-      component="img"
-      src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
-      alt="MRPN 2024"
-      sx={{
-       display: "flex",
-       alignItems: "center",
-       width: "40px",
-       [theme.breakpoints.up("md")]: {
-        display: "none",
-       },
-      }}
-     >
-      {/* <Image
+     {flagPathnameTheme ? null : (
+      <>
+       <Box
+        component="img"
+        src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
+        alt="MRPN 2024"
+        sx={{
+         display: "flex",
+         alignItems: "center",
+         width: "40px",
+         [theme.breakpoints.up("md")]: {
+          display: "none",
+         },
+        }}
+       >
+        {/* <Image
        width={50}
        height={53}
        src="https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png"
        alt="MRPN 2024"
        priority
       /> */}
-     </Box>
-     <Typography
-      component="p"
-      fontWeight="700"
-      fontSize="20px"
-      letterSpacing="0.5px"
-      //   lineHeight={1.3}
-      sx={{
-       [theme.breakpoints.down("md")]: {
-        fontSize: "1em",
-        lineHeight: 1.2,
-       },
-      }}
-     >
-      <Box component="span" color={orange[500]} textTransform="uppercase">
-       Na
-      </Box>
-      tional{" "}
-      <Box component="span" color={orange[500]} textTransform="uppercase">
-       R
-      </Box>
-      i
-      <Box component="span" color={orange[500]} textTransform="uppercase">
-       s
-      </Box>
-      k{" "}
-      <Box
-       component="span"
-       sx={{
-        [theme.breakpoints.up("md")]: {
-         display: "none",
-        },
-       }}
-      >
-       <br />
-      </Box>
-      <Box component="span" color={orange[500]} textTransform="uppercase">
-       I
-      </Box>
-      nformation{" "}
-      <Box component="span" color={orange[500]} textTransform="uppercase">
-       S
-      </Box>
-      ystem
-     </Typography>
+       </Box>
+       <Typography
+        component="p"
+        fontWeight="700"
+        fontSize="20px"
+        letterSpacing="0.5px"
+        //   lineHeight={1.3}
+        sx={{
+         [theme.breakpoints.down("md")]: {
+          fontSize: "1em",
+          lineHeight: 1.2,
+         },
+        }}
+       >
+        <Box
+         component="span"
+         color={theme.palette.primary.main}
+         textTransform="uppercase"
+        >
+         Na
+        </Box>
+        tional{" "}
+        <Box
+         component="span"
+         color={theme.palette.primary.main}
+         textTransform="uppercase"
+        >
+         R
+        </Box>
+        i
+        <Box
+         component="span"
+         color={theme.palette.primary.main}
+         textTransform="uppercase"
+        >
+         s
+        </Box>
+        k{" "}
+        <Box
+         component="span"
+         sx={{
+          [theme.breakpoints.up("md")]: {
+           display: "none",
+          },
+         }}
+        >
+         <br />
+        </Box>
+        <Box
+         component="span"
+         color={theme.palette.primary.main}
+         textTransform="uppercase"
+        >
+         I
+        </Box>
+        nformation{" "}
+        <Box
+         component="span"
+         color={theme.palette.primary.main}
+         textTransform="uppercase"
+        >
+         S
+        </Box>
+        ystem
+       </Typography>
+      </>
+     )}
+
      {/* <Typography
       component="h1"
       letterSpacing={4}
@@ -174,48 +205,50 @@ export default function Header({}) {
      open={open}
      onClose={handleClose}
      onClick={handleClose}
-     PaperProps={{
-      elevation: 0,
-      sx: {
-       overflow: "visible",
-       filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-       mt: 1.5,
-       "& .MuiAvatar-root": {
-        width: 32,
-        height: 32,
-        ml: -0.5,
-        mr: 1,
-       },
-       "&::before": {
-        content: '""',
-        display: "block",
-        position: "absolute",
-        top: 0,
-        right: 14,
-        width: 10,
-        height: 10,
-        bgcolor: "background.paper",
-        transform: "translateY(-50%) rotate(45deg)",
-        zIndex: 0,
-       },
-       //
-       "&.MuiPaper-root": {
-        left: "auto !important",
-        right: 44,
-        width: 300,
-        borderRadius: 3,
-        ".MuiList-root": {
-         py: 0,
+     slotProps={{
+      paper: {
+       elevation: 0,
+       sx: {
+        overflow: "visible",
+        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+        mt: 1.5,
+        "& .MuiAvatar-root": {
+         width: 32,
+         height: 32,
+         ml: -0.5,
+         mr: 1,
         },
-       },
-       ".MuiMenuItem-root": {
-        py: "10px",
-        "&:first-of-type, &:last-of-type": {
-         py: 2,
+        "&::before": {
+         content: '""',
+         display: "block",
+         position: "absolute",
+         top: 0,
+         right: 14,
+         width: 10,
+         height: 10,
+         bgcolor: "background.paper",
+         transform: "translateY(-50%) rotate(45deg)",
+         zIndex: 0,
         },
-        "&:last-of-type": {
-         borderBottomLeftRadius: 12,
-         borderBottomRightRadius: 12,
+        //
+        "&.MuiPaper-root": {
+         left: "auto !important",
+         right: 44,
+         width: 300,
+         borderRadius: 3,
+         ".MuiList-root": {
+          py: 0,
+         },
+        },
+        ".MuiMenuItem-root": {
+         py: "10px",
+         "&:first-of-type, &:last-of-type": {
+          py: 2,
+         },
+         "&:last-of-type": {
+          borderBottomLeftRadius: 12,
+          borderBottomRightRadius: 12,
+         },
         },
        },
       },
@@ -234,19 +267,19 @@ export default function Header({}) {
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />
      <MenuItem sx={{ py: 2 }}>
-      <ListItemText>Tahun 2021</ListItemText>
+      <ListItemText>Tahun 2025</ListItemText>
      </MenuItem>
      <MenuItem>
-      <ListItemText>Tahun 2021</ListItemText>
+      <ListItemText>Tahun 2026</ListItemText>
      </MenuItem>
      <MenuItem>
-      <ListItemText>Tahun 2022</ListItemText>
+      <ListItemText>Tahun 2027</ListItemText>
      </MenuItem>
      <MenuItem>
-      <ListItemText>Tahun 2023</ListItemText>
+      <ListItemText>Tahun 2028</ListItemText>
      </MenuItem>
      <MenuItem>
-      <ListItemText>Tahun 2024</ListItemText>
+      <ListItemText>Tahun 2029</ListItemText>
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />
      <MenuItem
@@ -270,7 +303,8 @@ export default function Header({}) {
     onClose={toggleDrawerMobile(false)}
     sx={{
      ".MuiPaper-elevation": {
-      bgcolor: theme.palette.primary.main,
+      //   bgcolor: theme.palette.primary.main,
+      bgcolor: theme.palette.secondary.dark,
      },
     }}
    >

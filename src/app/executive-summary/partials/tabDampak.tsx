@@ -4,7 +4,7 @@ import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import AddButton from "@/app/components/buttonAdd";
-import TableDampak from "./table-dampak";
+import TableDampak from "./tabProfil/table-dampak";
 import dynamic from "next/dynamic";
 
 export default function TabDampak({}) {

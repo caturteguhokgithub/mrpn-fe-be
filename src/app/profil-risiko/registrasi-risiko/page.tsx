@@ -4,7 +4,7 @@ import ContentPage from "@/app/components/contents/content";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import { advancedTable } from "@/app/components/table";
-import { Box, Button, DialogActions } from "@mui/material";
+import { Box, Button, DialogActions, SelectChangeEvent } from "@mui/material";
 import {
  useMaterialReactTable,
  MaterialReactTable,
@@ -23,6 +23,11 @@ export default function PageRegistrasiRisiko({}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
  const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+ const [project, setProject] = React.useState("");
+
+ const handleChangeProject = (event: SelectChangeEvent) => {
+  setProject(event.target.value);
+ };
 
  const handleModalOpenView = () => {
   setModalOpenView(true);
@@ -176,7 +181,13 @@ export default function PageRegistrasiRisiko({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Registrasi Risiko" chooseProject>
+    <ContentPage
+     title="Registrasi Risiko"
+     chooseProject
+     chooseKonteks
+     project={project}
+     handleChangeProject={handleChangeProject}
+    >
      {/* <Box className="table-collapsed"> */}
      <MaterialReactTable table={table} />
      {/* </Box> */}
@@ -192,14 +203,16 @@ export default function PageRegistrasiRisiko({}) {
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Detail Registrasi Risiko"
+    title="Tambah Registrasi Risiko"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
-    title="Detail Registrasi Risiko"
+    title="Ubah Registrasi Risiko"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="edit" />
    </DialogComponent>

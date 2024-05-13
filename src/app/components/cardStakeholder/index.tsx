@@ -13,13 +13,13 @@ export default function CardStakeholder({
 }) {
  return (
   <Card sx={{ maxWidth: 345 }} variant="outlined">
-   <CardContent>
+   <CardContent sx={{ minHeight: img ? 94 : "auto" }}>
     <Typography gutterBottom variant="h6" component="div" lineHeight={1.3}>
      {title}
     </Typography>
    </CardContent>
    {img ? (
-    <CardContent sx={{ textAlign: "center" }}>
+    <CardContent sx={{ textAlign: "center", height: 200 }}>
      <Image
       alt={title}
       src={img}

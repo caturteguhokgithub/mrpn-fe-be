@@ -92,12 +92,12 @@ export default function Aside({
    <Stack gap="40px" direction="column">
     <MenuGroup isExpanded={isExpanded} label="menu">
      <Stack direction="column" gap={1}>
-      <MenuItem
+      {/* <MenuItem
        isExpanded={isExpanded}
        label="dashboard"
        icon={<IconDashboard />}
        url=""
-      />
+      /> */}
       <MenuItem
        isExpanded={isExpanded}
        label="Tema"
@@ -130,6 +130,11 @@ export default function Aside({
        {/* Pedoman 8 di submenu selera */}
        <SubmenuItem
         label="Selera Risiko"
+        url={subMenuKonteks}
+        urlLv2="selera-risiko"
+       />
+       <SubmenuItem
+        label="Kriteria Dampak & Kemungkinan"
         url={subMenuKonteks}
         urlLv2="selera-risiko"
        />
@@ -219,6 +224,7 @@ export default function Aside({
     reflect
     label="keluar sistem"
     icon={<IconKeluar />}
+    url="/"
    />
   </Stack>
  );

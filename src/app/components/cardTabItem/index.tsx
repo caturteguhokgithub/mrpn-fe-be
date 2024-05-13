@@ -14,18 +14,37 @@ import { IconFA } from "@/app/components/icons/icon-fa";
 import { grey, red } from "@mui/material/colors";
 import theme from "@/theme";
 
+const ListItemDropdownMenu = ({ label }: { label: string }) => {
+ return (
+  <>
+   <ListItemIcon sx={{ minWidth: "0 !important" }}>
+    <IconFA size={14} name="edit" />
+   </ListItemIcon>
+   <ListItemText>
+    <Typography fontSize={14}>{label}</Typography>
+   </ListItemText>
+  </>
+ );
+};
+
 export default function CardItem({
  title,
  children,
  addButton,
  setting,
+ multiEdit,
  settingEditOnclick,
+ settingEditOutputClick,
+ settingEditBisnisClick,
 }: {
  title: React.ReactNode;
  children: React.ReactNode;
  addButton?: React.ReactNode;
  setting?: React.ReactNode;
+ multiEdit?: boolean;
  settingEditOnclick?: () => void;
+ settingEditOutputClick?: () => void;
+ settingEditBisnisClick?: () => void;
 }) {
  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
  const open = Boolean(anchorEl);
@@ -56,27 +75,29 @@ export default function CardItem({
     open={open}
     onClose={handleClose}
     onClick={handleClose}
-    PaperProps={{
-     elevation: 0,
-     sx: {
-      overflow: "visible",
-      filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-      "&.MuiPaper-root": {
-       mt: "30px",
-       left: "auto !important",
-       right: 54,
-       minWidth: 150,
-       borderRadius: 3,
-       ".MuiList-root": {
-        py: 0,
+    slotProps={{
+     paper: {
+      elevation: 0,
+      sx: {
+       overflow: "visible",
+       filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+       "&.MuiPaper-root": {
+        mt: "30px",
+        left: "auto !important",
+        right: 54,
+        minWidth: 150,
+        borderRadius: 3,
+        ".MuiList-root": {
+         py: 0,
+        },
        },
-      },
-      ".MuiMenuItem-root": {
-       py: "10px",
-       gap: 1,
-       "&:last-of-type": {
-        borderBottomLeftRadius: 12,
-        borderBottomRightRadius: 12,
+       ".MuiMenuItem-root": {
+        py: "10px",
+        gap: 1,
+        "&:last-of-type": {
+         borderBottomLeftRadius: 12,
+         borderBottomRightRadius: 12,
+        },
        },
       },
      },
@@ -84,14 +105,21 @@ export default function CardItem({
     transformOrigin={{ horizontal: "right", vertical: "top" }}
     anchorOrigin={{ horizontal: "right", vertical: "top" }}
    >
-    <MenuItem onClick={settingEditOnclick}>
-     <ListItemIcon sx={{ minWidth: "0 !important" }}>
-      <IconFA size={14} name="edit" />
-     </ListItemIcon>
-     <ListItemText>
-      <Typography fontSize={14}>Ubah</Typography>
-     </ListItemText>
-    </MenuItem>
+    {multiEdit ? (
+     <>
+      <MenuItem onClick={settingEditOutputClick}>
+       <ListItemDropdownMenu label="Ubah Output" />
+      </MenuItem>
+      <MenuItem onClick={settingEditBisnisClick}>
+       <ListItemDropdownMenu label="Ubah Bisnis" />
+      </MenuItem>
+     </>
+    ) : (
+     <MenuItem onClick={settingEditOnclick}>
+      <ListItemDropdownMenu label="Ubah" />
+     </MenuItem>
+    )}
+
     <MenuItem
      sx={{
       bgcolor: red[100],

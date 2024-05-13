@@ -40,6 +40,7 @@ export default function AddButton({
     minHeight: 30,
     lineHeight: 1,
     whiteSpace: "nowrap",
+    textTransform: "capitalize",
     "&:hover": {
      bgcolor: blue[800],
      color: "white",

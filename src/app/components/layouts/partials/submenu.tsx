@@ -24,6 +24,7 @@ export const SubmenuItem = ({ label, url, urlLv2 }: IMenu) => {
       fontSize="13px"
       color={grey[700]}
       className={pathname == `/${url}/${urlLv2}` ? "link-active" : ""}
+      lineHeight={1.2}
       sx={{
        transition: "all 300ms",
        position: "relative",

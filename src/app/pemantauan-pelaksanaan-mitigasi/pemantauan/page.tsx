@@ -5,7 +5,7 @@ import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData, IconEmptyPage } from "@/app/components/icons";
-import { Box, Button, DialogActions } from "@mui/material";
+import { Box, Button, DialogActions, SelectChangeEvent } from "@mui/material";
 import {
  MaterialReactTable,
  useMaterialReactTable,
@@ -23,6 +23,11 @@ export default function PagePemantauan({}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
  const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+ const [project, setProject] = React.useState("");
+
+ const handleChangeProject = (event: SelectChangeEvent) => {
+  setProject(event.target.value);
+ };
 
  const handleModalOpenView = () => {
   setModalOpenView(true);
@@ -237,7 +242,12 @@ export default function PagePemantauan({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Pemantauan" chooseProject>
+    <ContentPage
+     title="Pemantauan"
+     chooseProject
+     project={project}
+     handleChangeProject={handleChangeProject}
+    >
      {/* <EmptyState
      icon={<IconEmptyPage />}
      title="Halaman Pemantauan Masih Kosong"
@@ -258,14 +268,16 @@ export default function PagePemantauan({}) {
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Detail Pemantauan"
+    title="Tambah Pemantauan"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
-    title="Detail Pemantauan"
+    title="Ubah Pemantauan"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="edit" />
    </DialogComponent>

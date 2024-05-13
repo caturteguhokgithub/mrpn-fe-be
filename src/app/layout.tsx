@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import { CssBaseline } from "@mui/material";
 import React from "react";
 import "./globals.css";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 // import Head from "next/head";
 
 export const metadata: Metadata = {

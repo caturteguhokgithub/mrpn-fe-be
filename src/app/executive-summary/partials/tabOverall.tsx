@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
-import TableOverall from "./table-overall";
+import TableOverall from "./tabOverall/table-overall";
 
 export default function TabOverall({ project }: { project: string }) {
  const isEmpty = false;
@@ -20,7 +20,7 @@ export default function TabOverall({ project }: { project: string }) {
      />
     ) : (
      <>
-      <TableOverall />
+      <TableOverall project={project} />
      </>
     )}
    </CardItem>

@@ -1,7 +1,13 @@
 import React from "react";
 import { Typography, List, ListSubheader } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 export const MenuGroup = ({ label, children, isExpanded }: IMenu & ILayout) => {
+ const pathname = usePathname();
+ const flagPathnameTheme = [pathname === "/", pathname === "/tema"].includes(
+  true
+ );
+
  return (
   <List
    component="nav"
@@ -20,11 +26,23 @@ export const MenuGroup = ({ label, children, isExpanded }: IMenu & ILayout) => {
       textTransform="uppercase"
       sx={{ opacity: 0.5 }}
      >
-      {isExpanded ? (
-       label
-      ) : (
-       <>{label.length >= 5 ? label.substr(0, 5) + "..." : label}</>
-      )}
+      {flagPathnameTheme && isExpanded ? (
+       <>
+        {isExpanded ? (
+         label
+        ) : (
+         <>{label.length >= 5 ? label.substring(0, 5) + "..." : label}</>
+        )}
+       </>
+      ) : !flagPathnameTheme ? (
+       <>
+        {isExpanded ? (
+         label
+        ) : (
+         <>{label.length >= 5 ? label.substring(0, 5) + "..." : label}</>
+        )}
+       </>
+      ) : null}
      </Typography>
     </ListSubheader>
    }

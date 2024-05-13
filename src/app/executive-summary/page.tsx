@@ -6,29 +6,31 @@ import DashboardLayout from "@/components/layouts/layout";
 import EmptyState from "@/components/empty";
 import { IconEmptyPage } from "@/components/icons";
 import {
+ Backdrop,
  Box,
+ Button,
+ Chip,
+ CircularProgress,
  Collapse,
- FormControl,
- MenuItem,
- Popover,
+ Grow,
  SelectChangeEvent,
+ Stack,
  Tab,
  Tabs,
+ Tooltip,
  Typography,
+ useMediaQuery,
+ useTheme,
 } from "@mui/material";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import { IconFA } from "@/components/icons/icon-fa";
 import TabLatarBelakang from "./partials/tabLatarBelakang";
-import TabDeskripsi from "./partials/tabDeskripsi";
-import TabPendanaan from "./partials/tabPendanaan";
-import TabDampak from "./partials/tabDampak";
 import TabProfil from "./partials/tabProfil";
 import TabPolicy from "./partials/tabPolicy";
 import TabOverall from "./partials/tabOverall";
-import SelectCustomTheme from "../components/select";
-import { listSelectKp } from "./data";
-import { includes } from "lodash";
+import DropdownKp from "../components/dropdownKp";
+import LoadingPage from "../components/loadingPage";
 
 interface TabPanelProps {
  children?: React.ReactNode;
@@ -64,6 +66,9 @@ function CustomTabPanel(props: TabPanelProps) {
       "&::-webkit-scrollbar": {
        width: "3px",
       },
+      [theme.breakpoints.down("sm")]: {
+       height: "calc(100vh - 366px)",
+      },
      }}
     >
      <Typography>{children}</Typography>
@@ -76,95 +81,84 @@ function CustomTabPanel(props: TabPanelProps) {
 export default function PageExecutiveSummary({}) {
  const [value, setValue] = React.useState(0);
  const [project, setProject] = React.useState("");
- const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
- const handleChangeProject = (event: SelectChangeEvent) => {
-  setProject(event.target.value);
+ const handleChangeProject = (value: any) => {
+  setProject(value);
  };
 
  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
   setValue(newValue);
  };
 
- const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-  setAnchorEl(event.currentTarget);
- };
-
- const handlePopoverClose = () => {
-  setAnchorEl(null);
- };
-
- const open = Boolean(anchorEl);
-
  const flagProjectNoCard = [
   project === "",
-  project === "2",
-  project === "3",
+  //   project === "2",
+  //   project === "3",
   project === "5",
  ].includes(true);
 
+ const [show, setShow] = React.useState(true);
+
+ React.useEffect(() => {
+  let timer1 = setTimeout(() => setShow(false), 3 * 1000);
+
+  return () => {
+   clearTimeout(timer1);
+  };
+ });
+
+ const usetheme = useTheme();
+ const breakpointDownLg = useMediaQuery(usetheme.breakpoints.down("lg"));
+ const breakpointDownMd = useMediaQuery(usetheme.breakpoints.down("md"));
+
+ const downloadAttachment = (
+  <Chip
+   color="primary"
+   variant="outlined"
+   label={
+    <Stack direction="row" gap={1}>
+     <IconFA size={14} name="download" color={theme.palette.primary.main} />
+     {breakpointDownMd ? null : "Download Lampiran"}
+    </Stack>
+   }
+   sx={{
+    bgcolor: "white",
+    fontWeight: 600,
+    lineHeight: 1,
+    cursor: "pointer",
+    height: 38,
+    px: 1,
+    borderRadius: "50px",
+   }}
+  />
+ );
+
  return (
   <DashboardLayout>
+   <LoadingPage />
    <ContentPage
     title="Executive Summary"
     overflowHidden
     withCard={flagProjectNoCard}
-    chooseProjectPage={
-     <FormControl size="small">
-      <SelectCustomTheme
-       small
-       anchorRight
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Kegiatan Pembangunan (KP)
-        </Typography>
-       </MenuItem>
-       {listSelectKp.map(({ id, value, nama_kp }) => (
-        <MenuItem key={id} value={value}>
-         {nama_kp.length >= 48 ? (
-          <>
-           <Typography
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            sx={{ fontSize: 14 }}
-           >
-            {nama_kp.substr(0, 48) + "..."}
-           </Typography>
-           <Popover
-            id="mouse-over-popover"
-            sx={{
-             pointerEvents: "none",
-            }}
-            open={open}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-             vertical: "bottom",
-             horizontal: "right",
-            }}
-            transformOrigin={{
-             vertical: "top",
-             horizontal: "right",
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
-           >
-            <Typography sx={{ fontSize: 14, px: 2, py: 1 }}>
-             {nama_kp}
-            </Typography>
-           </Popover>
-          </>
-         ) : (
-          nama_kp
-         )}
-        </MenuItem>
-       ))}
-      </SelectCustomTheme>
-     </FormControl>
+    chooseProject
+    project={project}
+    handleChangeProject={handleChangeProject}
+    dowloadAttachmentFile={
+     project && (
+      <>
+       {breakpointDownMd ? (
+        <Tooltip
+         title="Download Lampiran"
+         followCursor
+         TransitionComponent={Grow}
+        >
+         {downloadAttachment}
+        </Tooltip>
+       ) : (
+        downloadAttachment
+       )}
+      </>
+     )
     }
    >
     {flagProjectNoCard ? (

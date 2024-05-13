@@ -1,6 +1,7 @@
 import React from "react";
 import { Select } from "@mui/material";
 import theme from "@/theme";
+import { grey } from "@mui/material/colors";
 
 export default function SelectCustomTheme({
  value,
@@ -9,6 +10,7 @@ export default function SelectCustomTheme({
  defaultStyle,
  small,
  anchorRight,
+ rounded,
 }: {
  value: string;
  children: React.ReactNode;
@@ -17,6 +19,7 @@ export default function SelectCustomTheme({
  defaultStyle?: boolean;
  small?: boolean;
  anchorRight?: boolean;
+ rounded?: boolean;
 }) {
  return (
   <Select
@@ -25,7 +28,7 @@ export default function SelectCustomTheme({
    onChange={onChange}
    displayEmpty
    inputProps={{
-    PaperProps: {
+    paperprops: {
      sx: {
       "& .MuiMenuItem-root": {
        padding: 2,
@@ -52,15 +55,19 @@ export default function SelectCustomTheme({
    }}
    sx={{
     ".MuiSelect-icon": {
-     color: defaultStyle ? "inherit" : "white",
+     color: defaultStyle || rounded ? "inherit" : "white",
     },
     "&.MuiInputBase-root": {
-     fontSize: defaultStyle ? "inherit" : 14,
+     fontSize: defaultStyle || rounded ? "inherit" : 14,
      py: 0,
-     borderRadius: defaultStyle ? 2 : 6,
+     borderRadius: defaultStyle ? 2 : rounded ? 6 : 6,
      border: 0,
-     bgcolor: defaultStyle ? "inherit" : theme.palette.primary.main,
-     color: defaultStyle ? "inherit" : theme.palette.primary.light,
+     bgcolor: defaultStyle
+      ? "inherit"
+      : rounded
+      ? "white"
+      : theme.palette.primary.main,
+     color: defaultStyle || rounded ? "inherit" : theme.palette.primary.light,
     },
    }}
   >

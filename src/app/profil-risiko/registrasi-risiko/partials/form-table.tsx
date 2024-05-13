@@ -4,16 +4,66 @@ import {
  Divider,
  FormControl,
  Grid,
+ MenuItem,
+ SelectChangeEvent,
+ Stack,
  TextField,
  Typography,
 } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
+import SelectCustomTheme from "@/app/components/select";
 
 export default function FormTable({ mode }: { mode?: string }) {
+ const [konteks, setKonteks] = React.useState("");
+ const [project, setProject] = React.useState("");
+
+ const handleChangeProject = (event: SelectChangeEvent) => {
+  setProject(event.target.value);
+ };
+
+ const handleChangeKonteks = (event: SelectChangeEvent) => {
+  setKonteks(event.target.value);
+ };
+
  return (
   <>
    <Grid container spacing={2}>
-    <Grid item lg={12}>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography>Konteks</Typography>
+      {mode === "add" ? (
+       <SelectCustomTheme
+        defaultStyle
+        small
+        value={konteks}
+        onChange={handleChangeKonteks}
+       >
+        <MenuItem value="" disabled>
+         <Typography fontSize={14} fontStyle="italic">
+          Pilih Konteks Strategis
+         </Typography>
+        </MenuItem>
+        <MenuItem value="1" defaultChecked>
+         Penguatan Kebijakan Perlindungan Akses Pasar Dalam Negeri
+        </MenuItem>
+       </SelectCustomTheme>
+      ) : mode === "edit" ? (
+       <SelectCustomTheme small value={konteks} onChange={handleChangeKonteks}>
+        <MenuItem value="" disabled>
+         <Typography fontSize={14} fontStyle="italic">
+          Pilih Konteks Strategis
+         </Typography>
+        </MenuItem>
+        <MenuItem value="1" defaultChecked>
+         Penguatan Kebijakan Perlindungan Akses Pasar Dalam Negeri
+        </MenuItem>
+       </SelectCustomTheme>
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
      <FormControl fullWidth>
       <Typography>Sasaran</Typography>
       {mode === "add" ? (
@@ -44,59 +94,65 @@ export default function FormTable({ mode }: { mode?: string }) {
       <Chip label="Indikator Sasaran" size="small" />
      </Divider>
     </Grid>
-    <Grid item lg={4}>
+    <Grid item lg={12}>
      <FormControl fullWidth>
       <Typography>Uraian</Typography>
       {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Uraian"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
+       <TextareaComponent label="Uraian" placeholder="Uraian" />
       ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
+       <TextareaComponent label="Uraian" placeholder="Uraian" value="-" />
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={4}>
+    <Grid item lg={6}>
      <FormControl fullWidth>
       <Typography>Target</Typography>
       {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Target"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
+       <Stack direction="row" gap={1}>
+        <TextField
+         variant="outlined"
+         size="small"
+         placeholder="Nilai"
+         InputLabelProps={{
+          shrink: true,
+         }}
+        />
+        <TextField
+         variant="outlined"
+         size="small"
+         placeholder="Satuan"
+         InputLabelProps={{
+          shrink: true,
+         }}
+        />
+       </Stack>
       ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
+       <Stack direction="row" gap={1}>
+        <TextField
+         variant="outlined"
+         size="small"
+         value="2000"
+         InputLabelProps={{
+          shrink: true,
+         }}
+        />
+        <TextField
+         variant="outlined"
+         size="small"
+         value="Orang"
+         InputLabelProps={{
+          shrink: true,
+         }}
+        />
+       </Stack>
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={4}>
+    <Grid item lg={6}>
      <FormControl fullWidth>
       <Typography>Fisik</Typography>
       {mode === "add" ? (
@@ -129,23 +185,41 @@ export default function FormTable({ mode }: { mode?: string }) {
      <FormControl fullWidth>
       <Typography>Kategori Risiko MRPN Linsek</Typography>
       {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Kategori Risiko MRPN Linsek"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
+       <SelectCustomTheme
+        small
+        defaultStyle
+        value={project}
+        onChange={handleChangeProject}
+       >
+        <MenuItem value="" disabled>
+         <Typography fontSize={14} fontStyle="italic">
+          Pilih Kategori Risiko MRPN Linsek
+         </Typography>
+        </MenuItem>
+        <MenuItem value="1" defaultChecked>
+         -
+        </MenuItem>
+        <MenuItem value="2">-</MenuItem>
+        <MenuItem value="3">-</MenuItem>
+       </SelectCustomTheme>
       ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
+       <SelectCustomTheme
+        small
+        defaultStyle
+        value={project}
+        onChange={handleChangeProject}
+       >
+        <MenuItem value="" disabled>
+         <Typography fontSize={14} fontStyle="italic">
+          Pilih Kategori Risiko MRPN Linsek
+         </Typography>
+        </MenuItem>
+        <MenuItem value="1" defaultChecked>
+         -
+        </MenuItem>
+        <MenuItem value="2">-</MenuItem>
+        <MenuItem value="3">-</MenuItem>
+       </SelectCustomTheme>
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}

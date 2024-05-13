@@ -5,7 +5,14 @@ import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyPage } from "@/app/components/icons";
-import { Box, Tabs, Tab, Typography, Icon } from "@mui/material";
+import {
+ Box,
+ Tabs,
+ Tab,
+ Typography,
+ Icon,
+ SelectChangeEvent,
+} from "@mui/material";
 import TabInformasi from "./partials/tabInformasi";
 import TabTable from "./partials/tabTable";
 import theme from "@/theme";
@@ -47,6 +54,11 @@ function CustomTabPanel(props: TabPanelProps) {
 
 export default function PageAnalisisRisiko({}) {
  const [value, setValue] = React.useState(0);
+ const [project, setProject] = React.useState("");
+
+ const handleChangeProject = (event: SelectChangeEvent) => {
+  setProject(event.target.value);
+ };
 
  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
   setValue(newValue);
@@ -56,7 +68,15 @@ export default function PageAnalisisRisiko({}) {
 
  return (
   <DashboardLayout>
-   <ContentPage title="Analisis Risiko" withCard noPadding chooseProject>
+   <ContentPage
+    title="Analisis Risiko"
+    withCard
+    noPadding
+    chooseProject
+    chooseKonteks
+    project={project}
+    handleChangeProject={handleChangeProject}
+   >
     {isEmpty ? (
      <EmptyState
       icon={<IconEmptyPage />}

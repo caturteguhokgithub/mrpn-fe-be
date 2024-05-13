@@ -8,11 +8,13 @@ export default function CustomToggleButton({
  label,
  code,
  variant,
+ disabled,
 }: {
  value: string;
  label: string;
  code?: string;
  variant?: string;
+ disabled?: boolean;
 }) {
  const conditionColor =
   variant === "danger"
@@ -25,6 +27,7 @@ export default function CustomToggleButton({
 
  return (
   <ToggleButton
+   disabled={disabled}
    value={value}
    aria-label={label}
    sx={{
@@ -40,6 +43,9 @@ export default function CustomToggleButton({
      ".MuiBox-root": {
       bgcolor: conditionColor,
      },
+    },
+    "&.Mui-disabled": {
+     borderLeftColor: "#0000001f !important",
     },
    }}
   >

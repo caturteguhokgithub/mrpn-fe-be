@@ -43,6 +43,63 @@ export default function FormTable({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
+    <Grid item lg={12}>
+     <Divider>
+      <Chip label="Tingkat Risiko" size="small" />
+     </Divider>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography>Kemungkinan</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="Kemungkinan"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography>Dampak</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="Dampak"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
       <Typography>Nilai Risiko</Typography>
@@ -51,6 +108,32 @@ export default function FormTable({ mode }: { mode?: string }) {
         variant="outlined"
         size="small"
         placeholder="Nilai Risiko"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography>Tingkat Risiko</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="Tingkat Risiko"
         InputLabelProps={{
          shrink: true,
         }}
@@ -82,89 +165,6 @@ export default function FormTable({ mode }: { mode?: string }) {
         <FormControlLabel value="ada" control={<Radio />} label="Ada" />
         <FormControlLabel value="tidak" control={<Radio />} label="Tidak" />
        </RadioGroup>
-      ) : (
-       <Typography fontWeight={600}>-</Typography>
-      )}
-     </FormControl>
-    </Grid>
-    <Grid item lg={12}>
-     <Divider>
-      <Chip label="Tingkat Risiko" size="small" />
-     </Divider>
-    </Grid>
-    <Grid item lg={4}>
-     <FormControl fullWidth>
-      <Typography>Kemungkinan</Typography>
-      {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Kemungkinan"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
-      ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
-      ) : (
-       <Typography fontWeight={600}>-</Typography>
-      )}
-     </FormControl>
-    </Grid>
-    <Grid item lg={4}>
-     <FormControl fullWidth>
-      <Typography>Dampak</Typography>
-      {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Dampak"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
-      ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
-      ) : (
-       <Typography fontWeight={600}>-</Typography>
-      )}
-     </FormControl>
-    </Grid>
-    <Grid item lg={4}>
-     <FormControl fullWidth>
-      <Typography>Tingkat Risiko</Typography>
-      {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Tingkat Risiko"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
-      ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}

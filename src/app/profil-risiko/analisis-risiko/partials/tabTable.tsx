@@ -207,6 +207,7 @@ export default function TabTable({}) {
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
     title="Detail Analisis Risiko"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
    </DialogComponent>

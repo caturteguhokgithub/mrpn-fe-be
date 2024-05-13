@@ -10,7 +10,7 @@ import {
  useMaterialReactTable,
  MaterialReactTable,
 } from "material-react-table";
-import { Box, Button, DialogActions } from "@mui/material";
+import { Box, Button, DialogActions, SelectChangeEvent } from "@mui/material";
 import ActionColumn from "@/app/components/actions/action";
 import AddButton from "@/app/components/buttonAdd";
 import { data } from "./setting";
@@ -23,6 +23,11 @@ export default function PagePerlakuanRisiko({}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
  const [modalOpenEdit, setModalOpenEdit] = React.useState(false);
  const [modalOpenDelete, setModalOpenDelete] = React.useState(false);
+ const [project, setProject] = React.useState("");
+
+ const handleChangeProject = (event: SelectChangeEvent) => {
+  setProject(event.target.value);
+ };
 
  const handleModalOpenView = () => {
   setModalOpenView(true);
@@ -161,7 +166,13 @@ export default function PagePerlakuanRisiko({}) {
  return (
   <>
    <DashboardLayout>
-    <ContentPage title="Perlakuan Risiko" chooseProject>
+    <ContentPage
+     title="Perlakuan Risiko"
+     chooseProject
+     chooseKonteks
+     project={project}
+     handleChangeProject={handleChangeProject}
+    >
      {isEmpty ? (
       <EmptyState
        icon={<IconEmptyPage />}
@@ -183,14 +194,16 @@ export default function PagePerlakuanRisiko({}) {
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Detail Perlakuan Risiko"
+    title="Tambah Perlakuan Risiko"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
-    title="Detail Perlakuan Risiko"
+    title="Ubah Perlakuan Risiko"
+    dialogFooter={dialogActionFooter}
    >
     <FormTable mode="edit" />
    </DialogComponent>

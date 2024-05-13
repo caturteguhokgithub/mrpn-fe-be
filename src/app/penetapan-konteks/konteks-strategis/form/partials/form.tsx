@@ -2,12 +2,16 @@ import ContentPage from "@/app/components/contents/content";
 import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import {
+ Box,
  Breadcrumbs,
  Chip,
  Divider,
  FormControl,
  Grid,
+ Grow,
+ Popover,
  TextField,
+ Tooltip,
  Typography,
 } from "@mui/material";
 // import TableSasaranPkppr from "./partials/table-sasaran-pkkpr";
@@ -18,8 +22,65 @@ import TableStakeholder from "./table-stakeholder";
 import TablePeraturan from "./table-peraturan";
 import Link from "next/link";
 import TextareaComponent from "@/app/components/textarea";
+import { DateRange } from "react-date-range";
+import moment from "moment";
+import { listSelectKp } from "@/app/executive-summary/data";
+import { blue, grey } from "@mui/material/colors";
+import MultiSelect from "@/app/components/multiSelect";
+import { Option } from "@/app/components/multiSelect";
+import DropdownKp from "@/app/components/dropdownKp";
 
 export default function FormKonstra({ mode }: { mode?: string }) {
+ const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+ const [state, setState] = React.useState([
+  {
+   startDate: new Date(),
+   endDate: new Date(),
+   key: "selection",
+  },
+ ]);
+ const [anchorElTooltip, setAnchorElTooltip] =
+  React.useState<HTMLElement | null>(null);
+
+ const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  setAnchorElTooltip(event.currentTarget);
+ };
+
+ const handlePopoverClose = () => {
+  setAnchorElTooltip(null);
+ };
+
+ const handleClick = (event: any) => {
+  setAnchorEl(event.currentTarget);
+ };
+
+ const handleClose = () => {
+  setAnchorEl(null);
+ };
+
+ const openTooltip = Boolean(anchorElTooltip);
+ const open = Boolean(anchorEl);
+ const id = open ? "simple-popover" : undefined;
+
+ const momentStart = moment.utc(state[0].startDate).format("YYYY");
+ const momentEnd = moment.utc(state[0].endDate).format("YYYY");
+
+ const currentDate = new Date();
+
+ const minDate = new Date();
+ const maxDate = new Date();
+
+ minDate.setFullYear(currentDate.getFullYear() - 10);
+ maxDate.setFullYear(currentDate.getFullYear() + 20);
+
+ const nameOfKp = listSelectKp[4].name;
+
+ const [project, setProject] = React.useState("");
+
+ const handleChangeProject = (value: any) => {
+  setProject(value);
+ };
+
  return (
   <DashboardLayout>
    <ContentPage
@@ -27,17 +88,31 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     withCard
     heightTitleBreadcrumb
     titleChild={
-     <Chip
-      color="primary"
-      variant="outlined"
-      label="KP-03 - Kawasan Industri Prioritas dan Smelter"
-      sx={{
-       bgcolor: "white",
-       fontWeight: 600,
-       lineHeight: 1,
-       cursor: "default",
-      }}
-     />
+     <>
+      {/* <Chip
+       color="primary"
+       variant="outlined"
+       label={
+        <Tooltip title={nameOfKp} followCursor TransitionComponent={Grow}>
+         <Box
+          aria-owns={openTooltip ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+         >
+          {nameOfKp.substring(0, 48) + "..."}
+         </Box>
+        </Tooltip>
+       }
+       sx={{
+        bgcolor: "white",
+        fontWeight: 600,
+        lineHeight: 1,
+        cursor: "default",
+       }}
+      /> */}
+      <DropdownKp project={project} handleChangeProject={handleChangeProject} />
+     </>
     }
     breadcrumb={
      <Breadcrumbs aria-label="breadcrumb">
@@ -88,23 +163,85 @@ export default function FormKonstra({ mode }: { mode?: string }) {
       <FormControl fullWidth>
        <Typography>Periode Penerapan</Typography>
        {mode === "add" ? (
-        <TextField
-         variant="outlined"
-         size="small"
-         placeholder="Periode Penerapan"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
+        <>
+         <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+           vertical: "bottom",
+           horizontal: "left",
+          }}
+         >
+          <DateRange
+           editableDateInputs={true}
+           onChange={(item: any) => setState([item.selection])}
+           moveRangeOnFirstSelection={false}
+           ranges={state}
+           months={2}
+           direction="horizontal"
+           minDate={minDate}
+           maxDate={maxDate}
+          />
+         </Popover>
+         <TextField
+          onClick={handleClick}
+          variant="outlined"
+          size="small"
+          placeholder="Periode Penerapan"
+          InputLabelProps={{
+           shrink: true,
+          }}
+          value={`${moment
+           .utc(state[0].startDate)
+           .utcOffset(7)
+           .format("D MMM YYYY")} - ${moment
+           .utc(state[0].endDate)
+           .utcOffset(7)
+           .format("D MMM YYYY")}`}
+         />
+        </>
        ) : mode === "edit" ? (
-        <TextField
-         variant="outlined"
-         size="small"
-         value="-"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
+        <>
+         <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+           vertical: "bottom",
+           horizontal: "left",
+          }}
+         >
+          <DateRange
+           editableDateInputs={true}
+           onChange={(item: any) => setState([item.selection])}
+           moveRangeOnFirstSelection={false}
+           ranges={state}
+           months={2}
+           direction="horizontal"
+           minDate={minDate}
+           maxDate={maxDate}
+          />
+         </Popover>
+         <TextField
+          onClick={handleClick}
+          variant="outlined"
+          size="small"
+          placeholder="Periode Penerapan"
+          InputLabelProps={{
+           shrink: true,
+          }}
+          value={`${moment
+           .utc(state[0].startDate)
+           .utcOffset(7)
+           .format("D MMM YYYY")} - ${moment
+           .utc(state[0].endDate)
+           .utcOffset(7)
+           .format("D MMM YYYY")}`}
+         />
+        </>
        ) : (
         <Typography fontWeight={600}>-</Typography>
        )}
@@ -158,14 +295,13 @@ export default function FormKonstra({ mode }: { mode?: string }) {
       <FormControl fullWidth>
        <Typography>Lokasi</Typography>
        {mode === "add" ? (
-        <TextField
-         variant="outlined"
-         size="small"
-         placeholder="Lokasi"
-         InputLabelProps={{
-          shrink: true,
-         }}
-        />
+        <MultiSelect defaultValue={[10, 20]}>
+         <Option value={10}>Ten</Option>
+         <Option value={20}>Twenty</Option>
+         <Option value={30}>Thirty</Option>
+         <Option value={40}>Forty</Option>
+         <Option value={50}>Fifty</Option>
+        </MultiSelect>
        ) : mode === "edit" ? (
         <TextField
          variant="outlined"
@@ -185,11 +321,26 @@ export default function FormKonstra({ mode }: { mode?: string }) {
        <Typography>Tahun Anggaran</Typography>
        {mode === "add" ? (
         <TextField
+         disabled
          variant="outlined"
          size="small"
          placeholder="Tahun Anggaran"
          InputLabelProps={{
           shrink: true,
+         }}
+         value={
+          moment(momentStart).isSame(momentEnd)
+           ? moment.utc(state[0].startDate).format("YYYY")
+           : `${moment.utc(state[0].startDate).format("YYYY")} - ${moment
+              .utc(state[0].endDate)
+              .format("YYYY")}`
+         }
+         sx={{
+          ".Mui-disabled": {
+           bgcolor: grey[200],
+           color: grey[900],
+           WebkitTextFillColor: grey[900],
+          },
          }}
         />
        ) : mode === "edit" ? (

@@ -58,14 +58,15 @@ export default function SearchKP({
 
  return (
   <>
-   <Divider sx={{ my: 2 }} />
+   {/* <Divider sx={{ my: 2 }} /> */}
    <Stack
     direction="row"
     justifyContent="space-between"
     alignItems="center"
-    mt={2}
+    // mt={2}
    >
-    <Typography color={grey[600]} fontSize={14} fontStyle="italic">
+    {/* <Typography color={grey[600]} fontSize={14} fontStyle="italic"></Typography> */}
+    <Typography>
      Pilih KP/AP/PP dari tema{" "}
      <Typography fontWeight={600} fontSize={14} component="span">
       {activeTab === "penurunan-stunting"
@@ -87,6 +88,7 @@ export default function SearchKP({
     mt={2}
     sx={{
      maxHeight: "30vh",
+     //  maxHeight: "15vh",
      overflow: "auto",
      "&::-webkit-scrollbar": {
       width: "3px",

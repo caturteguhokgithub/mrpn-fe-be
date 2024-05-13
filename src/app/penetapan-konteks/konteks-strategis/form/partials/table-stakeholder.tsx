@@ -1,6 +1,7 @@
 import React from "react";
 import {
  Button,
+ DialogActions,
  Icon,
  IconButton,
  Paper,
@@ -18,8 +19,20 @@ import theme from "@/theme";
 import { AddCircle } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
+import DialogComponent from "@/app/components/dialog";
+import FormStakeholder from "@/app/executive-summary/partials/tabProfil/form-stakeholder";
 
 export default function TableStakeholder({ mode }: { mode?: string }) {
+ const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
+
+ const handleModalOpenAdd = () => {
+  setModalOpenAdd(true);
+ };
+
+ const handleModalClose = () => {
+  setModalOpenAdd(false);
+ };
+
  function createData(id: number, stakeholders: string, hubungan: string) {
   return { id, stakeholders, hubungan };
  }
@@ -31,6 +44,15 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
  ];
 
  const isEmpty = false;
+
+ const dialogActionFooter = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button variant="contained" type="submit">
+    Simpan
+   </Button>
+  </DialogActions>
+ );
 
  return (
   <>
@@ -47,6 +69,7 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
       size="small"
       startIcon={<AddCircle />}
       sx={{ lineHeight: 1, py: 1 }}
+      onClick={handleModalOpenAdd}
      >
       Tambah/Edit
      </Button>
@@ -111,6 +134,14 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
      </Table>
     </TableContainer>
    )}
+   <DialogComponent
+    dialogOpen={modalOpenAdd}
+    dialogClose={handleModalClose}
+    title="Tambah Pemangku Kepentingan"
+    dialogFooter={dialogActionFooter}
+   >
+    <FormStakeholder mode="add" project="1" />
+   </DialogComponent>
   </>
  );
 }
