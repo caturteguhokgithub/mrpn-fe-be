@@ -48,7 +48,7 @@ export default function CardRoKunci({ project }: { project: string }) {
 
  return (
   <CardItem
-   title="Profil Intevensi Kunci"
+   title="Profil Intervensi Kunci"
    addButton={
     <>
      <AddButton
@@ -85,10 +85,16 @@ export default function CardRoKunci({ project }: { project: string }) {
     headerAction={
      <Stack direction="row" gap={1}>
       <SelectCustomTheme
+       rounded
        small
        anchorRight
        value={projectMain}
        onChange={handleChangeProjectMain}
+       sx={{
+        ".MuiSelect-select": {
+         minHeight: 0,
+        },
+       }}
       >
        <MenuItem value="" disabled>
         <Typography fontSize={14} fontStyle="italic">
@@ -102,10 +108,16 @@ export default function CardRoKunci({ project }: { project: string }) {
        <MenuItem value="3">Kementerian Perindustrian</MenuItem>
       </SelectCustomTheme>
       <SelectCustomTheme
+       rounded
        small
        anchorRight
        value={projectSupport}
        onChange={handleChangeProjectSupport}
+       sx={{
+        ".MuiSelect-select": {
+         minHeight: 0,
+        },
+       }}
       >
        <MenuItem value="" disabled>
         <Typography fontSize={14} fontStyle="italic">

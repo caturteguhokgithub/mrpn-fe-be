@@ -133,11 +133,6 @@ export default function Aside({
         url={subMenuKonteks}
         urlLv2="selera-risiko"
        />
-       <SubmenuItem
-        label="Kriteria Dampak & Kemungkinan"
-        url={subMenuKonteks}
-        urlLv2="selera-risiko"
-       />
       </MenuItem>
       <MenuItem
        hasChild
@@ -176,7 +171,7 @@ export default function Aside({
       <MenuItem
        hasChild
        isExpanded={isExpanded}
-       label="Pemantauan Perlakuan Risiko"
+       label="Pemantauan MRPN"
        icon={<IconPemantauan />}
        url={subMenuMitigasi}
        menuParentActive={

@@ -2,6 +2,8 @@ import React from "react";
 import {
  Button,
  DialogActions,
+ Icon,
+ IconButton,
  Paper,
  Stack,
  Table,
@@ -10,6 +12,7 @@ import {
  TableContainer,
  TableHead,
  TableRow,
+ Tooltip,
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
@@ -97,13 +100,13 @@ export default function TableRincianOutput({ mode }: { mode?: string }) {
     justifyContent="space-between"
     alignItems="center"
    >
-    <Typography>Rincian Output (RO) Kunci</Typography>
+    <Typography fontWeight={600}>Rincian Output (RO) Kunci</Typography>
     {mode === "add" || mode === "edit" ? (
      <Button
-      variant="contained"
+      variant="outlined"
       size="small"
       startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1 }}
+      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
       onClick={handleModalOpenAdd}
      >
       Tambah RO Kunci
@@ -114,6 +117,7 @@ export default function TableRincianOutput({ mode }: { mode?: string }) {
     <Table sx={{ minWidth: 650 }} size="small">
      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
       <TableRow>
+       <TableCell rowSpan={2} width="70px"></TableCell>
        <TableCell rowSpan={2}>Kode RO</TableCell>
        <TableCell rowSpan={2}>Nama RO</TableCell>
        <TableCell colSpan={4} align="center">
@@ -146,6 +150,23 @@ export default function TableRincianOutput({ mode }: { mode?: string }) {
           key={row.id}
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
          >
+          <TableCell sx={{ textAlign: "center" }}>
+           <Tooltip title="Delete" placement="top">
+            <IconButton
+             aria-label="delete"
+             color="error"
+             disabled={mode === "view"}
+            >
+             <Icon
+              baseClassName="fas"
+              className={`fa-trash-alt`}
+              sx={{
+               fontSize: "14px",
+              }}
+             />
+            </IconButton>
+           </Tooltip>
+          </TableCell>
           <TableCell>{row.kodeRo}</TableCell>
           <TableCell>{row.namaRo}</TableCell>
           <TableCell>{row.uraian}</TableCell>

@@ -20,10 +20,10 @@ import { AddCircle } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
-import FormROKunci from "./form-ro-kunci";
-import FormMilestone from "./form-milestone";
+import FormPeraturan from "./form-peraturan";
+import FormKemungkinan from "./form-kemungkinan";
 
-export default function TableMilestone({ mode }: { mode?: string }) {
+export default function TableKemungkinan({ mode }: { mode?: string }) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
 
  const handleModalOpenAdd = () => {
@@ -36,54 +36,31 @@ export default function TableMilestone({ mode }: { mode?: string }) {
 
  function createData(
   id: number,
-  program: string,
-  penaggungjawab: string,
-  sumber_anggaran: string,
-  mulai: string,
-  penyelesaian: string
+  level: string,
+  persentase: string,
+  jumlah: string
  ) {
-  return {
-   id,
-   program,
-   penaggungjawab,
-   sumber_anggaran,
-   mulai,
-   penyelesaian,
-  };
+  return { id, level, persentase, jumlah };
  }
 
  const rows = [
   createData(
    1,
-   "Infrastruktur KI",
-   "Perusahaan Patungan",
-   "PMN kepada PT KIW",
-   "2022-12-31",
-   "2022-12-31"
+   "1 - Hampir Tidak Terjadi",
+   "X ≤ 10 %",
+   "Jarang : < 2 kali dalam 1 Tahun"
   ),
   createData(
    2,
-   "Suplesi air baku dan drainase utama kawasan klaster 1 fase 1",
-   "Kementerian PUPR",
-   "APBN",
-   "2022-12-31",
-   "2022-12-31"
+   "2 - Kadang Terjadi",
+   "10 < X < 30 % C",
+   "Cukup Sering : 2 kali s.d 5 kali dalam 1 Tahun"
   ),
   createData(
    3,
-   "Sistem penyediaan air minum, pengelolaan limbah terintegrasi dan pengelolaan persampahan klaster 1 fase 1",
-   "Kementerian PUPR",
-   "APBN",
-   "2022-12-31",
-   "2022-12-31"
-  ),
-  createData(
-   4,
-   "Rumah susun dan fasilitasnya di Klaster 1 Fase 1",
-   "Kementerian PUPR",
-   "APBN",
-   "2022-12-31",
-   "2022-12-31"
+   "3 - Sering Terjadi",
+   "X ≥ 30 %",
+   "Sering : > 5 kali dalam 1 Tahun"
   ),
  ];
 
@@ -104,7 +81,7 @@ export default function TableMilestone({ mode }: { mode?: string }) {
     justifyContent="space-between"
     alignItems="center"
    >
-    <Typography fontWeight={600}>Milestone/Critical Path</Typography>
+    <Typography fontWeight={600}>Kriteria Kemungkinan</Typography>
     {mode === "add" || mode === "edit" ? (
      <Button
       variant="outlined"
@@ -113,7 +90,7 @@ export default function TableMilestone({ mode }: { mode?: string }) {
       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
       onClick={handleModalOpenAdd}
      >
-      Tambah Milestone
+      Tambah Kriteria Kemungkinan
      </Button>
     ) : null}
    </Stack>
@@ -122,16 +99,16 @@ export default function TableMilestone({ mode }: { mode?: string }) {
      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
       <TableRow>
        <TableCell width="70px"></TableCell>
-       <TableCell>Program/Kegiatan</TableCell>
-       <TableCell>Penanggung Jawab</TableCell>
-       <TableCell>Sumber Anggaran</TableCell>
-       <TableCell width="150px">Waktu Mulai Pekerjaan</TableCell>
-       <TableCell width="150px">Waktu Penyelesaian Pekerjaan</TableCell>
+       <TableCell>Level Kemungkinan</TableCell>
+       <TableCell>Persentase Kemungkinan Terjadi dalam 1 Periode</TableCell>
+       <TableCell>
+        Jumlah Frekuensi Kemungkinan Terjadi dalam 1 Periode
+       </TableCell>
       </TableRow>
      </TableHead>
      <TableBody>
       {mode === "add" ? (
-       <TableCell colSpan={6}>
+       <TableCell colSpan={4}>
         <EmptyState
          icon={<IconEmptyData />}
          title="Data Kosong"
@@ -162,11 +139,9 @@ export default function TableMilestone({ mode }: { mode?: string }) {
             </IconButton>
            </Tooltip>
           </TableCell>
-          <TableCell>{row.program}</TableCell>
-          <TableCell>{row.penaggungjawab}</TableCell>
-          <TableCell>{row.sumber_anggaran}</TableCell>
-          <TableCell>{row.mulai}</TableCell>
-          <TableCell>{row.penyelesaian}</TableCell>
+          <TableCell>{row.level}</TableCell>
+          <TableCell>{row.persentase}</TableCell>
+          <TableCell>{row.jumlah}</TableCell>
          </TableRow>
         ))}
        </>
@@ -175,12 +150,13 @@ export default function TableMilestone({ mode }: { mode?: string }) {
     </Table>
    </TableContainer>
    <DialogComponent
+    width={400}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Rincian Output Kunci"
+    title="Tambah Kriteria Kemungkinan"
     dialogFooter={dialogActionFooter}
    >
-    <FormMilestone mode="add" />
+    <FormKemungkinan mode="add" />
    </DialogComponent>
   </>
  );

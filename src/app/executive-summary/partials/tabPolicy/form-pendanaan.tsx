@@ -17,12 +17,12 @@ export default function FormPendanaan({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>2024</Typography>
+      <Typography gutterBottom>2025</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
         size="small"
-        placeholder="2024"
+        placeholder="2025"
         InputLabelProps={{
          shrink: true,
         }}
@@ -43,12 +43,90 @@ export default function FormPendanaan({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>2023</Typography>
+      <Typography gutterBottom>2026</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
         size="small"
-        placeholder="2023"
+        placeholder="2026"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography gutterBottom>2027</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="2027"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography gutterBottom>2028</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="2028"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography gutterBottom>2029</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="2029"
         InputLabelProps={{
          shrink: true,
         }}
@@ -75,7 +153,7 @@ export default function FormPendanaan({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>APBN</Typography>
+      <Typography gutterBottom>APBN</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -101,7 +179,7 @@ export default function FormPendanaan({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Non-APBN</Typography>
+      <Typography gutterBottom>Non-APBN</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"

@@ -8,7 +8,7 @@ export default function FormStakeholder({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Stakeholder</Typography>
+      <Typography gutterBottom>Stakeholder</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -34,7 +34,7 @@ export default function FormStakeholder({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Hubungan</Typography>
+      <Typography gutterBottom>Hubungan</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"

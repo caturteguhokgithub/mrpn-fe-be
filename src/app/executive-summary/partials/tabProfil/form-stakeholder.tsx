@@ -1,8 +1,10 @@
 import React from "react";
 import {
+ Box,
  Grid,
  Paper,
  Stack,
+ TextField,
  ToggleButton,
  ToggleButtonGroup,
  Tooltip,
@@ -125,6 +127,25 @@ export default function FormStakeholder({
              sx={{ minHeight: 54 }}
             >
              {detailStakeholder.label}
+            </Typography>
+            <Box>
+             <TextField
+              size="small"
+              InputLabelProps={{
+               shrink: true,
+              }}
+              placeholder="Cari stakeholder"
+              sx={{ width: "100%" }}
+             />
+            </Box>
+            <Typography
+             mt={1}
+             variant="caption"
+             component="span"
+             color={grey[600]}
+             fontStyle="italic"
+            >
+             Klik logo untuk pilih anggota stakeholder
             </Typography>
             <ToggleButtonGroup
              value={formats}

@@ -62,16 +62,18 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
     justifyContent="space-between"
     alignItems="center"
    >
-    <Typography>Daftar Pemangku Kepentingan (Entitas)</Typography>
+    <Typography fontWeight={600}>
+     Daftar Pemangku Kepentingan (Entitas)
+    </Typography>
     {mode === "add" || mode === "edit" ? (
      <Button
-      variant="contained"
+      variant="outlined"
       size="small"
       startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1 }}
+      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
       onClick={handleModalOpenAdd}
      >
-      Tambah/Edit
+      Tambah Entitas
      </Button>
     ) : null}
    </Stack>

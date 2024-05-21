@@ -73,7 +73,7 @@ export default function PagePemantauan({}) {
    },
    {
     id: "nilai_target_sebelum",
-    header: "Nilai Target Risiko Sebelum Perlakuan",
+    header: "Nilai Risiko Sebelum Perlakuan Risiko",
     columns: [
      {
       accessorKey: "before_kemungkinan",
@@ -97,7 +97,7 @@ export default function PagePemantauan({}) {
    },
    {
     id: "nilai_target_setelah",
-    header: "Nilai Target Risiko Setelah Perlakuan",
+    header: "Nilai Risiko Setelah Perlakuan Risiko",
     columns: [
      {
       accessorKey: "after_kemungkinan",
@@ -244,7 +244,8 @@ export default function PagePemantauan({}) {
    <DashboardLayout>
     <ContentPage
      title="Pemantauan"
-     chooseProject
+     chooseRo
+     chooseKonteks
      project={project}
      handleChangeProject={handleChangeProject}
     >

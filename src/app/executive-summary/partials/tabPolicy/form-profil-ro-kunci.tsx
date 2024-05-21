@@ -7,7 +7,7 @@ export default function FormProfilRoKunci({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>KL Utama</Typography>
+      <Typography gutterBottom>KL Utama</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -33,7 +33,7 @@ export default function FormProfilRoKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>KL Kontributor</Typography>
+      <Typography gutterBottom>KL Kontributor</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -59,7 +59,7 @@ export default function FormProfilRoKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Nomenklatur RO</Typography>
+      <Typography gutterBottom>Nomenklatur RO</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -85,7 +85,7 @@ export default function FormProfilRoKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Target</Typography>
+      <Typography gutterBottom>Target</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -111,7 +111,7 @@ export default function FormProfilRoKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Anggaran</Typography>
+      <Typography gutterBottom>Anggaran</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -137,7 +137,7 @@ export default function FormProfilRoKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Sumber Anggaran</Typography>
+      <Typography gutterBottom>Sumber Anggaran</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"

@@ -183,8 +183,9 @@ export default function PageRegistrasiRisiko({}) {
    <DashboardLayout>
     <ContentPage
      title="Registrasi Risiko"
-     chooseProject
+     //  chooseProject
      chooseKonteks
+     chooseRo
      project={project}
      handleChangeProject={handleChangeProject}
     >

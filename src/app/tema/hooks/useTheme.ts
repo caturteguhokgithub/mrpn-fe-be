@@ -1,6 +1,6 @@
 import React from "react";
 import cloneDeep from "lodash/cloneDeep";
-import { listKp } from "../data";
+import { listAp, listKp } from "../data";
 
 export function useThemes() {
  const [activeTab, setActiveTab] = React.useState("");
@@ -31,7 +31,7 @@ export function useThemes() {
    const filteredPosts = listKp.filter((post) => {
     // const titleAndBodyText =
     //  post.kode_kp.replace(/\n/g, " ") + post.nama_kp.replace(/\n/g, " ");
-    return post.nama_kp.toLowerCase().includes(searchTab.toLowerCase());
+    return post.nama.toLowerCase().includes(searchTab.toLowerCase());
    });
 
    listData = filteredPosts;
@@ -43,11 +43,38 @@ export function useThemes() {
   };
  }, [listKp, activeTab, searchTab]);
 
+ const { listDataAp } = React.useMemo(() => {
+  let listDataAp = listAp || [];
+
+  if (searchTab === "") {
+   //    console.log("masuk kondisi");
+   listDataAp = cloneDeep(listDataAp).splice(0, 10);
+  }
+
+  //   console.log("listDataAp", searchTab, activeTab, listDataAp);
+
+  if (searchTab !== "" && listDataAp.length && activeTab !== "") {
+   const filteredPosts = listAp.filter((post) => {
+    // const titleAndBodyText =
+    //  post.kode_kp.replace(/\n/g, " ") + post.nama_kp.replace(/\n/g, " ");
+    return post.nama.toLowerCase().includes(searchTab.toLowerCase());
+   });
+
+   listDataAp = filteredPosts;
+   //    console.log(filteredPosts);
+  }
+
+  return {
+   listDataAp,
+  };
+ }, [listAp, activeTab, searchTab]);
+
  return {
   activeTab,
   listKp,
   handleAlignment,
   listData,
+  listDataAp,
   handleSearchTermUpdate,
   searchTab,
  };

@@ -18,6 +18,8 @@ import {
 import TextareaComponent from "@/app/components/textarea";
 import AddButton from "@/app/components/buttonAdd";
 import { IconFA } from "@/app/components/icons/icon-fa";
+import useThemes from "../hooks/useTheme";
+import SearchKP from "./search";
 
 const ItemKP = ({ full, type }: { full?: boolean; type: string }) => {
  return (
@@ -102,12 +104,15 @@ export default function FormTable({ mode }: { mode?: string }) {
   setItemKP(newArr);
  };
 
+ const { activeTab, listDataAp, handleSearchTermUpdate, searchTab } =
+  useThemes();
+
  return (
   <>
    <Grid container spacing={2}>
     <Grid item lg={4}>
      <FormControl fullWidth>
-      <Typography>Kode Tema</Typography>
+      <Typography gutterBottom>Kode Tema</Typography>
       <TextField
        variant="outlined"
        size="small"
@@ -120,7 +125,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={8}>
      <FormControl fullWidth>
-      <Typography>Tema</Typography>
+      <Typography gutterBottom>Tema</Typography>
       <TextField
        variant="outlined"
        size="small"
@@ -131,7 +136,18 @@ export default function FormTable({ mode }: { mode?: string }) {
       />
      </FormControl>
     </Grid>
-    <Grid item lg={6}>
+    <Grid item lg={12}>
+     <Paper variant="outlined" sx={{ minWidth: "100% !important", p: 2 }}>
+      <SearchKP
+       addTheme
+       activeTab={activeTab}
+       listData={listDataAp}
+       handleSearchTermUpdate={handleSearchTermUpdate}
+       searchTerm={searchTab}
+      />
+     </Paper>
+    </Grid>
+    {/* <Grid item lg={6}>
      <Paper variant="outlined" sx={{ p: 2, minWidth: "0 !important" }}>
       <Grid container spacing={2}>
        <Grid item lg={12}>
@@ -139,7 +155,6 @@ export default function FormTable({ mode }: { mode?: string }) {
          <Chip label="Proyek Pembangunan (PP)" size="small" />
         </Divider>
        </Grid>
-       {/* <ItemKP full /> */}
        {itemsPP.map((tags: any) => (
         <Fragment key={`${tags.id}`}>
          <ItemKP type="pp" />
@@ -170,7 +185,6 @@ export default function FormTable({ mode }: { mode?: string }) {
          <Chip label="Kegiatan Pembangunan (KP)" size="small" />
         </Divider>
        </Grid>
-       {/* <ItemKP full /> */}
        {itemsKP.map((tags: any) => (
         <Fragment key={`${tags.id}`}>
          <ItemKP type="kp" />
@@ -192,7 +206,7 @@ export default function FormTable({ mode }: { mode?: string }) {
        <AddButton title="Tambah KP" noMargin onclick={addKP} />
       </FormControl>
      </Paper>
-    </Grid>
+    </Grid> */}
    </Grid>
   </>
  );

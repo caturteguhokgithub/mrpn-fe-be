@@ -52,10 +52,10 @@ export default function TableSasaranPkppr({}) {
    >
     <Typography>Sasaran PKPPR</Typography>
     <Button
-     variant="contained"
+     variant="outlined"
      size="small"
      startIcon={<AddCircle />}
-     sx={{ lineHeight: 1, py: 1 }}
+     sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
     >
      Tambah Sasaran PKPPR
     </Button>

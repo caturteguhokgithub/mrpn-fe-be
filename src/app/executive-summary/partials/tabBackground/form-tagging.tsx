@@ -41,7 +41,9 @@ export default function FormTagging({ mode }: { mode?: string }) {
   "RPJMN",
   "RKP",
   "Major Project",
-  "Nawacita",
+  "Astacita",
+  "Renstra",
+  "RKPD",
  ];
 
  const selectMultipleTag = (

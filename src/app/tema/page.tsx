@@ -9,19 +9,12 @@ import {
  ToggleButtonGroup,
  Typography,
  alpha,
- Collapse,
  Box,
- Divider,
- Checkbox,
- FormControlLabel,
- FormGroup,
  Button,
  DialogActions,
- Chip,
 } from "@mui/material";
 import theme from "@/theme";
-import { blue, grey, orange } from "@mui/material/colors";
-import CustomToggleButton from "@/components/toggleButton";
+import { grey } from "@mui/material/colors";
 import AddButton from "../components/buttonAdd";
 import DialogComponent from "../components/dialog";
 import FormTable from "./partials/form-table";
@@ -37,7 +30,6 @@ export default function PageTema({}) {
 
  const {
   activeTab,
-  listKp,
   handleAlignment,
   listData,
   handleSearchTermUpdate,
@@ -64,6 +56,21 @@ export default function PageTema({}) {
     variant="contained"
     type="submit"
     href="/executive-summary"
+    sx={{
+     color: "white !important",
+    }}
+   >
+    Simpan
+   </Button>
+  </DialogActions>
+ );
+
+ const dialogActionFooterAdd = (
+  <DialogActions sx={{ p: 2, px: 3 }}>
+   <Button onClick={handleModalClose}>Batal</Button>
+   <Button
+    variant="contained"
+    onClick={handleModalClose}
     sx={{
      color: "white !important",
     }}
@@ -339,7 +346,7 @@ export default function PageTema({}) {
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
     title="Tambah Tema"
-    dialogFooter={dialogActionFooter}
+    dialogFooter={dialogActionFooterAdd}
    >
     <FormTable />
    </DialogComponent>

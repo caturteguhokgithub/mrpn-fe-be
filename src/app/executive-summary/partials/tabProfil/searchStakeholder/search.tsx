@@ -3,9 +3,8 @@ import SearchField from "./search-bar";
 import { Box, Divider, FormGroup, Stack, Typography } from "@mui/material";
 import { grey, yellow } from "@mui/material/colors";
 import SearchResult from "./search-result";
-import TreeView from "./tree-view";
 
-export default function SearchKP({
+export default function SearchStakeholder({
  activeTab,
  listData,
  searchTerm,
@@ -67,7 +66,7 @@ export default function SearchKP({
    >
     {/* <Typography color={grey[600]} fontSize={14} fontStyle="italic"></Typography> */}
     <Typography>
-     {addTheme ? "Pilih AP" : "Pilih AP/PP/KP dari tema"}{" "}
+     {addTheme ? "Pilih AP" : "Pilih KP/AP/PP dari tema"}{" "}
      <Typography fontWeight={600} fontSize={14} component="span">
       {activeTab === "penurunan-stunting"
        ? "Penurunan Stunting"
@@ -84,10 +83,7 @@ export default function SearchKP({
        : ""}
      </Typography>
     </Typography>
-    <SearchField
-     handleSearchTermUpdate={handleSearchTermUpdate}
-     addTheme={addTheme}
-    />
+    <SearchField handleSearchTermUpdate={handleSearchTermUpdate} />
    </Stack>
    <Box
     mt={2}
@@ -100,15 +96,11 @@ export default function SearchKP({
      },
     }}
    >
-    {addTheme ? (
-     <FormGroup>
-      {highlightedPosts.map((post) => {
-       return <SearchResult key={post.id} {...post} />;
-      })}
-     </FormGroup>
-    ) : (
-     <TreeView />
-    )}
+    <FormGroup>
+     {highlightedPosts.map((post) => {
+      return <SearchResult key={post.id} {...post} />;
+     })}
+    </FormGroup>
    </Box>
   </>
  );

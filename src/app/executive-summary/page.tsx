@@ -71,7 +71,7 @@ function CustomTabPanel(props: TabPanelProps) {
       },
      }}
     >
-     <Typography>{children}</Typography>
+     {children}
     </Box>
    )}
   </div>

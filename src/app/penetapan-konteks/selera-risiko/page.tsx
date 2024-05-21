@@ -8,8 +8,10 @@ import {
  Button,
  Collapse,
  DialogActions,
+ FormControl,
  SelectChangeEvent,
  Stack,
+ TextField,
  ToggleButtonGroup,
  Typography,
  alpha,
@@ -22,9 +24,11 @@ import DialogComponent from "@/app/components/dialog";
 const LabelRadio = ({
  heading,
  description,
+ value,
 }: {
  heading: string;
  description: any;
+ value: string;
 }) => {
  return (
   <Stack direction="column" justifyContent="flex-start">
@@ -34,7 +38,7 @@ const LabelRadio = ({
     fontWeight={600}
     textTransform="none"
    >
-    {heading}
+    {heading} (Nilai: {value})
    </Typography>
    <Typography
     component="p"
@@ -99,7 +103,9 @@ export default function PageSeleraRisiko({}) {
     <ContentPage
      title="Selera Risiko"
      withCard
-     chooseProject
+     chipRo
+     //  chooseProject
+
      project={project}
      handleChangeProject={handleChangeProject}
     >
@@ -111,7 +117,7 @@ export default function PageSeleraRisiko({}) {
       </Typography>
      </Box>
      <Typography color={grey[600]} fontSize={14} fontStyle="italic">
-      Pilih salah satu nilai untuk melihat hasil
+      Pilih salah satu untuk memberikan nilai
      </Typography>
      <ToggleButtonGroup
       value={valueTheme}
@@ -147,33 +153,55 @@ export default function PageSeleraRisiko({}) {
        variant="danger"
        code="Nilai"
        value="1"
-       label="1 - 3"
+       valueLabel="1-2"
+       label="Tidak memberikan toleransi"
       />
       <CustomToggleButton
        variant="warning"
        code="Nilai"
        value="2"
-       label="4 - 5"
+       valueLabel="3-4"
+       label="Konservatif"
       />
       <CustomToggleButton
        variant="success"
        code="Nilai"
        value="3"
-       label="6 - 7"
+       valueLabel="5-6"
+       label="Moderat"
       />
       <CustomToggleButton
        variant="primary"
        code="Nilai"
        value="4"
-       label="8 - 9"
+       valueLabel="7-9"
+       label="Agresif"
       />
      </ToggleButtonGroup>
      <Collapse in={valueTheme === "1"}>
       <Box mt={2}>
        <LabelRadio
-        heading="Tidak memberikan toleransi (Nilai: 1-3)"
-        description="Sangat berhati-hati dalam mengambil risiko dan lebih memilih menjaga
-        stabilitas dan konsistensi dalam operasi bisnis"
+        heading="Tidak memberikan toleransi"
+        value="1-2"
+        description={
+         <Stack gap={1}>
+          <Box component="p" maxWidth={800}>
+           Sangat berhati-hati dalam mengambil risiko dan lebih memilih menjaga
+           stabilitas dan konsistensi dalam operasi bisnis
+          </Box>
+          <FormControl sx={{ maxWidth: 300, mt: 1 }}>
+           <TextField
+            variant="outlined"
+            size="small"
+            placeholder="Isi nilai tidak memberikan toleransi"
+            InputLabelProps={{
+             shrink: true,
+            }}
+            helperText="Isi dengan angka"
+           />
+          </FormControl>
+         </Stack>
+        }
        />
       </Box>
       {saveButton}
@@ -181,20 +209,32 @@ export default function PageSeleraRisiko({}) {
      <Collapse in={valueTheme === "2"}>
       <Box mt={2}>
        <LabelRadio
-        heading="KONSERVATIF (Nilai: 4-5)"
+        heading="KONSERVATIF"
+        value="3-4"
         description={
-         <>
-          <Box component="p">
+         <Stack gap={1}>
+          <Box component="p" maxWidth={800}>
            Berhati-hati dalam mengambil risiko, dengan memilih beberapa risiko
            yang terkendali tetapi tetap memprioritaskan kestabilan kegiatan.
           </Box>
-          <Box component="p">
+          <Box component="p" maxWidth={800}>
            Keputusan didasarkan pada upaya untuk melindungi nilai dari risiko
            besar yang tidak terduga, termasuk di dalamnya menghindari paparan
            terhadap fluktuasi/kondisi global/eksternal yang signifikan serta
            dapat menanggung beban yang kecil.
           </Box>
-         </>
+          <FormControl sx={{ maxWidth: 300, mt: 1 }}>
+           <TextField
+            variant="outlined"
+            size="small"
+            placeholder="Isi nilai konservatif"
+            InputLabelProps={{
+             shrink: true,
+            }}
+            helperText="Isi dengan angka"
+           />
+          </FormControl>
+         </Stack>
         }
        />
       </Box>
@@ -203,19 +243,31 @@ export default function PageSeleraRisiko({}) {
      <Collapse in={valueTheme === "3"}>
       <Box mt={2}>
        <LabelRadio
-        heading="MODERAT (Nilai: 6-7)"
+        heading="MODERAT"
+        value="5-6"
         description={
-         <>
-          <Box component="p">
+         <Stack gap={1}>
+          <Box component="p" maxWidth={800}>
            Bersedia mengambil risiko dalam batas tertentu untuk mencapai
            manfaat, tetapi tetap memperhatikan perlindungan terhadap kerugian
            besar.
           </Box>
-          <Box component="p">
+          <Box component="p" maxWidth={800}>
            Keputusan mempertimbangkan peluang pertumbuhan dan dampak risiko
            secara bersamaan dan dapat menanggung beban sedang.
           </Box>
-         </>
+          <FormControl sx={{ maxWidth: 300, mt: 1 }}>
+           <TextField
+            variant="outlined"
+            size="small"
+            placeholder="Isi nilai moderat"
+            InputLabelProps={{
+             shrink: true,
+            }}
+            helperText="Isi dengan angka"
+           />
+          </FormControl>
+         </Stack>
         }
        />
       </Box>
@@ -224,19 +276,31 @@ export default function PageSeleraRisiko({}) {
      <Collapse in={valueTheme === "4"}>
       <Box mt={2}>
        <LabelRadio
-        heading="AGRESIF (Nilai: 8-9)"
+        heading="AGRESIF"
+        value="7-9"
         description={
-         <>
-          <Box component="p">
+         <Stack gap={1}>
+          <Box component="p" maxWidth={800}>
            Secara aktif menerapkan strategi yang melibatkan pengelolaan risiko
            sebagai bagian integral dari rencana kegiatan, mengambil risiko lebih
            tinggi dalam rangka mencapai peluang dan inovasi yang lebih besar.
           </Box>
-          <Box component="p">
+          <Box component="p" maxWidth={800}>
            Keputusan didasarkan pada analisis risiko dan pengembalian investasi
            jangka panjang serta dapat menanggung beban yang besar.
           </Box>
-         </>
+          <FormControl sx={{ maxWidth: 300, mt: 1 }}>
+           <TextField
+            variant="outlined"
+            size="small"
+            placeholder="Isi nilai agresif"
+            InputLabelProps={{
+             shrink: true,
+            }}
+            helperText="Isi dengan angka"
+           />
+          </FormControl>
+         </Stack>
         }
        />
       </Box>

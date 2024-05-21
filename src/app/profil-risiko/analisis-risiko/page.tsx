@@ -72,8 +72,10 @@ export default function PageAnalisisRisiko({}) {
     title="Analisis Risiko"
     withCard
     noPadding
-    chooseProject
+    // chooseProject
+    // chooseKonteks
     chooseKonteks
+    chooseRo
     project={project}
     handleChangeProject={handleChangeProject}
    >

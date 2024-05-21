@@ -12,13 +12,48 @@ import { listSelectKp } from "@/app/executive-summary/data";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 
-const options = ["Option 1", "Option 2"];
+export const SxAutocompleteTextField = () => {
+ return {
+  "input::-webkit-input-placeholder": {
+   //  color: "white",
+   color: grey[600],
+   opacity: 1,
+   fontStyle: "italic",
+   //  fontSize: 13,
+  },
+ };
+};
+
+export const SxAutocomplete = () => {
+ return {
+  minWidth: 300,
+  color: theme.palette.primary.dark,
+  ".MuiInputBase-root": {
+   fontWeight: 600,
+   fontSize: 14,
+   py: 0,
+   borderRadius: 6,
+   bgcolor: "white",
+   //   bgcolor: theme.palette.primary.main,
+   [theme.breakpoints.down("md")]: {
+    fontSize: 12,
+   },
+  },
+  ".MuiSvgIcon-root": {
+   //   fill: "white",
+   fill: grey[600],
+  },
+  [theme.breakpoints.down("md")]: {
+   minWidth: 200,
+  },
+ };
+};
 
 export default function DropdownKp({
- project,
+ //  project,
  handleChangeProject,
 }: {
- project?: any;
+ //  project?: any;
  handleChangeProject?: any;
 }) {
  const [value, setValue] = React.useState<string | null>("");
@@ -54,41 +89,12 @@ export default function DropdownKp({
        InputLabelProps={{
         shrink: true,
        }}
-       placeholder="Pilih Kegiatan Pembangunan (KP)"
-       sx={{
-        "input::-webkit-input-placeholder": {
-         //  color: "white",
-         color: grey[600],
-         opacity: 1,
-         fontStyle: "italic",
-         //  fontSize: 13,
-        },
-       }}
+       placeholder="Pilih kegiatan pembangunan"
+       sx={SxAutocompleteTextField}
       />
      </Tooltip>
     )}
-    sx={{
-     minWidth: 300,
-     color: theme.palette.primary.dark,
-     ".MuiInputBase-root": {
-      fontWeight: 600,
-      fontSize: 14,
-      py: 0,
-      borderRadius: 6,
-      bgcolor: "white",
-      //   bgcolor: theme.palette.primary.main,
-      [theme.breakpoints.down("md")]: {
-       fontSize: 12,
-      },
-     },
-     ".MuiSvgIcon-root": {
-      //   fill: "white",
-      fill: grey[600],
-     },
-     [theme.breakpoints.down("md")]: {
-      minWidth: 200,
-     },
-    }}
+    sx={SxAutocomplete}
    />
    {/*  */}
    {/* <SelectCustomTheme

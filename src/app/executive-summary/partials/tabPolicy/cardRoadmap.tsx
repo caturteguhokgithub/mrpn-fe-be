@@ -85,7 +85,8 @@ export default function CardRoadmap({ project }: { project: string }) {
                   key={index}
                   sx={{
                    flex: "0 0 calc(20% - 12px)",
-                   borderRadius: "10px 10px 0 0",
+                   //  borderRadius: "10px 10px 0 0",
+                   borderRadius: "10px",
                   }}
                  >
                   <CardContent
@@ -207,7 +208,7 @@ export default function CardRoadmap({ project }: { project: string }) {
                    key={index}
                    sx={{
                     flex: "0 0 calc(20% - 12px)",
-                    borderRadius: "10px 10px 0 0",
+                    borderRadius: "10px",
                    }}
                   >
                    <CardContent

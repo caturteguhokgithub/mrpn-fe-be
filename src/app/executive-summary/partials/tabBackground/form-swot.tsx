@@ -27,36 +27,34 @@ export default function FormSwot({
      {project === itemSwot.temaId && (
       <>
        {itemSwot.swot?.map((detailSwot, index) => (
-        <>
-         <Grid item lg={6} key={index}>
-          <Paper
-           elevation={0}
-           variant="outlined"
-           sx={{ minWidth: "0 !important", p: 2, height: "100%" }}
-          >
-           <Stack direction="column">
-            <Typography
-             gutterBottom
-             variant="h6"
-             component="div"
-             lineHeight={1.3}
-             sx={{ textTransform: "capitalize" }}
-            >
-             {detailSwot.label}
-            </Typography>
-            {/* {detailSwot.item.map((itemSh, index) => (
+        <Grid item lg={6} key={index}>
+         <Paper
+          elevation={0}
+          variant="outlined"
+          sx={{ minWidth: "0 !important", p: 2, height: "100%" }}
+         >
+          <Stack direction="column">
+           <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            lineHeight={1.3}
+            sx={{ textTransform: "capitalize" }}
+           >
+            {detailSwot.label}
+           </Typography>
+           {/* {detailSwot.item.map((itemSh, index) => (
              <Typography variant="body2" mb={1} key={index}>
               <strong>{itemSh}</strong>
              </Typography>
             ))} */}
-            <TextareaComponent
-             label={`Deskripsi ${detailSwot.label}`}
-             placeholder={`Deskripsi ${detailSwot.label}`}
-            />
-           </Stack>
-          </Paper>
-         </Grid>
-        </>
+           <TextareaComponent
+            label={`Deskripsi ${detailSwot.label}`}
+            placeholder={`Deskripsi ${detailSwot.label}`}
+           />
+          </Stack>
+         </Paper>
+        </Grid>
        ))}
       </>
      )}

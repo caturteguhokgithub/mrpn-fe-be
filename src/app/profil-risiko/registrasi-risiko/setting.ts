@@ -17,3 +17,11 @@ export const data: RegistrasiType[] = [
   pemilik: "-",
  },
 ];
+
+export const riskCategory = [
+ "Risiko Lingkungan",
+ "Risiko Sosial",
+ "Risiko Geopolitik",
+ "Risiko Ekonomi",
+ "Risiko Teknologi",
+];

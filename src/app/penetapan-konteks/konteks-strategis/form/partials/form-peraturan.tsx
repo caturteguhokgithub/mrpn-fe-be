@@ -8,7 +8,7 @@ export default function FormPeraturan({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Peraturan Terkait</Typography>
+      <Typography gutterBottom>Peraturan Terkait</Typography>
       {mode === "add" ? (
        <TextareaComponent
         label="Peraturan Terkait"
@@ -27,7 +27,7 @@ export default function FormPeraturan({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Amanat Peraturan yang Terkait</Typography>
+      <Typography gutterBottom>Amanat Peraturan yang Terkait</Typography>
       {mode === "add" ? (
        <TextareaComponent
         label="Amanat Peraturan yang Terkait"

@@ -9,8 +9,10 @@ export default function CustomToggleButton({
  code,
  variant,
  disabled,
+ valueLabel,
 }: {
  value: string;
+ valueLabel: string;
  label: string;
  code?: string;
  variant?: string;
@@ -55,12 +57,15 @@ export default function CustomToggleButton({
      px={2}
      py={1.5}
      bgcolor={grey[200]}
+     lineHeight={1.2}
      sx={{
       borderStartStartRadius: "12px",
       borderEndStartRadius: "12px",
      }}
     >
      {code}
+     <br />
+     {valueLabel}
     </Box>
    )}
    <Typography px={3} component="span" fontWeight={600}>

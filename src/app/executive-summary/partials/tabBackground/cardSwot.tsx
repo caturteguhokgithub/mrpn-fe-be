@@ -54,7 +54,8 @@ export default function CardSwot({ project }: { project: string }) {
             sx={{
              maxWidth: 345,
              flex: "0 0 calc(25% - 12px)",
-             borderRadius: "10px 10px 0 0",
+             //  borderRadius: "10px 10px 0 0",
+             borderRadius: "10px",
              [theme.breakpoints.down("lg")]: {
               flex: "0 0 calc(50% - 12px)",
              },

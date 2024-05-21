@@ -16,7 +16,7 @@ export default function TableProfilRoKunci() {
   id: number,
   checked: boolean,
   klUtama: string,
-  klKontributor: string,
+  formatKode: string,
   nomenklatur: string,
   target: string,
   anggaran: string,
@@ -26,7 +26,7 @@ export default function TableProfilRoKunci() {
    id,
    checked,
    klUtama,
-   klKontributor,
+   formatKode,
    nomenklatur,
    target,
    anggaran,
@@ -113,12 +113,12 @@ export default function TableProfilRoKunci() {
     <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
      <TableRow>
       <TableCell></TableCell>
+      <TableCell>Format Kode</TableCell>
       <TableCell>KL</TableCell>
-      {/* <TableCell>KL Kontributor</TableCell> */}
       <TableCell>Rincian Output (RO)</TableCell>
       <TableCell>Target</TableCell>
       <TableCell>Anggaran</TableCell>
-      {/* <TableCell>Sumber Anggaran</TableCell> */}
+      <TableCell>Sumber Anggaran</TableCell>
      </TableRow>
     </TableHead>
     <TableBody>
@@ -134,10 +134,12 @@ export default function TableProfilRoKunci() {
          <Checkbox checked={row.checked} />
         )}
        </TableCell>
+       <TableCell>{row.formatKode}</TableCell>
        <TableCell>{row.klUtama}</TableCell>
        <TableCell>{row.nomenklatur}</TableCell>
        <TableCell>{row.target}</TableCell>
        <TableCell>{row.anggaran}</TableCell>
+       <TableCell>{row.sumberAnggaran}</TableCell>
       </TableRow>
      ))}
     </TableBody>

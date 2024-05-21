@@ -66,13 +66,13 @@ export default function TableSasaran({
     justifyContent="space-between"
     alignItems="center"
    >
-    <Typography>Sasaran {variant}</Typography>
+    <Typography fontWeight={600}>Sasaran {variant}</Typography>
     {mode === "add" || mode === "edit" ? (
      <Button
-      variant="contained"
+      variant="outlined"
       size="small"
       startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1 }}
+      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
       onClick={handleModalOpenAdd}
      >
       Tambah Sasaran {variant}

@@ -37,16 +37,11 @@ const rows = [
  ),
  createData(
   2,
-  "Hampir Tidak Terjadi",
+  "Kadang Terjadi",
   "10 < X < 30 % C",
   "Cukup Sering : 2 kali s.d 5 kali dalam 1 Tahun"
  ),
- createData(
-  3,
-  "Hampir Tidak Terjadi",
-  "X ≥ 30 %",
-  "Sering : > 5 kali dalam 1 Tahun"
- ),
+ createData(3, "Sering Terjadi", "X ≥ 30 %", "Sering : > 5 kali dalam 1 Tahun"),
 ];
 
 export default function TableKemungkinan({}) {
@@ -61,10 +56,10 @@ export default function TableKemungkinan({}) {
       <TableRow sx={{ bgcolor: grey[200] }}>
        <TableCell colSpan={2}>Level Kemungkinan</TableCell>
        <TableCell width={200}>
-        Persentae Kemungkinan Terjadi dalam 1 Periode
+        Persentase Kemungkinan Terjadi dalam 1 Periode
        </TableCell>
        <TableCell width={350}>
-        Jumlah Frekuensi Kemugkinan Terjadi dalam 1 Periode
+        Jumlah Frekuensi Kemungkinan Terjadi dalam 1 Periode
        </TableCell>
       </TableRow>
      </TableHead>

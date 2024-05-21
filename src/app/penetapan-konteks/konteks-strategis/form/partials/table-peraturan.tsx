@@ -73,13 +73,15 @@ export default function TablePeraturan({ mode }: { mode?: string }) {
     justifyContent="space-between"
     alignItems="center"
    >
-    <Typography>Daftar Peraturan Perundang-Undangan yang Terkait</Typography>
+    <Typography fontWeight={600}>
+     Daftar Peraturan Perundang-Undangan yang Terkait
+    </Typography>
     {mode === "add" || mode === "edit" ? (
      <Button
-      variant="contained"
+      variant="outlined"
       size="small"
       startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1 }}
+      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
       onClick={handleModalOpenAdd}
      >
       Tambah Peraturan Terkait

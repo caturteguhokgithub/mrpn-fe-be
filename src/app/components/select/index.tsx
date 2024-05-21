@@ -11,6 +11,7 @@ export default function SelectCustomTheme({
  small,
  anchorRight,
  rounded,
+ sx,
 }: {
  value: string;
  children: React.ReactNode;
@@ -20,12 +21,14 @@ export default function SelectCustomTheme({
  small?: boolean;
  anchorRight?: boolean;
  rounded?: boolean;
+ sx?: any;
 }) {
  return (
   <Select
    size={small ? "small" : "medium"}
    value={value}
    onChange={onChange}
+   //    label="Triwulan"
    displayEmpty
    inputProps={{
     paperprops: {
@@ -54,8 +57,12 @@ export default function SelectCustomTheme({
     },
    }}
    sx={{
+    ...sx,
     ".MuiSelect-icon": {
      color: defaultStyle || rounded ? "inherit" : "white",
+    },
+    ".MuiSelect-select": {
+     color: theme.palette.secondary.dark,
     },
     "&.MuiInputBase-root": {
      fontSize: defaultStyle || rounded ? "inherit" : 14,

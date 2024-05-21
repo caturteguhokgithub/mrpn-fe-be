@@ -92,40 +92,23 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
     <FormControl fullWidth>
      <Typography gutterBottom>Entitas Kontributor</Typography>
      {mode === "add" ? (
-      <SelectCustomTheme
-       defaultStyle
-       small
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Entitas Kontributor
-        </Typography>
-       </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        Kementerian Pertanian
-       </MenuItem>
-       <MenuItem value="2">BPOM</MenuItem>
-       <MenuItem value="3">Simas</MenuItem>
-      </SelectCustomTheme>
+      <TextField
+       variant="outlined"
+       size="small"
+       placeholder="Entitas Kontributor"
+       InputLabelProps={{
+        shrink: true,
+       }}
+      />
      ) : mode === "edit" ? (
-      <SelectCustomTheme
-       defaultStyle
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Entitas Kontributor
-        </Typography>
-       </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        Kementerian Pertanian
-       </MenuItem>
-       <MenuItem value="2">BPOM</MenuItem>
-       <MenuItem value="3">Simas</MenuItem>
-      </SelectCustomTheme>
+      <TextField
+       variant="outlined"
+       size="small"
+       value="-"
+       InputLabelProps={{
+        shrink: true,
+       }}
+      />
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}
@@ -135,40 +118,23 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
     <FormControl fullWidth>
      <Typography gutterBottom>Nomenklatur RO/Project</Typography>
      {mode === "add" ? (
-      <SelectCustomTheme
-       defaultStyle
-       small
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Nomenklatur RO/Project
-        </Typography>
-       </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        -
-       </MenuItem>
-       <MenuItem value="2">-</MenuItem>
-       <MenuItem value="3">-</MenuItem>
-      </SelectCustomTheme>
+      <TextField
+       variant="outlined"
+       size="small"
+       placeholder="Nomenklatur RO/Project"
+       InputLabelProps={{
+        shrink: true,
+       }}
+      />
      ) : mode === "edit" ? (
-      <SelectCustomTheme
-       defaultStyle
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Nomenklatur RO/Project
-        </Typography>
-       </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        -
-       </MenuItem>
-       <MenuItem value="2">-</MenuItem>
-       <MenuItem value="3">-</MenuItem>
-      </SelectCustomTheme>
+      <TextField
+       variant="outlined"
+       size="small"
+       value="-"
+       InputLabelProps={{
+        shrink: true,
+       }}
+      />
      ) : (
       <Typography fontWeight={600}>-</Typography>
      )}

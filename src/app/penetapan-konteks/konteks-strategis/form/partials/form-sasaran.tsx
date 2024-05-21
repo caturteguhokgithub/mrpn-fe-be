@@ -8,7 +8,7 @@ export default function FormSasaran({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Nama Sasaran</Typography>
+      <Typography gutterBottom>Nama Sasaran</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -34,7 +34,7 @@ export default function FormSasaran({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Keterangan</Typography>
+      <Typography gutterBottom>Keterangan</Typography>
       {mode === "add" ? (
        <TextareaComponent label="Keterangan" placeholder="Keterangan" />
       ) : mode === "edit" ? (

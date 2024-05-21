@@ -2,6 +2,7 @@ import ContentPage from "@/app/components/contents/content";
 import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import {
+ Autocomplete,
  Box,
  Breadcrumbs,
  Chip,
@@ -28,7 +29,14 @@ import { listSelectKp } from "@/app/executive-summary/data";
 import { blue, grey } from "@mui/material/colors";
 import MultiSelect from "@/app/components/multiSelect";
 import { Option } from "@/app/components/multiSelect";
-import DropdownKp from "@/app/components/dropdownKp";
+import DropdownKp, {
+ SxAutocomplete,
+ SxAutocompleteTextField,
+} from "@/app/components/dropdownKp";
+import TableKemungkinan from "./table-kriteria-kemungkinan";
+import { listKotaKab } from "@/app/utils/kotaKab";
+import theme from "@/theme";
+import TableDampak from "./table-kriteria-dampak";
 
 export default function FormKonstra({ mode }: { mode?: string }) {
  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -41,6 +49,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
  ]);
  const [anchorElTooltip, setAnchorElTooltip] =
   React.useState<HTMLElement | null>(null);
+ const [project, setProject] = React.useState("");
 
  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
   setAnchorElTooltip(event.currentTarget);
@@ -74,8 +83,6 @@ export default function FormKonstra({ mode }: { mode?: string }) {
  maxDate.setFullYear(currentDate.getFullYear() + 20);
 
  const nameOfKp = listSelectKp[4].name;
-
- const [project, setProject] = React.useState("");
 
  const handleChangeProject = (value: any) => {
   setProject(value);
@@ -111,7 +118,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
         cursor: "default",
        }}
       /> */}
-      <DropdownKp project={project} handleChangeProject={handleChangeProject} />
+      <DropdownKp handleChangeProject={handleChangeProject} />
      </>
     }
     breadcrumb={
@@ -135,7 +142,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     <Grid container spacing={2}>
      <Grid item lg={6}>
       <FormControl fullWidth>
-       <Typography>Nama PKPPR</Typography>
+       <Typography gutterBottom>Nama PKPPR</Typography>
        {mode === "add" ? (
         <TextField
          variant="outlined"
@@ -161,7 +168,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
      </Grid>
      <Grid item lg={6}>
       <FormControl fullWidth>
-       <Typography>Periode Penerapan</Typography>
+       <Typography gutterBottom>Periode Penerapan</Typography>
        {mode === "add" ? (
         <>
          <Popover
@@ -249,7 +256,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
      </Grid>
      <Grid item lg={12}>
       <FormControl fullWidth>
-       <Typography>Latar Belakang</Typography>
+       <Typography gutterBottom>Latar Belakang</Typography>
        {mode === "add" ? (
         <TextareaComponent
          label="Latar Belakang"
@@ -277,7 +284,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     <Grid container spacing={2}>
      <Grid item lg={12}>
       <FormControl fullWidth>
-       <Typography>Ruang Lingkup</Typography>
+       <Typography gutterBottom>Ruang Lingkup</Typography>
        {mode === "add" ? (
         <TextareaComponent label="Ruang Lingkup" placeholder="Ruang Lingkup" />
        ) : mode === "edit" ? (
@@ -293,15 +300,40 @@ export default function FormKonstra({ mode }: { mode?: string }) {
      </Grid>
      <Grid item lg={6}>
       <FormControl fullWidth>
-       <Typography>Lokasi</Typography>
+       <Typography gutterBottom>Lokasi</Typography>
        {mode === "add" ? (
-        <MultiSelect defaultValue={[10, 20]}>
-         <Option value={10}>Ten</Option>
-         <Option value={20}>Twenty</Option>
-         <Option value={30}>Thirty</Option>
-         <Option value={40}>Forty</Option>
-         <Option value={50}>Fifty</Option>
-        </MultiSelect>
+        <>
+         <Autocomplete
+          multiple
+          size="small"
+          options={listKotaKab}
+          getOptionLabel={(option) => option.name}
+          // defaultValue={[listKotaKab[13]]}
+          renderInput={(params) => (
+           <TextField
+            {...params}
+            InputLabelProps={{
+             shrink: true,
+            }}
+            placeholder="Pilih kota/kabupaten"
+            sx={SxAutocompleteTextField}
+           />
+          )}
+          sx={{
+           ...SxAutocomplete,
+           ".MuiInputBase-root": {
+            borderRadius: 1,
+           },
+          }}
+         />
+         {/* <MultiSelect defaultValue={[10, 20]}>
+          <Option value={10}>Ten</Option>
+          <Option value={20}>Twenty</Option>
+          <Option value={30}>Thirty</Option>
+          <Option value={40}>Forty</Option>
+          <Option value={50}>Fifty</Option>
+         </MultiSelect> */}
+        </>
        ) : mode === "edit" ? (
         <TextField
          variant="outlined"
@@ -318,7 +350,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
      </Grid>
      <Grid item lg={6}>
       <FormControl fullWidth>
-       <Typography>Tahun Anggaran</Typography>
+       <Typography gutterBottom>Tahun Anggaran</Typography>
        {mode === "add" ? (
         <TextField
          disabled
@@ -366,6 +398,10 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     <TableStakeholder mode={mode} />
     <Divider sx={{ my: 3 }} />
     <TablePeraturan mode={mode} />
+    <Divider sx={{ my: 3 }} />
+    <TableKemungkinan mode={mode} />
+    <Divider sx={{ my: 3 }} />
+    <TableDampak mode={mode} />
    </ContentPage>
   </DashboardLayout>
  );

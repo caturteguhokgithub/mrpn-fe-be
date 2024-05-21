@@ -1,5 +1,7 @@
 import React from "react";
 import {
+ Alert,
+ AlertTitle,
  Box,
  Chip,
  FormControl,
@@ -25,6 +27,8 @@ export default function ContentPage({
  withCard,
  chooseKonteks,
  chooseProject,
+ chooseRo,
+ chipRo,
  chooseProjectPage,
  titleChild,
  breadcrumb,
@@ -35,6 +39,8 @@ export default function ContentPage({
  project,
  handleChangeProject,
  dowloadAttachmentFile,
+ triWulan,
+ hasAlert,
 }: {
  children: React.ReactNode;
  title?: string;
@@ -43,6 +49,8 @@ export default function ContentPage({
  chooseProject?: React.ReactNode;
  chooseProjectPage?: React.ReactNode;
  chooseKonteks?: boolean;
+ chooseRo?: boolean;
+ chipRo?: boolean;
  heightTitleBreadcrumb?: boolean;
  titleChild?: React.ReactNode;
  breadcrumb?: React.ReactNode;
@@ -51,8 +59,12 @@ export default function ContentPage({
  project?: any;
  handleChangeProject?: any;
  dowloadAttachmentFile?: React.ReactNode;
+ triWulan?: boolean;
+ hasAlert?: React.ReactNode;
 }) {
  const [konteks, setKonteks] = React.useState("");
+ const [roDropdown, setRoDropdown] = React.useState("");
+ const [triwulanDropdown, setTriwulanDropdown] = React.useState("");
  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -64,12 +76,27 @@ export default function ContentPage({
  };
 
  const open = Boolean(anchorEl);
+
  const handleChangeKonteks = (event: SelectChangeEvent) => {
   setKonteks(event.target.value);
+ };
+ const handleChangeRo = (event: SelectChangeEvent) => {
+  setRoDropdown(event.target.value);
+ };
+ const handleChangeTriwulan = (event: SelectChangeEvent) => {
+  setTriwulanDropdown(event.target.value);
  };
 
  const konteksLabel =
   "Penguatan Kebijakan Perlindungan Akses Pasar Dalam Negeri";
+
+ const listRo = [
+  "Pemantauan tumbuh kembang balita",
+  "Peningkatan sanitasi",
+  "Peningkatan ketersediaan pangan keluarga 1000 HPK",
+ ];
+
+ const labelChipRo = "Peningkatan ketersediaan pangan keluarga 1000 HPK";
 
  const pathname = usePathname();
  const flagPathnameTheme = [pathname === "/", pathname === "/tema"].includes(
@@ -254,22 +281,10 @@ export default function ContentPage({
      {chooseProject && (
       <>
        <DropdownKp
-        project={project}
+        // project={project}
         handleChangeProject={handleChangeProject}
        />
 
-       {/* <Chip
-        color="primary"
-        // variant="outlined"
-        label="KP-03 - Kawasan Industri Prioritas dan Smelter"
-        sx={{
-         //  bgcolor: "white",
-         fontWeight: 500,
-         lineHeight: 1,
-         cursor: "default",
-         px: 1,
-        }}
-       /> */}
        {/* <FormControl size="small">
         <SelectCustomTheme small value={project} onChange={handleChangeProject}>
          <MenuItem value="" disabled>
@@ -290,6 +305,107 @@ export default function ContentPage({
        </FormControl> */}
       </>
      )}
+     {chooseRo && (
+      <FormControl size="small">
+       <SelectCustomTheme
+        rounded
+        small
+        anchorRight
+        value={roDropdown}
+        onChange={handleChangeRo}
+       >
+        <MenuItem value="" disabled>
+         <Typography
+          fontSize={14}
+          fontStyle="italic"
+          color={grey[600]}
+          fontWeight={600}
+         >
+          Pilih rincian output
+         </Typography>
+        </MenuItem>
+        {listRo.map((roLabel, index) => (
+         <MenuItem key={index} value={roLabel}>
+          {roLabel.length >= 35 ? (
+           <Tooltip title={roLabel} followCursor TransitionComponent={Grow}>
+            <Typography
+             aria-owns={open ? "mouse-over-popover" : undefined}
+             aria-haspopup="true"
+             onMouseEnter={handlePopoverOpen}
+             onMouseLeave={handlePopoverClose}
+             sx={{ fontSize: 14 }}
+            >
+             {roLabel.substring(0, 35) + "..."}
+            </Typography>
+           </Tooltip>
+          ) : (
+           roLabel
+          )}
+         </MenuItem>
+        ))}
+       </SelectCustomTheme>
+      </FormControl>
+     )}
+     {chipRo && (
+      <Chip
+       color="primary"
+       variant="outlined"
+       label={
+        labelChipRo.length >= 40 ? (
+         <>
+          <Stack direction="row" alignItems="center">
+           <Stack
+            direction="row"
+            bgcolor={theme.palette.primary.main}
+            px={2}
+            alignItems="center"
+            height="34px"
+            sx={{
+             borderTopLeftRadius: 24,
+             borderBottomLeftRadius: 24,
+            }}
+           >
+            <Typography
+             fontSize={14}
+             color="white"
+             fontWeight={600}
+             lineHeight={1}
+            >
+             Rincian Output
+            </Typography>
+           </Stack>
+           <Tooltip title={labelChipRo} followCursor TransitionComponent={Grow}>
+            <Typography
+             aria-owns={open ? "mouse-over-popover" : undefined}
+             aria-haspopup="true"
+             onMouseEnter={handlePopoverOpen}
+             onMouseLeave={handlePopoverClose}
+             px={1.5}
+             fontSize={14}
+             fontWeight={600}
+            >
+             {labelChipRo.substring(0, 40) + "..."}
+            </Typography>
+           </Tooltip>
+          </Stack>
+         </>
+        ) : (
+         labelChipRo
+        )
+       }
+       sx={{
+        height: "34px",
+        bgcolor: "white",
+        fontWeight: 600,
+        lineHeight: 1,
+        cursor: "default",
+
+        ".MuiChip-label": {
+         px: 0,
+        },
+       }}
+      />
+     )}
      {chooseKonteks && (
       <FormControl size="small">
        <SelectCustomTheme
@@ -306,11 +422,11 @@ export default function ContentPage({
           color={grey[600]}
           fontWeight={600}
          >
-          Pilih Konteks Strategis
+          Pilih konteks strategis
          </Typography>
         </MenuItem>
         <MenuItem value="1" defaultChecked>
-         {konteksLabel.length >= 30 ? (
+         {konteksLabel.length >= 35 ? (
           <Tooltip title={konteksLabel} followCursor TransitionComponent={Grow}>
            <Typography
             aria-owns={open ? "mouse-over-popover" : undefined}
@@ -319,7 +435,7 @@ export default function ContentPage({
             onMouseLeave={handlePopoverClose}
             sx={{ fontSize: 14 }}
            >
-            {konteksLabel.substring(0, 30) + "..."}
+            {konteksLabel.substring(0, 35) + "..."}
            </Typography>
           </Tooltip>
          ) : (
@@ -329,9 +445,38 @@ export default function ContentPage({
        </SelectCustomTheme>
       </FormControl>
      )}
+     {triWulan && (
+      <FormControl size="small">
+       <SelectCustomTheme
+        rounded
+        small
+        anchorRight
+        value={triwulanDropdown}
+        onChange={handleChangeTriwulan}
+       >
+        <MenuItem value="" disabled>
+         <Typography
+          fontSize={14}
+          fontStyle="italic"
+          color={grey[600]}
+          fontWeight={600}
+         >
+          Pilih triwulan
+         </Typography>
+        </MenuItem>
+        <MenuItem value="1" defaultChecked>
+         Triwulan 1 (Jan - Mar)
+        </MenuItem>
+        <MenuItem value="2">Triwulan 2 (Apr - Mei)</MenuItem>
+        <MenuItem value="3">Triwulan 3 (Jul - Sep)</MenuItem>
+        <MenuItem value="4">Triwulan 4 (Okt - Des)</MenuItem>
+       </SelectCustomTheme>
+      </FormControl>
+     )}
      {addButton && addButton}
     </Stack>
    </Stack>
+   {hasAlert && hasAlert}
    <Box
     height={
      heightTitleBreadcrumb

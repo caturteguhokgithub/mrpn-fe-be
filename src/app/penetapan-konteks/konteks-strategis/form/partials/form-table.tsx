@@ -8,7 +8,7 @@ export default function FormTable({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Tahun</Typography>
+      <Typography gutterBottom>Tahun</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -34,7 +34,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Lokasi</Typography>
+      <Typography gutterBottom>Lokasi</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -60,7 +60,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Nama PKPPR</Typography>
+      <Typography gutterBottom>Nama PKPPR</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -86,7 +86,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>KL Utama</Typography>
+      <Typography gutterBottom>KL Utama</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -112,7 +112,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Latar Belakang</Typography>
+      <Typography gutterBottom>Latar Belakang</Typography>
       {mode === "add" ? (
        <TextareaComponent label="Latar Belakang" placeholder="Latar Belakang" />
       ) : mode === "edit" ? (
@@ -128,7 +128,7 @@ export default function FormTable({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Ruang Lingkup</Typography>
+      <Typography gutterBottom>Ruang Lingkup</Typography>
       {mode === "add" ? (
        <TextareaComponent label="Ruang Lingkup" placeholder="Ruang Lingkup" />
       ) : mode === "edit" ? (

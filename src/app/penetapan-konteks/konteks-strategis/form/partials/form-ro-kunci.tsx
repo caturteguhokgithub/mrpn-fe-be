@@ -16,7 +16,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
    <Grid container spacing={2}>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Kode RO</Typography>
+      <Typography gutterBottom>Kode RO</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -42,7 +42,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Nama RO</Typography>
+      <Typography gutterBottom>Nama RO</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -73,7 +73,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={12}>
      <FormControl fullWidth>
-      <Typography>Uraian</Typography>
+      <Typography gutterBottom>Uraian</Typography>
       {mode === "add" ? (
        <TextareaComponent label="Uraian" placeholder="Uraian" />
       ) : mode === "edit" ? (
@@ -85,7 +85,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={4}>
      <FormControl fullWidth>
-      <Typography>Satuan</Typography>
+      <Typography gutterBottom>Satuan</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -111,7 +111,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={4}>
      <FormControl fullWidth>
-      <Typography>Target Fisik</Typography>
+      <Typography gutterBottom>Target Fisik</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -137,7 +137,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={4}>
      <FormControl fullWidth>
-      <Typography>Keuangan</Typography>
+      <Typography gutterBottom>Keuangan</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -166,7 +166,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Kementerian</Typography>
+      <Typography gutterBottom>Kementerian</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
@@ -192,7 +192,7 @@ export default function FormROKunci({ mode }: { mode?: string }) {
     </Grid>
     <Grid item lg={6}>
      <FormControl fullWidth>
-      <Typography>Kode</Typography>
+      <Typography gutterBottom>Kode</Typography>
       {mode === "add" ? (
        <TextField
         variant="outlined"
