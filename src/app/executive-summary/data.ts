@@ -263,3 +263,62 @@ export const newListSelectKp = [
   group: "KP",
  },
 ];
+
+export const dataRowCritical = [
+ { type: "string", label: "Task ID" },
+ { type: "string", label: "Task Name" },
+ { type: "string", label: "Resource" },
+ { type: "date", label: "Start Date" },
+ { type: "date", label: "End Date" },
+ { type: "number", label: "Duration" },
+ { type: "number", label: "Percent Complete" },
+ { type: "string", label: "Dependencies" },
+ { type: "string", role: "tooltip", p: { html: true } }, // Tooltip column
+];
+
+export const dataCritical1 = [
+ [
+  "2014Spring",
+  "2014 Spring",
+  "spring",
+  new Date(2025, 1, 1),
+  new Date(2029, 1, 1),
+  null,
+  100,
+  null,
+  '<div style="padding:50px;"><strong>Project 2014-2016</strong><br><b>Start:</b> 2014<br><b>End:</b> 2016</div>',
+ ],
+ [
+  "2014Summer",
+  "Summer 2014",
+  "summer",
+  new Date(2025, 1, 1),
+  new Date(2029, 1, 1),
+  null,
+  100,
+  null,
+  '<div style="padding:10px;"><strong>Project 2014-2016</strong><br><b>Start:</b> 2014<br><b>End:</b> 2016</div>',
+ ],
+ [
+  "2014Autumn",
+  "Autumn 2014",
+  "autumn",
+  new Date(2025, 1, 1),
+  new Date(2029, 1, 1),
+  null,
+  100,
+  null,
+  '<div style="padding:10px;"><strong>Project 2014-2016</strong><br><b>Start:</b> 2014<br><b>End:</b> 2016</div>',
+ ],
+ [
+  "2014Winter",
+  "Winter 2014",
+  "winter",
+  new Date(2025, 1, 1),
+  new Date(2029, 1, 1),
+  null,
+  100,
+  null,
+  '<div style="padding:10px;"><strong>Project 2014-2016</strong><br><b>Start:</b> 2014<br><b>End:</b> 2016</div>',
+ ],
+];

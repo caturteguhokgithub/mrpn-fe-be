@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
  Paper,
  Table,
@@ -31,8 +31,8 @@ export default function TableUraian({ project }: { project: string }) {
      </TableRow>
     </TableHead>
     <TableBody>
-     {dataTema.map((itemRow) => (
-      <>
+     {dataTema.map((itemRow, index) => (
+      <Fragment key={index}>
        {project === itemRow.temaId && (
         <>
          {itemRow.typeOfRisk.map((detailRisk, index) => (
@@ -60,7 +60,7 @@ export default function TableUraian({ project }: { project: string }) {
          ))}
         </>
        )}
-      </>
+      </Fragment>
      ))}
     </TableBody>
    </Table>

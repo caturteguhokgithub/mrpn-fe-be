@@ -11,7 +11,7 @@ export default function TabLatarBelakang({ project }: { project: string }) {
   <Stack gap={1}>
    <CardSwot project={project} />
    <CardGoals project={project} />
-   <CardUraian project={project} />
+   {/* <CardUraian project={project} /> */}
    <CardTagging project={project} />
    <CardSegment project={project} />
   </Stack>

@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 "use client";
 
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React from "react";
 import DashboardLayout from "@/components/layouts/layout";
 import {

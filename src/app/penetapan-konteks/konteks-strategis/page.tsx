@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import {
@@ -173,7 +173,6 @@ export default function PageKonteksStrategis({}) {
     <ContentPage
      title="Konteks Strategis"
      chooseProject
-     chooseRo
      project={project}
      handleChangeProject={handleChangeProject}
     >

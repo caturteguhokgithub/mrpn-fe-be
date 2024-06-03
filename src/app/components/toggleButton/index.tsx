@@ -10,13 +10,15 @@ export default function CustomToggleButton({
  variant,
  disabled,
  valueLabel,
+ minheight,
 }: {
  value: string;
  valueLabel: string;
  label: string;
- code?: string;
+ code?: string | boolean | any;
  variant?: string;
  disabled?: boolean;
+ minheight?: number;
 }) {
  const conditionColor =
   variant === "danger"
@@ -39,6 +41,7 @@ export default function CustomToggleButton({
     borderRadius: "12px !important",
     border: `1px solid ${theme.palette.primary.main}`,
     borderLeftColor: `${theme.palette.primary.main} !important`,
+    minHeight: minheight,
     "&.Mui-selected": {
      bgcolor: conditionColor,
      border: `1px solid ${conditionColor}`,

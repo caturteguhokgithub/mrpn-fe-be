@@ -20,7 +20,7 @@ import {
 import React from "react";
 import { logoBlue, logoBrown, logoGreen, logoOrange } from "@/app/utils/color";
 import DashboardLayout from "@/app/components/layouts/layout";
-import ContentPage from "@/app//components/contents/content";
+import ContentPage from "@/app/components/contents";
 import {
  dataset,
  datasetKategori,

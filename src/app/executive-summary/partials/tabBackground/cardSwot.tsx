@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
  Button,
  Card,
@@ -45,8 +45,8 @@ export default function CardSwot({ project }: { project: string }) {
    ) : (
     <>
      <Stack direction="row" flexWrap="wrap" gap={2}>
-      {dataTema.map((itemSwot) => (
-       <>
+      {dataTema.map((itemSwot, index) => (
+       <Fragment key={index}>
         {project === itemSwot.temaId && (
          <>
           {itemSwot.swot.map((detailSwot, index) => (
@@ -103,7 +103,7 @@ export default function CardSwot({ project }: { project: string }) {
           ))}
          </>
         )}
-       </>
+       </Fragment>
       ))}
      </Stack>
     </>

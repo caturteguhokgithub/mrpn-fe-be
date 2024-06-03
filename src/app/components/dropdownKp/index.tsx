@@ -68,6 +68,7 @@ export default function DropdownKp({
    <Autocomplete
     size="small"
     value={value}
+    // isOptionEqualToValue={(value: any) => value.value}
     onChange={(event: any, newValue: string | null) => {
      setValue(newValue);
     }}

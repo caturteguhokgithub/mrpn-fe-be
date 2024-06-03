@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
  Grid,
  Paper,
@@ -22,8 +22,8 @@ export default function FormSwot({
 }) {
  return (
   <Grid container spacing={2}>
-   {dataTema.map((itemSwot) => (
-    <>
+   {dataTema.map((itemSwot, index) => (
+    <Fragment key={index}>
      {project === itemSwot.temaId && (
       <>
        {itemSwot.swot?.map((detailSwot, index) => (
@@ -58,7 +58,7 @@ export default function FormSwot({
        ))}
       </>
      )}
-    </>
+    </Fragment>
    ))}
   </Grid>
  );

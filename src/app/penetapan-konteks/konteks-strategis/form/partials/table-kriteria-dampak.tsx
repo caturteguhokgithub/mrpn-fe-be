@@ -118,8 +118,14 @@ export default function TableDampak({ mode }: { mode?: string }) {
      </Button>
     ) : null}
    </Stack>
-   <TableContainer component={Paper} elevation={0} variant="outlined">
-    <Table sx={{ minWidth: 650 }} size="small">
+   <Paper sx={{ overflowX: "auto" }}>
+    {/* <TableContainer
+     component={Paper}
+     elevation={0}
+     variant="outlined"
+     sx={{ maxWidth: "100%" }}
+    > */}
+    <Table size="small">
      {/* <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
       <TableRow>
        <TableCell width="70px"></TableCell>
@@ -197,13 +203,15 @@ export default function TableDampak({ mode }: { mode?: string }) {
      </TableHead>
      <TableBody>
       {mode === "add" ? (
-       <TableCell colSpan={8}>
-        <EmptyState
-         icon={<IconEmptyData />}
-         title="Data Kosong"
-         description="Silahkan isi konten tabel ini"
-        />
-       </TableCell>
+       <TableRow>
+        <TableCell colSpan={8}>
+         <EmptyState
+          icon={<IconEmptyData />}
+          title="Data Kosong"
+          description="Silahkan isi konten tabel ini"
+         />
+        </TableCell>
+       </TableRow>
       ) : (
        <>
         {rows.map((row) => (
@@ -243,12 +251,43 @@ export default function TableDampak({ mode }: { mode?: string }) {
       )}
      </TableBody>
     </Table>
-   </TableContainer>
+    {/* </TableContainer> */}
+    {/* <table>
+     <thead>
+      <tr>
+       <th style={{ width: 70 }} rowSpan={2}></th>
+       <th colSpan={2} rowSpan={2}>
+        Level Kemungkinan
+       </th>
+       <th colSpan={5}>Area Dampak Risiko</th>
+      </tr>
+      <tr>
+       <th>Beban Keuangan Negara/Daerah</th>
+       <th>Penurunan Reputasi</th>
+       <th>Tuntutan Hukum (Sanksi Pidana, Perdata, dan/atau administratif)</th>
+       <th>Lingkungan</th>
+       <th>Capaian Kinerja</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td scope="row"></td>
+       <td></td>
+       <td></td>
+      </tr>
+      <tr>
+       <td scope="row"></td>
+       <td></td>
+       <td></td>
+      </tr>
+     </tbody>
+    </table> */}
+   </Paper>
    <DialogComponent
-    width={400}
+    width={1200}
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Kriteria Kemungkinan"
+    title="Tambah Kriteria Dampak"
     dialogFooter={dialogActionFooter}
    >
     <FormDampak mode="add" />

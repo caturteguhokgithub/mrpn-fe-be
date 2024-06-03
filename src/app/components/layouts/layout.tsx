@@ -74,6 +74,7 @@ export default function DashboardLayout({
  const sxMain = {
   borderTopLeftRadius: "50px",
   transition: "all 600ms ease",
+  // width: checked ? "calc(100% - 44px)" : "100%",
   [theme.breakpoints.down("md")]: {
    borderTopLeftRadius: 0,
    p: 3,

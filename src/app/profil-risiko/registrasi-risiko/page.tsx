@@ -1,6 +1,6 @@
 "use client";
 
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import { advancedTable } from "@/app/components/table";
@@ -182,10 +182,11 @@ export default function PageRegistrasiRisiko({}) {
   <>
    <DashboardLayout>
     <ContentPage
-     title="Registrasi Risiko"
+     title="Identifikasi Risiko"
      //  chooseProject
+     chipKp
      chooseKonteks
-     chooseRo
+     //  chooseRo
      project={project}
      handleChangeProject={handleChangeProject}
     >
@@ -197,14 +198,14 @@ export default function PageRegistrasiRisiko({}) {
    <DialogComponent
     dialogOpen={modalOpenView}
     dialogClose={handleModalClose}
-    title="Detail Registrasi Risiko"
+    title="Detail Identifikasi Risiko"
    >
     <FormTable mode="view" />
    </DialogComponent>
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Registrasi Risiko"
+    title="Tambah Identifikasi Risiko"
     dialogFooter={dialogActionFooter}
    >
     <FormTable mode="add" />
@@ -212,7 +213,7 @@ export default function PageRegistrasiRisiko({}) {
    <DialogComponent
     dialogOpen={modalOpenEdit}
     dialogClose={handleModalClose}
-    title="Ubah Registrasi Risiko"
+    title="Ubah Identifikasi Risiko"
     dialogFooter={dialogActionFooter}
    >
     <FormTable mode="edit" />

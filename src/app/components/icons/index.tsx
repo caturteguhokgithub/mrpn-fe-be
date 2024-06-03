@@ -9,4 +9,5 @@ export { IconPemantauan } from "./pemantauan";
 export { IconManajemen } from "./manajemen";
 export { IconKeluar } from "./keluar";
 export { IconEmptyPage } from "./empty-page";
+export { IconEmptyImage } from "./empty-image";
 export { IconEmptyData } from "./empty-data";

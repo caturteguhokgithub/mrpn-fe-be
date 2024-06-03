@@ -215,3 +215,57 @@
 //   city: "San Francisco",
 //  },
 // ];
+
+export const listKemungkinan = [
+ "Kemungkinan 1",
+ "Kemungkinan 2",
+ "Kemungkinan 3",
+ "Kemungkinan 4",
+ "Kemungkinan 5",
+];
+
+export const listDampak = [
+ "Dampak 1",
+ "Dampak 2",
+ "Dampak 3",
+ "Dampak 4",
+ "Dampak 5",
+];
+
+export const listTriwulan = [
+ "Triwulan 1 (Jan - Mar)",
+ "Triwulan 2 (Apr - Mei)",
+ "Triwulan 3 (Jul - Sep)",
+ "Triwulan 4 (Okt - Des)",
+ "Tahun 2025",
+ "Tahun 2026",
+ "Tahun 2027",
+ "Tahun 2028",
+ "Tahun 2029",
+];
+
+export const listRisiko = [
+ "Risiko Lingkungan",
+ "Risiko Sosial",
+ "Risiko Geopolitik",
+ "Risiko Ekonomi",
+ "Risiko Teknologi",
+];
+
+export const listEntitasUtama = [
+ "Kementerian Kesehatan",
+ "Kementerian PUPR",
+ "Kementerian Perindustrian",
+];
+
+export const listEntitasPendukung = ["Kementerian Pertanian", "BPOM", "Simas"];
+
+export const listTahun = ["2025", "2026", "2027", "2028", "2029"];
+
+export const listLevelKemungkinan = [
+ "1 - Sangat rendah",
+ "2 - Rendah",
+ "3 - Sedang",
+ "4 - Tinggi",
+ "5 - Sangat Tinggi",
+];

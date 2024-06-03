@@ -11,6 +11,7 @@ export default function AddButton({
  noMargin,
  onclick,
  sx,
+ startIcon,
 }: {
  title: string;
  url?: string;
@@ -18,20 +19,25 @@ export default function AddButton({
  small?: boolean;
  noMargin?: boolean;
  onclick?: () => void;
- sx?: any;
+ sx?: React.CSSProperties;
+ startIcon?: React.ReactNode;
 }) {
  const buttonAdd = (
   <Button
    variant={filled ? "contained" : "outlined"}
    size={small ? "small" : "medium"}
    startIcon={
-    <Icon
-     baseClassName="fas"
-     className={`fa-plus-circle`}
-     sx={{
-      fontSize: small ? "16px !important" : "18px",
-     }}
-    />
+    startIcon ? (
+     startIcon
+    ) : (
+     <Icon
+      baseClassName="fas"
+      className={`fa-plus-circle`}
+      sx={{
+       fontSize: small ? "16px !important" : "18px",
+      }}
+     />
+    )
    }
    sx={{
     ...sx,

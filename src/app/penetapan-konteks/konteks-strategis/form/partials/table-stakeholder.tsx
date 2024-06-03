@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
  Button,
  DialogActions,
@@ -16,13 +16,22 @@ import {
  Typography,
 } from "@mui/material";
 import theme from "@/theme";
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle, EditSharp } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
 import FormStakeholder from "@/app/executive-summary/partials/tabProfil/form-stakeholder";
+import { CardItemStakeholder } from "@/app/executive-summary/partials/tabProfil/cardStakeholder";
+import { dataTema } from "@/app/executive-summary/dataTema";
+import { IconFA } from "@/app/components/icons/icon-fa";
 
-export default function TableStakeholder({ mode }: { mode?: string }) {
+export default function TableStakeholder({
+ mode,
+ project,
+}: {
+ mode?: string;
+ project?: string;
+}) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
 
  const handleModalOpenAdd = () => {
@@ -65,7 +74,7 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
     <Typography fontWeight={600}>
      Daftar Pemangku Kepentingan (Entitas)
     </Typography>
-    {mode === "add" || mode === "edit" ? (
+    {mode === "add" ? (
      <Button
       variant="outlined"
       size="small"
@@ -74,6 +83,16 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
       onClick={handleModalOpenAdd}
      >
       Tambah Entitas
+     </Button>
+    ) : mode === "edit" ? (
+     <Button
+      variant="outlined"
+      size="small"
+      startIcon={<EditSharp />}
+      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+      onClick={handleModalOpenAdd}
+     >
+      Ubah Entitas
      </Button>
     ) : null}
    </Stack>
@@ -84,63 +103,50 @@ export default function TableStakeholder({ mode }: { mode?: string }) {
      description="Silahkan isi konten seksi ini"
     />
    ) : (
-    <TableContainer component={Paper} elevation={0} variant="outlined">
-     <Table sx={{ minWidth: 650 }} size="small">
-      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-       <TableRow>
-        <TableCell width="70px"></TableCell>
-        <TableCell>Stakeholders</TableCell>
-        <TableCell>Hubungan</TableCell>
-       </TableRow>
-      </TableHead>
-      <TableBody>
-       {mode === "add" ? (
-        <TableCell colSpan={3}>
-         <EmptyState
-          icon={<IconEmptyData />}
-          title="Data Kosong"
-          description="Silahkan isi konten tabel ini"
-         />
-        </TableCell>
-       ) : (
-        <>
-         {rows.map((row) => (
-          <TableRow
-           key={row.id}
-           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-           <TableCell sx={{ textAlign: "center" }}>
-            <Tooltip title="Delete" placement="top">
-             <IconButton
-              aria-label="delete"
-              color="error"
-              disabled={mode === "view"}
-             >
-              <Icon
-               baseClassName="fas"
-               className={`fa-trash-alt`}
-               sx={{
-                fontSize: "14px",
-               }}
-              />
-             </IconButton>
-            </Tooltip>
-           </TableCell>
-           <TableCell>{row.stakeholders}</TableCell>
-           <TableCell>{row.hubungan}</TableCell>
-          </TableRow>
-         ))}
-        </>
-       )}
-      </TableBody>
-     </Table>
-    </TableContainer>
+    <>
+     {mode === "add" ? (
+      <Paper variant="outlined">
+       <EmptyState
+        icon={<IconEmptyData />}
+        title="Data tidak tersedia"
+        description="Silahkan isi konten seksi ini"
+       />
+      </Paper>
+     ) : (
+      <Stack direction="row" flexWrap="wrap" gap={2}>
+       {dataTema.map((itemStakeholder, index) => (
+        <Fragment key={index}>
+         {project === itemStakeholder.temaId && (
+          <>
+           {itemStakeholder.stakeholder?.map((detailStakeholder, index) => (
+            <CardItemStakeholder
+             key={index}
+             index={index}
+             detailStakeholder={detailStakeholder}
+            />
+           ))}
+          </>
+         )}
+        </Fragment>
+       ))}
+      </Stack>
+     )}
+    </>
    )}
    <DialogComponent
     dialogOpen={modalOpenAdd}
     dialogClose={handleModalClose}
-    title="Tambah Pemangku Kepentingan"
-    dialogFooter={dialogActionFooter}
+    title="Stakeholder Mapping"
+    dialogFooter={
+     <DialogActions sx={{ p: 2, px: 3 }}>
+      <Button variant="outlined" onClick={handleModalClose}>
+       Batal
+      </Button>
+      <Button variant="contained" type="submit">
+       Simpan
+      </Button>
+     </DialogActions>
+    }
    >
     <FormStakeholder mode="add" project="1" />
    </DialogComponent>

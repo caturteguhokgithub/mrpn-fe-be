@@ -12,7 +12,6 @@ import {
  Typography,
 } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
-import SelectCustomTheme from "@/app/components/select";
 import {
  SxAutocompleteTextField,
  SxAutocomplete,
@@ -117,6 +116,7 @@ export default function FormProfilRo({ mode }: { mode?: string }) {
        <Autocomplete
         size="small"
         options={optionsListKl}
+        // isOptionEqualToValue={(value: any) => value.value}
         // getOptionLabel={(option) => option.code}
         renderInput={(params) => (
          <TextField

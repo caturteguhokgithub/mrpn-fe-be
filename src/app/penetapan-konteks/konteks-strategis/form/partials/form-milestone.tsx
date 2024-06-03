@@ -1,5 +1,13 @@
 import React from "react";
-import { FormControl, Grid, TextField, Typography } from "@mui/material";
+import {
+ FormControl,
+ Grid,
+ Input,
+ InputAdornment,
+ OutlinedInput,
+ TextField,
+ Typography,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -141,6 +149,34 @@ export default function FormMilestone({ mode }: { mode?: string }) {
          format="D MMM YYYY"
         />
        </LocalizationProvider>
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={6}>
+     <FormControl fullWidth>
+      <Typography gutterBottom>Progress</Typography>
+      {mode === "add" ? (
+       <OutlinedInput
+        type="text"
+        size="small"
+        placeholder="Progress"
+        endAdornment={<InputAdornment position="end">%</InputAdornment>}
+        inputProps={{
+         "aria-label": "percentage",
+        }}
+       />
+      ) : mode === "edit" ? (
+       <OutlinedInput
+        type="text"
+        size="small"
+        value="57"
+        endAdornment={<InputAdornment position="end">%</InputAdornment>}
+        inputProps={{
+         "aria-label": "percentage",
+        }}
+       />
       ) : (
        <Typography fontWeight={600}>-</Typography>
       )}

@@ -6,6 +6,8 @@ import {
  DialogActions,
  MenuItem,
  SelectChangeEvent,
+ Grow,
+ Tooltip,
 } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
@@ -16,6 +18,7 @@ import SelectCustomTheme from "@/app/components/select";
 import TableProfilIntervensi from "./table-profil-intervensi";
 import FormProfilRoProject from "./form-profil-ro-project";
 import TableProfilRoKunci from "./table-profil-ro-kunci";
+import { listEntitasPendukung, listEntitasUtama } from "@/app/utils/data";
 
 export default function CardRoKunci({ project }: { project: string }) {
  const [modalOpenProfilRoKunci, setModalOpenProfilRoKunci] =
@@ -24,6 +27,17 @@ export default function CardRoKunci({ project }: { project: string }) {
   React.useState(false);
  const [projectMain, setProjectMain] = React.useState("");
  const [projectSupport, setProjectSupport] = React.useState("");
+ const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+ const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  setAnchorEl(event.currentTarget);
+ };
+
+ const handlePopoverClose = () => {
+  setAnchorEl(null);
+ };
+
+ const open = Boolean(anchorEl);
 
  const handleChangeProjectMain = (event: SelectChangeEvent) => {
   setProjectMain(event.target.value);
@@ -101,11 +115,25 @@ export default function CardRoKunci({ project }: { project: string }) {
          Pilih Entitas Utama
         </Typography>
        </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        Kementerian Kesehatan
-       </MenuItem>
-       <MenuItem value="2">Kementerian PUPR</MenuItem>
-       <MenuItem value="3">Kementerian Perindustrian</MenuItem>
+       {listEntitasUtama.map((euLabel, index) => (
+        <MenuItem key={index} value={euLabel}>
+         {euLabel.length >= 35 ? (
+          <Tooltip title={euLabel} followCursor TransitionComponent={Grow}>
+           <Typography
+            aria-owns={open ? "mouse-over-popover" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            sx={{ fontSize: 14 }}
+           >
+            {euLabel.substring(0, 35) + "..."}
+           </Typography>
+          </Tooltip>
+         ) : (
+          euLabel
+         )}
+        </MenuItem>
+       ))}
       </SelectCustomTheme>
       <SelectCustomTheme
        rounded
@@ -124,11 +152,25 @@ export default function CardRoKunci({ project }: { project: string }) {
          Pilih Entitas Pendukung
         </Typography>
        </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        Kementerian Pertanian
-       </MenuItem>
-       <MenuItem value="2">BPOM</MenuItem>
-       <MenuItem value="3">Simas</MenuItem>
+       {listEntitasPendukung.map((epLabel, index) => (
+        <MenuItem key={index} value={epLabel}>
+         {epLabel.length >= 35 ? (
+          <Tooltip title={epLabel} followCursor TransitionComponent={Grow}>
+           <Typography
+            aria-owns={open ? "mouse-over-popover" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            sx={{ fontSize: 14 }}
+           >
+            {epLabel.substring(0, 35) + "..."}
+           </Typography>
+          </Tooltip>
+         ) : (
+          epLabel
+         )}
+        </MenuItem>
+       ))}
       </SelectCustomTheme>
      </Stack>
     }

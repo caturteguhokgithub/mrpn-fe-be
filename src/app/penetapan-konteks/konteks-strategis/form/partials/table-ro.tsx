@@ -2,9 +2,12 @@ import React from "react";
 import {
  Button,
  DialogActions,
+ Grow,
  Icon,
  IconButton,
+ MenuItem,
  Paper,
+ SelectChangeEvent,
  Stack,
  Table,
  TableBody,
@@ -22,63 +25,120 @@ import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
 import FormSasaran from "./form-sasaran";
 import FormROKunci from "./form-ro-kunci";
+import FormProfilRoProject from "@/app/executive-summary/partials/tabPolicy/form-profil-ro-project";
+import SelectCustomTheme from "@/app/components/select";
+import TableProfilRoKunci from "@/app/executive-summary/partials/tabPolicy/table-profil-ro-kunci";
+import { listEntitasUtama } from "@/app/utils/data";
 
 export default function TableRincianOutput({ mode }: { mode?: string }) {
- const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
+ const [modalOpenProfilRoKunci, setModalOpenProfilRoKunci] =
+  React.useState(false);
+ const [modalOpenProfilRoKunciProject, setModalOpenProfilRoKunciProject] =
+  React.useState(false);
+ const [projectMain, setProjectMain] = React.useState("");
+ const [projectSupport, setProjectSupport] = React.useState("");
+ const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
- const handleModalOpenAdd = () => {
-  setModalOpenAdd(true);
+ const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  setAnchorEl(event.currentTarget);
+ };
+
+ const handlePopoverClose = () => {
+  setAnchorEl(null);
+ };
+
+ const open = Boolean(anchorEl);
+
+ const handleChangeProjectMain = (event: SelectChangeEvent) => {
+  setProjectMain(event.target.value);
+ };
+ const handleChangeProjectSupport = (event: SelectChangeEvent) => {
+  setProjectSupport(event.target.value);
+ };
+
+ const handleModalOpenProfilRoKunci = () => {
+  setModalOpenProfilRoKunci(true);
+ };
+ const handleModalOpenProfilRoKunciProject = () => {
+  setModalOpenProfilRoKunciProject(true);
  };
 
  const handleModalClose = () => {
-  setModalOpenAdd(false);
+  setModalOpenProfilRoKunci(false);
+  setModalOpenProfilRoKunciProject(false);
  };
 
  function createData(
   id: number,
-  kodeRo: string,
-  namaRo: string,
-  uraian: string,
-  satuan: string,
-  target: number,
-  keuangan: string,
-  kementerian: string,
-  kode: string
+  format: string,
+  entitasUtama: string,
+  entitasKontributor: string,
+  nomenklatur: string,
+  target: string,
+  anggaran: string,
+  sumber: string
  ) {
   return {
    id,
-   kodeRo,
-   namaRo,
-   uraian,
-   satuan,
+   format,
+   entitasUtama,
+   entitasKontributor,
+   nomenklatur,
    target,
-   keuangan,
-   kementerian,
-   kode,
+   anggaran,
+   sumber,
   };
  }
 
  const rows = [
   createData(
    1,
-   "xxx.xxx.xx.xxxx.xx",
-   "Eksekusi Realisasi Investasi Proyek-Proyek Mangkrak Di Wilayah Barat",
    "-",
-   "juta",
-   1,
+   "Kemkes",
    "-",
-   "BADAN INTELIJEN NEGARA",
+   "Suplementasi gizi mikro pada balita",
+   "-",
+   "-",
    "-"
   ),
   createData(
-   2,
-   "xxx.xxx.xx.xxxx.xx",
-   "Layanan Pendampingan Keberlanjutan Investasi",
+   1,
    "-",
-   "orang",
-   2,
+   "Kemkes",
    "-",
-   "BADAN INTELIJEN NEGARA",
+   "Tata laksana balita gizi buruk",
+   "-",
+   "-",
+   "-"
+  ),
+  createData(
+   1,
+   "-",
+   "Kemkes",
+   "-",
+   "Penanggulangan kurang energi kronik (KEK) pada ibu hamil",
+   "-",
+   "-",
+   "-"
+  ),
+  createData(
+   1,
+   "-",
+   "Kemkes",
+   "-",
+   "Keluarga 1000 HPK mendapatkan pendampingan",
+   "-",
+   "-",
+   "-"
+  ),
+  createData(
+   1,
+   "-",
+   "PUPR",
+   "-",
+   "Infrakstruktur air minum berbasis Masyarakat",
+   "-",
+   "-",
    "-"
   ),
  ];
@@ -100,23 +160,35 @@ export default function TableRincianOutput({ mode }: { mode?: string }) {
     justifyContent="space-between"
     alignItems="center"
    >
-    <Typography fontWeight={600}>Rincian Output (RO) Kunci</Typography>
+    <Typography fontWeight={600}>Profil Intervensi Kunci</Typography>
     {mode === "add" || mode === "edit" ? (
-     <Button
-      variant="outlined"
-      size="small"
-      startIcon={<AddCircle />}
-      sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
-      onClick={handleModalOpenAdd}
-     >
-      Tambah RO Kunci
-     </Button>
+     <Stack direction="row" gap={1}>
+      <Button
+       variant="outlined"
+       size="small"
+       startIcon={<AddCircle />}
+       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+       onClick={handleModalOpenProfilRoKunciProject}
+      >
+       Tambah Project
+      </Button>
+      <Button
+       variant="outlined"
+       size="small"
+       startIcon={<AddCircle />}
+       sx={{ lineHeight: 1, py: 1, borderRadius: 24 }}
+       onClick={handleModalOpenProfilRoKunci}
+      >
+       Tambah Profil RO
+      </Button>
+     </Stack>
     ) : null}
    </Stack>
-   <TableContainer component={Paper} elevation={0} variant="outlined">
+   <Paper sx={{ overflowX: "auto" }}>
+    {/* <TableContainer component={Paper} elevation={0} variant="outlined"> */}
     <Table sx={{ minWidth: 650 }} size="small">
      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
-      <TableRow>
+      {/* <TableRow>
        <TableCell rowSpan={2} width="70px"></TableCell>
        <TableCell rowSpan={2}>Kode RO</TableCell>
        <TableCell rowSpan={2}>Nama RO</TableCell>
@@ -127,22 +199,33 @@ export default function TableRincianOutput({ mode }: { mode?: string }) {
        <TableCell rowSpan={2}>Kode</TableCell>
       </TableRow>
       <TableRow>
-       {/* <TableCell width="120px">Dukungan Sasaran KP</TableCell> */}
        <TableCell width="120px">Uraian Sasaran</TableCell>
        <TableCell width="120px">Satuan Sasaran</TableCell>
        <TableCell width="120px">Target Fisik</TableCell>
        <TableCell width="120px">Keuangan</TableCell>
+      </TableRow> */}
+      <TableRow>
+       <TableCell></TableCell>
+       <TableCell>Format Kode</TableCell>
+       <TableCell>Entitas Utama</TableCell>
+       <TableCell>Entitas Kontributor</TableCell>
+       <TableCell>Nomenklatur RO/Project</TableCell>
+       <TableCell>Target</TableCell>
+       <TableCell>Anggaran</TableCell>
+       <TableCell>Sumber Anggaran</TableCell>
       </TableRow>
      </TableHead>
      <TableBody>
       {mode === "add" ? (
-       <TableCell colSpan={8}>
-        <EmptyState
-         icon={<IconEmptyData />}
-         title="Data Kosong"
-         description="Silahkan isi konten tabel ini"
-        />
-       </TableCell>
+       <TableRow>
+        <TableCell colSpan={8}>
+         <EmptyState
+          icon={<IconEmptyData />}
+          title="Data Kosong"
+          description="Silahkan isi konten tabel ini"
+         />
+        </TableCell>
+       </TableRow>
       ) : (
        <>
         {rows.map((row) => (
@@ -167,28 +250,121 @@ export default function TableRincianOutput({ mode }: { mode?: string }) {
             </IconButton>
            </Tooltip>
           </TableCell>
-          <TableCell>{row.kodeRo}</TableCell>
-          <TableCell>{row.namaRo}</TableCell>
-          <TableCell>{row.uraian}</TableCell>
-          <TableCell>{row.satuan}</TableCell>
+          <TableCell>{row.format}</TableCell>
+          <TableCell>{row.entitasUtama}</TableCell>
+          <TableCell>{row.entitasKontributor}</TableCell>
+          <TableCell>{row.nomenklatur}</TableCell>
           <TableCell>{row.target}</TableCell>
-          <TableCell>{row.keuangan}</TableCell>
-          <TableCell>{row.kementerian}</TableCell>
-          <TableCell>{row.kode}</TableCell>
+          <TableCell>{row.anggaran}</TableCell>
+          <TableCell>{row.sumber}</TableCell>
          </TableRow>
         ))}
        </>
       )}
      </TableBody>
     </Table>
-   </TableContainer>
+    {/* </TableContainer> */}
+   </Paper>
    <DialogComponent
-    dialogOpen={modalOpenAdd}
+    width={1000}
+    dialogOpen={modalOpenProfilRoKunciProject}
     dialogClose={handleModalClose}
-    title="Tambah Rincian Output Kunci"
-    dialogFooter={dialogActionFooter}
+    title="Tambah Nomenklatur RO/Project"
+    dialogFooter={
+     <DialogActions sx={{ p: 2, px: 3 }}>
+      <Button variant="outlined" onClick={handleModalClose}>
+       Batal
+      </Button>
+      <Button variant="contained" type="submit">
+       Simpan
+      </Button>
+     </DialogActions>
+    }
    >
-    <FormROKunci mode="add" />
+    <FormProfilRoProject mode="add" />
+   </DialogComponent>
+   <DialogComponent
+    tableMode
+    width={1000}
+    dialogOpen={modalOpenProfilRoKunci}
+    dialogClose={handleModalClose}
+    title="Tambah Profil RO Kunci"
+    headerAction={
+     <Stack direction="row" gap={1}>
+      <SelectCustomTheme
+       rounded
+       small
+       anchorRight
+       value={projectMain}
+       onChange={handleChangeProjectMain}
+       sx={{
+        ".MuiSelect-select": {
+         minHeight: 0,
+        },
+       }}
+      >
+       <MenuItem value="" disabled>
+        <Typography fontSize={14} fontStyle="italic">
+         Pilih Entitas Utama
+        </Typography>
+       </MenuItem>
+       {listEntitasUtama.map((euLabel, index) => (
+        <MenuItem key={index} value={euLabel}>
+         {euLabel.length >= 35 ? (
+          <Tooltip title={euLabel} followCursor TransitionComponent={Grow}>
+           <Typography
+            aria-owns={open ? "mouse-over-popover" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            sx={{ fontSize: 14 }}
+           >
+            {euLabel.substring(0, 35) + "..."}
+           </Typography>
+          </Tooltip>
+         ) : (
+          euLabel
+         )}
+        </MenuItem>
+       ))}
+      </SelectCustomTheme>
+      <SelectCustomTheme
+       rounded
+       small
+       anchorRight
+       value={projectSupport}
+       onChange={handleChangeProjectSupport}
+       sx={{
+        ".MuiSelect-select": {
+         minHeight: 0,
+        },
+       }}
+      >
+       <MenuItem value="" disabled>
+        <Typography fontSize={14} fontStyle="italic">
+         Pilih Entitas Pendukung
+        </Typography>
+       </MenuItem>
+       <MenuItem value="1" defaultChecked>
+        Kementerian Pertanian
+       </MenuItem>
+       <MenuItem value="2">BPOM</MenuItem>
+       <MenuItem value="3">Simas</MenuItem>
+      </SelectCustomTheme>
+     </Stack>
+    }
+    dialogFooter={
+     <DialogActions sx={{ p: 2, px: 3 }}>
+      <Button variant="outlined" onClick={handleModalClose}>
+       Batal
+      </Button>
+      <Button variant="contained" type="submit">
+       Simpan
+      </Button>
+     </DialogActions>
+    }
+   >
+    <TableProfilRoKunci />
    </DialogComponent>
   </>
  );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Button, DialogActions, Typography } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
@@ -39,8 +39,8 @@ export default function CardSegment({ project }: { project: string }) {
     />
    ) : (
     <>
-     {dataTema.map((itemSegment) => (
-      <>
+     {dataTema.map((itemSegment, index) => (
+      <Fragment key={index}>
        {project === itemSegment.temaId && (
         <>
          {itemSegment.segment.length > 1 ? (
@@ -56,7 +56,7 @@ export default function CardSegment({ project }: { project: string }) {
          )}
         </>
        )}
-      </>
+      </Fragment>
      ))}
     </>
    )}

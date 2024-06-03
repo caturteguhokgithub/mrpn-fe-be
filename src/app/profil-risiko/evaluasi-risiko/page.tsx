@@ -1,6 +1,6 @@
 "use client";
 
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/components/layouts/layout";
 import EmptyState from "@/components/empty";
@@ -83,17 +83,17 @@ export default function PageEvaluasiRisiko({}) {
     ],
    },
    {
-    id: "risk_appetitte",
-    header: "Risk Appetitte",
+    id: "risk_appetite",
+    header: "Risk Appetite",
     columns: [
      {
-      accessorKey: "nilai_appetitte",
+      accessorKey: "nilai_appetite",
       header: "Nilai",
       size: 120,
       enableColumnActions: false,
      },
      {
-      accessorKey: "keterangan_appetitte",
+      accessorKey: "keterangan_appetite",
       header: "Keterangan",
       size: 120,
       enableColumnActions: false,
@@ -101,23 +101,30 @@ export default function PageEvaluasiRisiko({}) {
     ],
    },
    {
-    id: "residual",
-    header: "Residual",
-    columns: [
-     {
-      accessorKey: "nilai_residual",
-      header: "Nilai",
-      size: 120,
-      enableColumnActions: false,
-     },
-     {
-      accessorKey: "tingkat_residual",
-      header: "Tingkat",
-      size: 120,
-      enableColumnActions: false,
-     },
-    ],
+    accessorKey: "pengendalian",
+    header: "Pengendalian",
+    size: 200,
+    enableColumnActions: false,
+    enableSorting: false,
    },
+   //    {
+   //     id: "residual",
+   //     header: "Residual",
+   //     columns: [
+   //      {
+   //       accessorKey: "nilai_residual",
+   //       header: "Nilai",
+   //       size: 120,
+   //       enableColumnActions: false,
+   //      },
+   //      {
+   //       accessorKey: "tingkat_residual",
+   //       header: "Tingkat",
+   //       size: 120,
+   //       enableColumnActions: false,
+   //      },
+   //     ],
+   //    },
   ],
   []
  );
@@ -134,7 +141,7 @@ export default function PageEvaluasiRisiko({}) {
  const table = useMaterialReactTable({
   columns,
   data,
-  ...renderTopToolbar,
+  //   ...renderTopToolbar,
   ...advancedTable,
   displayColumnDefOptions: {
    "mrt-row-actions": {
@@ -143,7 +150,7 @@ export default function PageEvaluasiRisiko({}) {
     Cell: () => (
      <ActionColumn
       viewClick={handleModalOpenView}
-      editClick={handleModalOpenEdit}
+      //   editClick={handleModalOpenEdit}
       deleteClick={handleModalOpenDelete}
      />
     ),
@@ -176,8 +183,9 @@ export default function PageEvaluasiRisiko({}) {
      title="Evaluasi Risiko"
      // chooseProject
      // chooseKonteks
+     chipKp
      chooseKonteks
-     chooseRo
+     //  chooseRo
      project={project}
      handleChangeProject={handleChangeProject}
     >

@@ -10,7 +10,7 @@ export const IconFA = ({
  name: string;
  size: number;
  color?: string;
- sx?: any;
+ sx?: React.CSSProperties;
  onclick?: () => void;
 }) => {
  return (

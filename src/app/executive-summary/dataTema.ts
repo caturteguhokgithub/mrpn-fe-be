@@ -1,3 +1,5 @@
+import { Task } from "frappe-gantt";
+
 export const dataTema = [
  //  STUNTING
  {
@@ -69,7 +71,11 @@ export const dataTema = [
    },
   ],
   segment: [
-   "Ibu hamil; ibu menyusui; anak berusia 0 (nol) - 59 (lima puluh sembilan) bulan; remaja putri; calon pengantin.",
+   "Ibu hamil",
+   "Ibu menyusui",
+   "Anak berusia 0 (nol) - 59 (lima puluh sembilan) bulan",
+   "Remaja putri",
+   "Calon pengantin",
   ],
   cascading: [
    {
@@ -81,9 +87,13 @@ export const dataTema = [
   projectRoadmap: [
    "https://res.cloudinary.com/caturteguh/image/upload/v1714699664/mrpn/executive_summary/project_roadmap/project_roadmap_stunting_g5bsrd.jpg",
   ],
-  criticalPath: [
-   "https://res.cloudinary.com/caturteguh/image/upload/v1714700142/mrpn/executive_summary/critical_path/critical_path_stunting_gtqclk.jpg",
-  ],
+  // criticalPath: [
+  //  //  "https://res.cloudinary.com/caturteguh/image/upload/v1714700142/mrpn/executive_summary/critical_path/critical_path_stunting_gtqclk.jpg",
+  //  { id: "1", name: "", start: "", end: "", progress: 0, dependencies: "" },
+  //  { id: "1", name: "", start: "", end: "", progress: 0, dependencies: "" },
+  //  { id: "1", name: "", start: "", end: "", progress: 0, dependencies: "" },
+  // ] as Task[],
+  criticalPath: [],
   pendanaan: [
    {
     yearly: [],
@@ -581,6 +591,79 @@ export const dataTema = [
     ],
    },
   ],
+  indication: [
+   {
+    jenis: "Risiko Strategis",
+    kejadian: "Penerima manfaat program penurunan stunting tidak tepat sasaran",
+    perlakuan: "Pemanfaatan satu data induk",
+    entitas: [
+     { group: "Entitas Utama", member: ["BKKBN"] },
+     {
+      group: "Entitas Pendukung",
+      member: ["Kemenkes", "Kemensos", "Bappenas"],
+     },
+    ],
+   },
+   {
+    jenis: "Risiko Kelembagaan",
+    kejadian:
+     "Kurangnya koordinasi antar stakeholder pemerintah pusat dan pemerintah daerah",
+    perlakuan:
+     "Memperkuat peran dan fungsi Tim Koordinasi Nasional Percepatan Penurunan Stunting",
+    entitas: [
+     { group: "Entitas Utama", member: ["BKKBN"] },
+     {
+      group: "Entitas Pendukung",
+      member: ["Kemenkes", "PUPR", "Kemendagri"],
+     },
+     {
+      group: "Koordinator",
+      member: ["Kemenko PMK"],
+     },
+    ],
+   },
+   {
+    jenis: "Risiko Regulasi",
+    kejadian:
+     "Belum adanya kebijakan turunan Perpres 72 Tahun 2021 tentang Percepatan Penurunan Stunting di level pemerintah daerah",
+    perlakuan:
+     "Penyusunan kebijakan Pemerintah Daerah yang mengatur Penurunan Stunting",
+    entitas: [
+     {
+      group: "Entitas Pendukung",
+      member: ["Kemendagri"],
+     },
+    ],
+   },
+   {
+    jenis: "Risiko Koordinasi",
+    kejadian:
+     "Kurangnya pemantauan dan pengawasan terhadap program penurunan stunting",
+    perlakuan:
+     "Penyusunan kebijakan Pemerintah Daerah yang mengatur Penurunan Stunting",
+    entitas: [
+     {
+      group: "Entitas Pendukung",
+      member: ["Kemendagri", "Kemensos"],
+     },
+    ],
+   },
+   {
+    jenis: "Risiko Sosial",
+    kejadian:
+     "Angka prevalensi stunting Indonesia menempati urutan tertinggi ke-27 dari 154 negara di dunia dan urutan ke-5 diantara negara-negara di Asia (WHO, 2023)",
+    perlakuan:
+     "Penyusunan kebijakan penurunan stunting dan tata laksana gizi buruk akut berbasis fasilitas meliputi implementasi protokol WHO, serta sosialisasi terkait prioritas penerima bantuan program",
+    entitas: [
+     { group: "Entitas Utama", member: ["BKKBN"] },
+     {
+      group: "Entitas Pendukung",
+      member: ["Kemenkes", "Kemendagri"],
+     },
+     { group: "Entitas Sosial", member: ["Kemensos"] },
+    ],
+   },
+  ],
   stakeholder: [
    {
     label: "Entitas Utama",
@@ -1005,6 +1088,7 @@ export const dataTema = [
    //  },
   ],
   overallRisk: [],
+  indication: [],
   stakeholder: [
    {
     label: "Entitas Utama",
@@ -1329,6 +1413,7 @@ export const dataTema = [
    //  },
   ],
   overallRisk: [],
+  indication: [],
   stakeholder: [
    {
     label: "Entitas Utama",
@@ -1690,6 +1775,7 @@ export const dataTema = [
    //  },
   ],
   overallRisk: [],
+  indication: [],
   stakeholder: [
    {
     label: "Entitas Utama",

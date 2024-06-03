@@ -2,17 +2,31 @@ import React from "react";
 import {
  FormControl,
  Grid,
+ Grow,
  MenuItem,
  SelectChangeEvent,
  Stack,
  TextField,
+ Tooltip,
  Typography,
 } from "@mui/material";
 import TextareaComponent from "@/app/components/textarea";
 import SelectCustomTheme from "@/app/components/select";
+import { listEntitasUtama } from "@/app/utils/data";
 
 export default function FormProfilRoProject({ mode }: { mode?: string }) {
  const [project, setProject] = React.useState("");
+ const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+ const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  setAnchorEl(event.currentTarget);
+ };
+
+ const handlePopoverClose = () => {
+  setAnchorEl(null);
+ };
+
+ const open = Boolean(anchorEl);
 
  const handleChangeProject = (event: SelectChangeEvent) => {
   setProject(event.target.value);
@@ -48,7 +62,7 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
    <Grid item lg={4}>
     <FormControl fullWidth>
      <Typography gutterBottom>Entitas Utama</Typography>
-     {mode === "add" ? (
+     {mode === "add" || mode === "edit" ? (
       <SelectCustomTheme
        defaultStyle
        small
@@ -60,28 +74,25 @@ export default function FormProfilRoProject({ mode }: { mode?: string }) {
          Pilih Entitas Utama
         </Typography>
        </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        Kementerian Kesehatan
-       </MenuItem>
-       <MenuItem value="2">Kementerian PUPR</MenuItem>
-       <MenuItem value="3">Kementerian Perindustrian</MenuItem>
-      </SelectCustomTheme>
-     ) : mode === "edit" ? (
-      <SelectCustomTheme
-       defaultStyle
-       value={project}
-       onChange={handleChangeProject}
-      >
-       <MenuItem value="" disabled>
-        <Typography fontSize={14} fontStyle="italic">
-         Pilih Entitas Utama
-        </Typography>
-       </MenuItem>
-       <MenuItem value="1" defaultChecked>
-        Kementerian Kesehatan
-       </MenuItem>
-       <MenuItem value="2">Kementerian PUPR</MenuItem>
-       <MenuItem value="3">Kementerian Perindustrian</MenuItem>
+       {listEntitasUtama.map((euLabel, index) => (
+        <MenuItem key={index} value={euLabel}>
+         {euLabel.length >= 35 ? (
+          <Tooltip title={euLabel} followCursor TransitionComponent={Grow}>
+           <Typography
+            aria-owns={open ? "mouse-over-popover" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            sx={{ fontSize: 14 }}
+           >
+            {euLabel.substring(0, 35) + "..."}
+           </Typography>
+          </Tooltip>
+         ) : (
+          euLabel
+         )}
+        </MenuItem>
+       ))}
       </SelectCustomTheme>
      ) : (
       <Typography fontWeight={600}>-</Typography>

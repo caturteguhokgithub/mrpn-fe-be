@@ -80,7 +80,7 @@ export default function TableSasaran({
     ) : null}
    </Stack>
    <TableContainer component={Paper} elevation={0} variant="outlined">
-    <Table sx={{ minWidth: 650 }} size="small">
+    <Table size="small">
      <TableHead sx={{ bgcolor: theme.palette.primary.light }}>
       <TableRow>
        <TableCell width="70px"></TableCell>
@@ -90,13 +90,15 @@ export default function TableSasaran({
      </TableHead>
      <TableBody>
       {mode === "add" ? (
-       <TableCell colSpan={3}>
-        <EmptyState
-         icon={<IconEmptyData />}
-         title="Data Kosong"
-         description="Silahkan isi konten tabel ini"
-        />
-       </TableCell>
+       <TableRow>
+        <TableCell colSpan={3}>
+         <EmptyState
+          icon={<IconEmptyData />}
+          title="Data Kosong"
+          description="Silahkan isi konten tabel ini"
+         />
+        </TableCell>
+       </TableRow>
       ) : (
        <>
         {rows.map((row) => (

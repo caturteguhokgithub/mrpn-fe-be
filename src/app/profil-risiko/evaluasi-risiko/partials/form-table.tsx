@@ -269,7 +269,7 @@ export default function FormTable({ mode }: { mode?: string }) {
       </Stack>
      </FormControl>
     </Grid>
-    <Grid item lg={12}>
+    {/* <Grid item lg={12}>
      <Divider>
       <Chip label="Residual" size="small" />
      </Divider>
@@ -341,7 +341,7 @@ export default function FormTable({ mode }: { mode?: string }) {
        <Typography fontWeight={600}>-</Typography>
       )}
      </FormControl>
-    </Grid>
+    </Grid> */}
    </Grid>
   </>
  );

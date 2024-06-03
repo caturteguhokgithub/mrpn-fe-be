@@ -1,8 +1,10 @@
 import React from "react";
 import {
+ Checkbox,
  Chip,
  Divider,
  FormControl,
+ FormControlLabel,
  Grid,
  MenuItem,
  SelectChangeEvent,
@@ -13,6 +15,7 @@ import {
 import TextareaComponent from "@/app/components/textarea";
 import SelectCustomTheme from "@/app/components/select";
 import { riskCategory } from "../setting";
+import { red } from "@mui/material/colors";
 
 export default function FormTable({ mode }: { mode?: string }) {
  const [konteks, setKonteks] = React.useState("");
@@ -182,7 +185,33 @@ export default function FormTable({ mode }: { mode?: string }) {
     <Grid item lg={12}>
      <Divider />
     </Grid>
-    <Grid item lg={6}>
+    <Grid item lg={12}>
+     <FormControl fullWidth>
+      <Typography gutterBottom>Pemilik Risiko MRPN Linsek</Typography>
+      {mode === "add" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        placeholder="Pemilik risiko MRPN Linsek"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : mode === "edit" ? (
+       <TextField
+        variant="outlined"
+        size="small"
+        value="-"
+        InputLabelProps={{
+         shrink: true,
+        }}
+       />
+      ) : (
+       <Typography fontWeight={600}>-</Typography>
+      )}
+     </FormControl>
+    </Grid>
+    <Grid item lg={8}>
      <FormControl fullWidth>
       <Typography gutterBottom>Kategori Risiko MRPN Linsek</Typography>
       {mode === "add" || mode === "edit" ? (
@@ -208,26 +237,17 @@ export default function FormTable({ mode }: { mode?: string }) {
       )}
      </FormControl>
     </Grid>
-    <Grid item lg={6}>
+    <Grid item lg={4}>
      <FormControl fullWidth>
-      <Typography gutterBottom>Pemilik Risiko MRPN Linsek</Typography>
-      {mode === "add" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Pemilik risiko MRPN Linsek"
-        InputLabelProps={{
-         shrink: true,
-        }}
-       />
-      ) : mode === "edit" ? (
-       <TextField
-        variant="outlined"
-        size="small"
-        value="-"
-        InputLabelProps={{
-         shrink: true,
-        }}
+      <Typography gutterBottom>Insidentil</Typography>
+      {mode === "add" || mode === "edit" ? (
+       <FormControlLabel
+        control={<Checkbox />}
+        label={
+         <Typography fontWeight={600} color={red[600]}>
+          Insidentil
+         </Typography>
+        }
        />
       ) : (
        <Typography fontWeight={600}>-</Typography>

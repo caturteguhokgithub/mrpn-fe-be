@@ -1,4 +1,4 @@
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import {
@@ -11,6 +11,7 @@ import {
  Grid,
  Grow,
  Popover,
+ Stack,
  TextField,
  Tooltip,
  Typography,
@@ -37,6 +38,7 @@ import TableKemungkinan from "./table-kriteria-kemungkinan";
 import { listKotaKab } from "@/app/utils/kotaKab";
 import theme from "@/theme";
 import TableDampak from "./table-kriteria-dampak";
+import DateRangePicker from "@/app/components/dateRange";
 
 export default function FormKonstra({ mode }: { mode?: string }) {
  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -50,6 +52,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
  const [anchorElTooltip, setAnchorElTooltip] =
   React.useState<HTMLElement | null>(null);
  const [project, setProject] = React.useState("");
+ const [valueLocation, setValueLocation] = React.useState<string | null>("");
 
  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
   setAnchorElTooltip(event.currentTarget);
@@ -94,41 +97,18 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     title="Formulir Penetapan Konteks"
     withCard
     heightTitleBreadcrumb
-    titleChild={
-     <>
-      {/* <Chip
-       color="primary"
-       variant="outlined"
-       label={
-        <Tooltip title={nameOfKp} followCursor TransitionComponent={Grow}>
-         <Box
-          aria-owns={openTooltip ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-         >
-          {nameOfKp.substring(0, 48) + "..."}
-         </Box>
-        </Tooltip>
-       }
-       sx={{
-        bgcolor: "white",
-        fontWeight: 600,
-        lineHeight: 1,
-        cursor: "default",
-       }}
-      /> */}
-      <DropdownKp handleChangeProject={handleChangeProject} />
-     </>
-    }
+    chipKp
     breadcrumb={
-     <Breadcrumbs aria-label="breadcrumb">
+     <Breadcrumbs aria-label="breadcrumb" sx={{ lineHeight: 1 }}>
       <Typography fontSize="12px">Penetapan Konteks</Typography>
       <Link href="/penetapan-konteks/konteks-strategis">
        <Typography fontSize="12px">Konteks Strategis</Typography>
       </Link>
      </Breadcrumbs>
     }
+    sxCard={{
+     marginTop: 0,
+    }}
    >
     <Typography
      component="h2"
@@ -169,86 +149,8 @@ export default function FormKonstra({ mode }: { mode?: string }) {
      <Grid item lg={6}>
       <FormControl fullWidth>
        <Typography gutterBottom>Periode Penerapan</Typography>
-       {mode === "add" ? (
-        <>
-         <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-           vertical: "bottom",
-           horizontal: "left",
-          }}
-         >
-          <DateRange
-           editableDateInputs={true}
-           onChange={(item: any) => setState([item.selection])}
-           moveRangeOnFirstSelection={false}
-           ranges={state}
-           months={2}
-           direction="horizontal"
-           minDate={minDate}
-           maxDate={maxDate}
-          />
-         </Popover>
-         <TextField
-          onClick={handleClick}
-          variant="outlined"
-          size="small"
-          placeholder="Periode Penerapan"
-          InputLabelProps={{
-           shrink: true,
-          }}
-          value={`${moment
-           .utc(state[0].startDate)
-           .utcOffset(7)
-           .format("D MMM YYYY")} - ${moment
-           .utc(state[0].endDate)
-           .utcOffset(7)
-           .format("D MMM YYYY")}`}
-         />
-        </>
-       ) : mode === "edit" ? (
-        <>
-         <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-           vertical: "bottom",
-           horizontal: "left",
-          }}
-         >
-          <DateRange
-           editableDateInputs={true}
-           onChange={(item: any) => setState([item.selection])}
-           moveRangeOnFirstSelection={false}
-           ranges={state}
-           months={2}
-           direction="horizontal"
-           minDate={minDate}
-           maxDate={maxDate}
-          />
-         </Popover>
-         <TextField
-          onClick={handleClick}
-          variant="outlined"
-          size="small"
-          placeholder="Periode Penerapan"
-          InputLabelProps={{
-           shrink: true,
-          }}
-          value={`${moment
-           .utc(state[0].startDate)
-           .utcOffset(7)
-           .format("D MMM YYYY")} - ${moment
-           .utc(state[0].endDate)
-           .utcOffset(7)
-           .format("D MMM YYYY")}`}
-         />
-        </>
+       {mode === "add" || mode === "edit" ? (
+        <DateRangePicker placeholder="Pilih periode penerapan" />
        ) : (
         <Typography fontWeight={600}>-</Typography>
        )}
@@ -308,6 +210,10 @@ export default function FormKonstra({ mode }: { mode?: string }) {
           size="small"
           options={listKotaKab}
           getOptionLabel={(option) => option.name}
+          // value={valueLocation}
+          // onChange={(event: any, newValue: string | null) => {
+          //  setValueLocation(newValue);
+          // }}
           // defaultValue={[listKotaKab[13]]}
           renderInput={(params) => (
            <TextField
@@ -395,7 +301,7 @@ export default function FormKonstra({ mode }: { mode?: string }) {
     <Divider sx={{ my: 3 }} />
     <TableMilestone mode={mode} />
     <Divider sx={{ my: 3 }} />
-    <TableStakeholder mode={mode} />
+    <TableStakeholder mode={mode} project="1" />
     <Divider sx={{ my: 3 }} />
     <TablePeraturan mode={mode} />
     <Divider sx={{ my: 3 }} />

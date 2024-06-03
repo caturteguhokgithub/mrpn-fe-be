@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Button, DialogActions, Typography } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
@@ -38,8 +38,8 @@ export default function CardGoals({ project }: { project: string }) {
     />
    ) : (
     <>
-     {dataTema.map((itemGoals) => (
-      <>
+     {dataTema.map((itemGoals, index) => (
+      <Fragment key={index}>
        {project === itemGoals.temaId && (
         <>
          {itemGoals.goals.length > 1 ? (
@@ -55,7 +55,7 @@ export default function CardGoals({ project }: { project: string }) {
          )}
         </>
        )}
-      </>
+      </Fragment>
      ))}
     </>
    )}

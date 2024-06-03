@@ -35,10 +35,10 @@ export default function TabInformasi({}) {
     <TableKemungkinan />
     <TableDampak />
    </ItemInformation>
-   <ItemInformation title="Matriks Analisis Risiko dan Level Risiko">
+   {/* <ItemInformation title="Matriks Analisis Risiko dan Level Risiko">
     <TableAnalisis />
     <TableLevel />
-   </ItemInformation>
+   </ItemInformation> */}
   </Stack>
  );
 }

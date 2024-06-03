@@ -1,6 +1,6 @@
 "use client";
 
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React, { useMemo } from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import EmptyState from "@/app/components/empty";
@@ -170,8 +170,9 @@ export default function PagePerlakuanRisiko({}) {
      title="Perlakuan Risiko"
      //  chooseProject
      //  chooseKonteks
+     chipKp
      chooseKonteks
-     chooseRo
+     //  chooseRo
      project={project}
      handleChangeProject={handleChangeProject}
     >

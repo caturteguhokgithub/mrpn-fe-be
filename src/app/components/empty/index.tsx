@@ -7,7 +7,7 @@ export default function EmptyState({
  icon,
  dense,
 }: {
- title: string;
+ title?: string;
  description?: React.ReactNode;
  icon?: React.ReactNode;
  dense?: boolean;

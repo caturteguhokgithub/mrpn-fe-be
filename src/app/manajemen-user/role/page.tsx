@@ -1,6 +1,6 @@
 "use client";
 
-import ContentPage from "@/app/components/contents/content";
+import ContentPage from "@/app/components/contents";
 import React from "react";
 import DashboardLayout from "@/app/components/layouts/layout";
 import Box from "@mui/material/Box";
@@ -92,7 +92,7 @@ export default function PageUserManagement({}) {
      <SectionCheckbox menuLabel="Pemantauan Pelaksanaan Risiko" hasChild>
       <SectionCheckbox menuLabel="Peringatan Dini & Saran" />
       <SectionCheckbox menuLabel="Pemantauan" />
-      <SectionCheckbox menuLabel="Pelaporan Berkala" />
+      <SectionCheckbox menuLabel="Pelaporan" />
      </SectionCheckbox>
     </Stack>
     {/* </Paper> */}

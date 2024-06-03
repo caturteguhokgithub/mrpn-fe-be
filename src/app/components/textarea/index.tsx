@@ -8,14 +8,17 @@ export default function TextareaComponent({
  placeholder,
  row,
  value,
+ width,
 }: {
  label: string;
  placeholder: string;
  row?: number;
  value?: string;
+ width?: number | string;
 }) {
  const Textarea = styled(BaseTextareaAutosize)(
   ({ theme }: any) => `
+        width: ${width};
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
@@ -56,6 +59,7 @@ export default function TextareaComponent({
    minRows={row ? row : 3}
    placeholder={placeholder}
    value={value}
+   sx={{ width: width }}
   />
  );
 }
