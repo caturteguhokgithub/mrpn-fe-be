@@ -8,7 +8,8 @@ import DialogComponent from "@/app/components/dialog";
 import FormTagging from "./form-tagging";
 import TableTagging from "./table-tagging";
 
-export default function CardTagging({ project }: { project: string }) {
+export default function CardTagging() {
+ const project = "1";
  const [modalOpenTag, setModalOpenTag] = React.useState(false);
 
  const handleModalOpenTag = () => {

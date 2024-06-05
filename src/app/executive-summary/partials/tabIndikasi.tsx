@@ -5,11 +5,10 @@ import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import TableIndication from "./tabIndication/table";
 import DialogComponent from "@/app/components/dialog";
-import FormSwot from "./tabBackground/form-swot";
 import AddButton from "@/app/components/buttonAdd";
 import FormIndication from "./tabIndication/form";
 
-export default function TabIndikasi({ project }: { project: string }) {
+export default function TabIndikasi() {
  const [modalOpen, setModalOpen] = React.useState(false);
 
  const handleModalOpen = () => {
@@ -36,7 +35,7 @@ export default function TabIndikasi({ project }: { project: string }) {
       />
      }
     >
-     {isEmpty || project === "4" ? (
+     {isEmpty ? (
       <EmptyState
        dense
        icon={<IconEmptyData width={100} />}
@@ -44,7 +43,7 @@ export default function TabIndikasi({ project }: { project: string }) {
        description="Silahkan isi konten halaman ini"
       />
      ) : (
-      <TableIndication project={project} />
+      <TableIndication project="1" />
      )}
     </CardItem>
    </Stack>
@@ -63,7 +62,7 @@ export default function TabIndikasi({ project }: { project: string }) {
      </DialogActions>
     }
    >
-    <FormIndication mode="add" project={project} />
+    <FormIndication mode="add" project="1" />
    </DialogComponent>
   </>
  );

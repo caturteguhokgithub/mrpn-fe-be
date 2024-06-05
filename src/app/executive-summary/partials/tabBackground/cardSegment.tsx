@@ -7,7 +7,8 @@ import dynamic from "next/dynamic";
 import DialogComponent from "@/app/components/dialog";
 import { dataTema } from "../../dataTema";
 
-export default function CardSegment({ project }: { project: string }) {
+export default function CardSegment() {
+ const project = "1"
  const [modalOpenSegment, setModalOpenSegment] = React.useState(false);
 
  const [value, setValue] = React.useState("");

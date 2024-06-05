@@ -8,6 +8,11 @@ import React from "react";
 import "./globals.css";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { GlobalState, defaultInitGlobalState, GlobalStoreProvider } from "@/provider";
+import { auth, UserData } from "@/config/authentication";
+import { redirect } from "next/navigation";
+import { instanceApi } from '@/config/apiClient'
+import { EXSUM, RKP_LEVEL } from "@/constants/system-parameter-constant";
 // import Head from "next/head";
 
 export const metadata: Metadata = {
@@ -30,7 +35,29 @@ export const metadata: Metadata = {
  },
 };
 
-export default function RootLayout(props: any) {
+export default async function RootLayout(props: any) {
+
+ const sessionAuth = await auth()
+ if (sessionAuth == null) {
+  redirect('/api/auth/signin')
+ }
+ const userData = sessionAuth?.user as UserData
+
+ const projectLevel:string = await instanceApi(userData.token)
+   .post("misc/system_parameter/getByModuleAndName", {module:EXSUM, name:RKP_LEVEL})
+   .then(res => {
+    return res.data == null ? "KP" : res.data.data;
+   });
+
+ const globalState:GlobalState = {
+  ...defaultInitGlobalState,
+  userdata:userData,
+  project:{
+   ...defaultInitGlobalState.project,
+   level:projectLevel
+  }
+ }
+
  return (
   <>
    <html lang="en">
@@ -51,7 +78,9 @@ export default function RootLayout(props: any) {
      <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
        <CssBaseline />
-       {props.children}
+       <GlobalStoreProvider state={globalState}>
+        {props.children}
+       </GlobalStoreProvider>
       </ThemeProvider>
      </AppRouterCacheProvider>
     </body>

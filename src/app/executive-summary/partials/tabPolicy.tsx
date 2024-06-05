@@ -5,13 +5,13 @@ import CardCritical from "./tabPolicy/cardCritical";
 import CardRoKunci from "./tabPolicy/cardRoKunci";
 import CardFund from "./tabPolicy/cardFund";
 
-export default function TabPolicy({ project }: { project: string }) {
+export default function TabPolicy() {
  return (
   <Stack gap={1}>
-   <CardRoadmap project={project} />
-   <CardRoKunci project={project} />
-   <CardCritical project={project} />
-   <CardFund project={project} />
+   <CardRoadmap project="1" />
+   <CardRoKunci project="1" />
+   <CardCritical project="1" />
+   <CardFund project="1" />
   </Stack>
  );
 }

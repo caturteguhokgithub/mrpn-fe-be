@@ -7,7 +7,8 @@ import dynamic from "next/dynamic";
 import DialogComponent from "@/app/components/dialog";
 import { dataTema } from "../../dataTema";
 
-export default function CardGoals({ project }: { project: string }) {
+export default function CardGoals() {
+ const project = "1";
  const [modalOpenGoal, setModalOpenGoal] = React.useState(false);
 
  const [value, setValue] = React.useState("");
