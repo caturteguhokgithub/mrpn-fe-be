@@ -16,6 +16,8 @@ import theme from "@/theme";
 import { useExsumStore } from "@/app/executive-summary/provider";
 import useSWRMutation from "swr/mutation";
 import { postRequest } from "@/utils/fetcher";
+import {ListPermission, checkPermission} from "@/config/permission";
+import {useGlobalStore} from "@/provider"
 
 export const getData = () => {
     const {
@@ -77,6 +79,9 @@ export const initStateSwot:Swot = {
 }
 
 export default function CardSwot() {
+    const {userdata} = useGlobalStore((state) => state)
+    const {permission} = userdata
+
     const [modalForm, setModalForm] = React.useState(false);
     const [swotData, setSwotData] = React.useState<Swot>(initStateSwot)
 
@@ -126,13 +131,25 @@ export default function CardSwot() {
     ) : (
         <CardItem
             title="Kondisi Saat Ini/Latar Belakang Proyek (SWOT)"
-            setting
-            settingEditOnclick={() => {
-                setModalForm(true)
-            }}
-            settingDeleteOnclick={() => {
-                handleDeleteData(swotData)
-            }}
+            setting={
+                checkPermission(permission, ListPermission.EXSUM_SWOT_ADD)
+                || checkPermission(permission, ListPermission.EXSUM_SWOT_UPDATE)
+                || checkPermission(permission, ListPermission.EXSUM_SWOT_DELETE)
+                ? true : undefined
+            }
+            settingEditOnclick={
+                checkPermission(permission, ListPermission.EXSUM_SWOT_ADD) || checkPermission(permission, ListPermission.EXSUM_SWOT_UPDATE)
+                ?
+                () => {setModalForm(true)}
+                : undefined
+            }
+            settingDeleteOnclick={
+                checkPermission(permission, ListPermission.EXSUM_SWOT_DELETE)
+                ?
+                () => {handleDeleteData(swotData)}
+                :
+                undefined
+            }
         >
             {data == null ? (
                 <EmptyState

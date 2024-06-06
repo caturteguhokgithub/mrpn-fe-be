@@ -117,28 +117,32 @@ export default function CardItem({
                         </MenuItem>
                     </>
                 ) : (
-                    <MenuItem onClick={settingEditOnclick}>
-                        <ListItemDropdownMenu label="Ubah" />
-                    </MenuItem>
+                    settingEditOnclick && (
+                        <MenuItem onClick={settingEditOnclick}>
+                            <ListItemDropdownMenu label="Ubah" />
+                        </MenuItem>
+                    )
                 )}
 
-                <MenuItem
-                    onClick={settingDeleteOnclick}
-                    sx={{
-                        bgcolor: red[100],
-                        color: red[700],
-                        "&:hover": {
-                            bgcolor: red[200]
-                        }
-                    }}
-                >
-                    <ListItemIcon sx={{ minWidth: "0 !important" }}>
-                        <IconFA size={14} name="trash-alt" color={red[700]} />
-                    </ListItemIcon>
-                    <ListItemText>
-                        <Typography fontSize={14}>Hapus</Typography>
-                    </ListItemText>
-                </MenuItem>
+                {settingDeleteOnclick && (
+                    <MenuItem
+                        onClick={settingDeleteOnclick}
+                        sx={{
+                            bgcolor: red[100],
+                            color: red[700],
+                            "&:hover": {
+                                bgcolor: red[200]
+                            }
+                        }}
+                    >
+                        <ListItemIcon sx={{ minWidth: "0 !important" }}>
+                            <IconFA size={14} name="trash-alt" color={red[700]} />
+                        </ListItemIcon>
+                        <ListItemText>
+                            <Typography fontSize={14}>Hapus</Typography>
+                        </ListItemText>
+                    </MenuItem>
+                )}
             </Menu>
         </>
     );

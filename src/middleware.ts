@@ -49,7 +49,6 @@ export default auth( async (req) => {
             })
         }
     })
-    console.log(allMenuRoute)
 
     // if (!allMenuRoute.includes(pathName.substring(1))) {
     //     return NextResponse.redirect(new URL(`api/auth/signin?callbackUrl=${encodeURIComponent(BASE_URL)}`,BASE_URL));
