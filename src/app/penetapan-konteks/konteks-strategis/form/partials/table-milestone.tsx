@@ -1,31 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {
  Box,
  Button,
  DialogActions,
- Icon,
- IconButton,
  Paper,
  Stack,
- Table,
- TableBody,
- TableCell,
- TableContainer,
- TableHead,
- TableRow,
- Tooltip,
  Typography,
 } from "@mui/material";
-import theme from "@/theme";
 import { AddCircle, EditSharp } from "@mui/icons-material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import DialogComponent from "@/app/components/dialog";
-import FormROKunci from "./form-ro-kunci";
 import FormMilestone from "./form-milestone";
-// import { FrappeGantt, Task, ViewMode } from "frappe-gantt-react";
-import GanttChart from "./gantt/gantt";
-import { tasks } from "../../setting";
+import GanttChart from "@/app/executive-summary/partials/tabPolicy/gantt-critical";
 
 export default function TableMilestone({ mode }: { mode?: string }) {
  const [modalOpenAdd, setModalOpenAdd] = React.useState(false);
@@ -140,14 +127,7 @@ export default function TableMilestone({ mode }: { mode?: string }) {
      />
     </Paper>
    ) : (
-    <Box
-     m="0 auto"
-     sx={{
-      m: "0 auto",
-     }}
-    >
-     <GanttChart tasks={tasks} />
-    </Box>
+    <GanttChart />
    )}
    {/* <TableContainer component={Paper} elevation={0} variant="outlined">
     <Table sx={{ minWidth: 650 }} size="small">

@@ -1,5 +1,3 @@
-import { Task } from "frappe-gantt";
-
 export const dataTema = [
  //  STUNTING
  {

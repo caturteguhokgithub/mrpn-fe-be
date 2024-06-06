@@ -14,12 +14,46 @@ import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
 import dynamic from "next/dynamic";
 import { dataTema } from "../../dataTema";
-import GanttChart from "@/app/penetapan-konteks/konteks-strategis/form/partials/gantt/gantt";
-import { tasks } from "@/app/penetapan-konteks/konteks-strategis/setting";
+// import GanttChart from "@/app/penetapan-konteks/konteks-strategis/form/partials/gantt/gantt";
+// import { tasks } from "@/app/penetapan-konteks/konteks-strategis/setting";
 import FormMilestone from "@/app/penetapan-konteks/konteks-strategis/form/partials/form-milestone";
-import { Chart } from "react-google-charts";
+// import { Chart } from "react-google-charts";
 import { dataCritical1, dataRowCritical } from "../../data";
-import { GanttDefault } from "./gantt";
+// import { GanttDefault } from "./gantt";
+import {
+ Gantt,
+ Task,
+ EventOption,
+ StylingOption,
+ ViewMode,
+ DisplayOption,
+} from "gantt-task-react";
+import "gantt-task-react/dist/index.css";
+import dayjs from "dayjs";
+import GanttChart from "./gantt-critical";
+
+const CustomTooltip = ({ task }: { task?: any }) => {
+ return (
+  <div
+   style={{
+    backgroundColor: "white",
+    border: "1px solid black",
+    padding: "10px",
+   }}
+  >
+   <h4>{task.name}</h4>
+   <p>
+    <strong>Start:</strong> {dayjs(task.start).format("YYYY")}
+   </p>
+   <p>
+    <strong>End:</strong> {dayjs(task.end).format("YYYY")}
+   </p>
+   <p>
+    <strong>Progress:</strong> {task.progress}%
+   </p>
+  </div>
+ );
+};
 
 export default function CardCritical({ project }: { project: string }) {
  const [modalOpenCritical, setModalOpenCritical] = React.useState(false);
@@ -87,6 +121,19 @@ export default function CardCritical({ project }: { project: string }) {
 
  const dataCritical = [dataRowCritical, ...dataCritical1];
 
+ const tasks: Task[] = [
+  {
+   start: new Date(2025, 0, 1),
+   end: new Date(2029, 11, 31),
+   name: "Idea",
+   id: "Task 0",
+   type: "task",
+   progress: 0,
+   isDisabled: false,
+   styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
+  },
+ ];
+
  return (
   <CardItem
    title="Critical Path Prioritas Proyek"
@@ -101,84 +148,8 @@ export default function CardCritical({ project }: { project: string }) {
      description="Silahkan isi konten halaman ini"
     />
    ) : (
-    <>
-     <Box width="100%" textAlign="center">
-      <GanttChart tasks={tasks} />
-      {/* {dataTema.map((itemCritical) => (
-       <>
-        {project === itemCritical.temaId && (
-         <>
-          {itemCritical.criticalPath.length < 1 ? (
-           <EmptyState
-            dense
-            icon={<IconEmptyData width={100} />}
-            title="Data Kosong"
-            description="Silahkan isi konten halaman ini"
-           />
-          ) : (
-           <>
-            {itemCritical.criticalPath.map((detailCritical, index) => (
-             <>
-              <Tooltip
-               key={index}
-               title="Klik untuk perbesar gambar"
-               placement="right"
-               followCursor
-               TransitionComponent={Zoom}
-              >
-               <Image
-                alt="Critical Path Prioritas Proyek"
-                src={detailCritical}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{
-                 width: "70%",
-                 height: "auto",
-                 margin: "0 auto",
-                 cursor: "pointer",
-                }}
-                onClick={handleModalImgCritical}
-               />
-              </Tooltip>
-              <DialogComponent
-               width="80%"
-               dialogOpen={modalOpenImgCritical}
-               dialogClose={handleModalClose}
-              >
-               <Image
-                alt="Critical Path Prioritas Proyek"
-                src={detailCritical}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{
-                 width: "100%",
-                 height: "auto",
-                 margin: "0 auto",
-                }}
-               />
-              </DialogComponent>
-             </>
-            ))}
-           </>
-          )}
-         </>
-        )}
-       </>
-      ))} */}
-     </Box>
-    </>
+    <GanttChart project={project} />
    )}
-   <Chart
-    chartType="Gantt"
-    width="100%"
-    height="300px"
-    // data={project === "1" ? dataCritical1 : dataCritical1}
-    options={options}
-    data={dataCritical}
-   />
-   {/* <GanttDefault /> */}
    <DialogComponent
     dialogOpen={modalOpenCritical}
     dialogClose={handleModalClose}
