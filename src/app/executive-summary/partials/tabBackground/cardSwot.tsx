@@ -14,52 +14,9 @@ import DialogComponent from "@/app/components/dialog";
 import FormSwot from "./form-swot";
 import theme from "@/theme";
 import { useExsumStore } from "@/app/executive-summary/provider";
-import useSWRMutation from "swr/mutation";
-import { postRequest } from "@/utils/fetcher";
 import {ListPermission, checkPermission} from "@/config/permission";
 import {useGlobalStore} from "@/provider"
-
-export const getData = () => {
-    const {
-        data,
-        trigger,
-        isMutating
-    } = useSWRMutation(
-        "/api/exsum/swot/swot-show",
-        postRequest
-    );
-    return { data, trigger, isMutating };
-};
-
-export const saveData = () => {
-    const {
-        trigger,
-    } = useSWRMutation(
-        "/api/exsum/swot/swot-create",
-        postRequest
-    );
-    return { triggerSaveData:trigger};
-};
-
-export const updateData = () => {
-    const {
-        trigger,
-    } = useSWRMutation(
-        "/api/exsum/swot/swot-update",
-        postRequest
-    );
-    return { triggerUpdateData:trigger };
-};
-
-export const deleteData = () => {
-    const {
-        trigger,
-    } = useSWRMutation(
-        "/api/exsum/swot/swot-delete",
-        postRequest
-    );
-    return { triggerDeleteData:trigger };
-};
+import { CrudRepository } from "@/utils/fetcher";
 
 export type Swot = {
     id: number;
@@ -83,51 +40,76 @@ export default function CardSwot() {
     const {permission} = userdata
 
     const [modalForm, setModalForm] = React.useState(false);
-    const [swotData, setSwotData] = React.useState<Swot>(initStateSwot)
+    const [swotData, setSwotData] = React.useState<Swot|null>(null)
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     const { id } = useExsumStore((state) => state);
-    const { data, trigger, isMutating } = getData();
-    const { triggerSaveData } = saveData();
-    const { triggerUpdateData } = updateData();
-    const { triggerDeleteData } = deleteData();
+    const {showData,createData,updateData,deleteData} = CrudRepository({
+        showUri:"/api/exsum/swot/swot-show",
+        createUri:"/api/exsum/swot/swot-create",
+        updateUri:"/api/exsum/swot/swot-update",
+        deleteUri:"/api/exsum/swot/swot-delete"
+    });
+    const { triggerShowData, showDataMutating } = showData()
+    const { triggerCreateData, createDataMutating } = createData()
+    const { triggerUpdateData, updateDataMutating } = updateData()
+    const { triggerDeleteData, deleteDataMutating } = deleteData()
+
+    const triggerData = async () => {
+        let data = {...initStateSwot, exsum_id:id}
+        try {
+            data = await triggerShowData({ exsum_id: id });
+        } catch (error) {
+            window.location.reload()
+        }
+        if (data == null) {
+            setSwotData({...initStateSwot, exsum_id:id})
+        }else{
+            setSwotData(data)
+        }
+    }
 
     React.useEffect(() => {
-        try {
-            trigger({ exsum_id: id });
-        } catch (error) {}
-        setSwotData((prev:Swot) => {
-            return {...prev, exsum_id:id}
-        })
+        if(showDataMutating || createDataMutating || updateDataMutating || deleteDataMutating){
+            setLoading(true)
+        } else {
+            setLoading(false)
+        }
+    }, [showDataMutating,createDataMutating,updateDataMutating,deleteDataMutating]);
+
+    React.useEffect(() => {
+        if (id > 0) {
+            triggerData()
+        }
     }, [id]);
 
-    React.useEffect(() => {
-        if (data != null){
-            setSwotData(data)
-        }else{
-            setSwotData((prev:Swot) => {
-                return {...initStateSwot, exsum_id:id}
-            })
-        }
-    }, [data]);
 
     const handleCreateOrUpdateData = async (req:Swot) => {
-        if (req.id == 0){
-            await triggerSaveData(req);
-        }else{
-            await triggerUpdateData(req);
+        try {
+            if (req.id == 0){
+                await triggerCreateData(req);
+            }else{
+                await triggerUpdateData(req);
+            }
+            await triggerData()
+            setModalForm(false)
+        } catch (error) {
+            window.location.reload()
         }
-        await trigger({ exsum_id: id })
-        setModalForm(false)
     }
 
     const handleDeleteData = async (req:Swot) => {
-        await triggerDeleteData(req)
-        await trigger({ exsum_id: id })
-        setModalForm(false)
+        try {
+            await triggerDeleteData(req)
+            await triggerData()
+            setModalForm(false)
+        } catch (error) {
+            window.location.reload()
+        }
     }
 
-    return isMutating ? (
-        <Skeleton animation="wave" variant="rounded" height={250} width={"100%"} style={{borderRadius:20}} />
+    return loading || swotData == null ? (
+        <Skeleton animation="wave" variant="rounded" height={200} width={"100%"} style={{borderRadius:20}} />
     ) : (
         <CardItem
             title="Kondisi Saat Ini/Latar Belakang Proyek (SWOT)"
@@ -146,12 +128,12 @@ export default function CardSwot() {
             settingDeleteOnclick={
                 checkPermission(permission, ListPermission.EXSUM_SWOT_DELETE)
                 ?
-                () => {handleDeleteData(swotData)}
+                (swotData && swotData?.id !== 0 ? () => {handleDeleteData(swotData)} : undefined)
                 :
                 undefined
             }
         >
-            {data == null ? (
+            {(swotData && swotData?.id === 0) ? (
                 <EmptyState
                     dense
                     icon={<IconEmptyData width={100} />}
@@ -160,7 +142,7 @@ export default function CardSwot() {
                 />
             ) : (
                 <Stack direction="row" flexWrap="wrap" gap={2}>
-                    {CardContentGenerator(data)}
+                    {swotData && swotData?.id !== 0 && CardContentGenerator(swotData)}
                 </Stack>
             )}
             <DialogComponent
@@ -174,7 +156,11 @@ export default function CardSwot() {
                         </Button>
                         <Button
                             variant="contained"
-                            onClick={() => handleCreateOrUpdateData(swotData)}
+                            onClick={() => {
+                                if(swotData){
+                                    handleCreateOrUpdateData(swotData)
+                                }
+                            }}
                         >
                             Simpan
                         </Button>
@@ -183,7 +169,7 @@ export default function CardSwot() {
             >
                 <FormSwot
                     mode="add"
-                    data={swotData}
+                    data={swotData ? swotData : {...initStateSwot}}
                     setData={setSwotData}
                 />
             </DialogComponent>

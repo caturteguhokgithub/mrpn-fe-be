@@ -11,7 +11,7 @@ import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 import useSWRMutation from 'swr/mutation'
 import { postRequest } from '@/utils/fetcher'
-import { useGlobalStore } from "@/provider";
+import { useGlobalStore, defaultInitGlobalState } from "@/provider";
 
 const getListData = () => {
 
@@ -39,39 +39,41 @@ export default function DropdownKp() {
     const [value, setValue] = React.useState<any>(initStateValue);
     const [data, setData] = React.useState<any[]>([]);
 
-    const { listData, listDataLoading, fetchListData } = getListData()
+    const { listDataLoading, fetchListData } = getListData()
 
-    const generateData = React.useMemo(
-        () => {
-            let result: any[] = [{id:0,label:"Pilih Kegiatan Pembangunan"}]
-            listData && listData.map((rkp: any) => {
-                result.push({
-                    id:rkp.id,
-                    label:`${rkp.code} - ${rkp.value}`
-                })
+    const setListData = async () => {
+        let data = [];
+        if (project.level !== "") {
+            try {
+                data = await fetchListData({"level":project.level})
+            } catch (error) {
+                window.location.reload()
+            }
+            const genData = generateData(data)
+            setData(genData)
+        }
+    }
+
+    const generateData = (dataProject:any[]) => {
+        let result: any[] = [{id:0,label:"Pilih Kegiatan Pembangunan"}]
+        dataProject && dataProject.map((rkp: any) => {
+            result.push({
+                id:rkp.id,
+                label:`${rkp.code} - ${rkp.value}`
             })
-            result.sort((a:{id:number,level:string},b:{id:number,level:string}) => a.id - b.id)
-            return result
-        },
-        [listDataLoading, listData]
-    )
+        })
+        result.sort((a:{id:number,level:string},b:{id:number,level:string}) => a.id - b.id)
+        return result
+    }
 
     React.useEffect(() => {
         let y = {...project, id:value.id, value:value.label}
         setProject(y)
     }, [value])
-
+    
     React.useEffect(() => {
-        if (project.level !== "") {
-            try {
-                fetchListData({"level":project.level})
-            } catch (error) {}
-        }
-    }, [])
-
-    React.useEffect( () => {
-        setData(generateData)
-    }, [listData])
+        setListData()
+    }, [project.level])
 
     return (listDataLoading) ?
         (

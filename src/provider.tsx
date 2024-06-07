@@ -32,14 +32,16 @@ export type GlobalState = {
     userdata:UserData;
     project:Project;
     konteksStrategis:KonteksStrategis;
+    kebijakanOption:string[];
     snackbar:SnackbarType;
 }
 
 export type GlobalActions = {
     setUserData: (params:UserData) => void
-    setSnackbar: (params:SnackbarType) => void
     setProject: (params:Project) => void
     setKonteksStrategis: (params:KonteksStrategis) => void
+    setKebijakanOption: (params:string[]) => void
+    setSnackbar: (params:SnackbarType) => void
     destroyState: () => void
 }
 
@@ -65,6 +67,7 @@ export const defaultInitGlobalState: GlobalState = {
         id:0,
         value:""
     },
+    kebijakanOption:[],
     snackbar:{
         showSnackbar: false,
         message: "",
@@ -80,6 +83,7 @@ export const createGlobalStore = (
         setUserData: (params:UserData) => set((state) => state = {...state,userdata:params}),
         setProject: (params:Project) => set((state) => state = {...state,project:params}),
         setKonteksStrategis: (params:KonteksStrategis) => set((state) => state = {...state,konteksStrategis:params}),
+        setKebijakanOption: (params:string[]) => set((state) => state = {...state,kebijakanOption:params}),
         setSnackbar: (params:SnackbarType) => set((state) => state = {...state,snackbar:params}),
         destroyState: () => set(() => (defaultInitGlobalState)),
     }))

@@ -93,28 +93,22 @@ const ExsumPage = () => {
 
     const { project } = useGlobalStore((state) => state)
     const { setExsum } = useExsumStore((state) => state)
-    const { data, trigger } = getDataExsum();
+    const { trigger } = getDataExsum();
 
-    React.useEffect(() => {
-        console.log("change project")
+    const setExsumData = async () => {
+        let dataExsum = {...defaultExsumState}
         if (project.id && project.level){
             const req = {level:project.level,ref_id:project.id};
-            console.log(req)
             try {
-                trigger(req)
+                dataExsum = await trigger(req)
             } catch (error){}
+            setExsum(dataExsum)
         }
-    },[project])
-
+    }
+    
     React.useEffect(() => {
-        if (data){
-            setExsum({
-                id:data.id,
-                level:data.level,
-                ref_id:data.ref_id
-            })
-        }
-    },[data])
+        setExsumData()
+    },[project])
 
     const [value, setValue] = React.useState(0);
 
