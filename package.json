@@ -24,7 +24,7 @@
         "date-fns": "^3.0.2-rc.1",
         "dayjs": "^1.11.11",
         "fg-loadcss": "^3.1.0",
-        "frappe-gantt": "^0.6.1",
+        "gantt-task-react": "^0.3.9",
         "lodash": "^4.17.21",
         "material-react-table": "^2.11.3",
         "moment": "^2.30.1",

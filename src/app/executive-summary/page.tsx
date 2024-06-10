@@ -145,7 +145,7 @@ const ExsumPage = () => {
         <DashboardLayout>
             {/*<LoadingPage />*/}
             <ContentPage
-                title={`Executive Summary || test KP => ${project.id}`}
+                title={`Executive Summary`}
                 overflowHidden
                 withCard={true}
                 chooseProject

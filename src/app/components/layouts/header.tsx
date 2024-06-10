@@ -13,6 +13,7 @@ import {
  Stack,
  Typography,
 } from "@mui/material";
+import Link from 'next/link'
 import { orange, red } from "@mui/material/colors";
 import React from "react";
 import { IconKeluar } from "../icons";
@@ -282,19 +283,21 @@ export default function Header({}) {
       <ListItemText>Tahun 2029</ListItemText>
      </MenuItem>
      <Divider sx={{ m: "0 !important" }} />
-     <MenuItem
-      sx={{
-       bgcolor: red[100],
-       py: 2,
-      }}
-     >
-      <ListItemIcon>
-       <IconKeluar color={red[800]} />
-      </ListItemIcon>
-      <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
-       Keluar Sistem
-      </ListItemText>
-     </MenuItem>
+     <Link href="/api/auth/signout">
+      <MenuItem
+       sx={{
+        bgcolor: red[100],
+        py: 2,
+       }}
+      >
+        <ListItemIcon>
+         <IconKeluar color={red[800]} />
+        </ListItemIcon>
+        <ListItemText sx={{ color: red[800], span: { fontWeight: 500 } }}>
+         Keluar Sistem
+        </ListItemText>
+      </MenuItem>
+     </Link>
     </Menu>
    </Stack>
    <Drawer

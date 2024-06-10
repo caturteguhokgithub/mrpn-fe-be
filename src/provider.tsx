@@ -33,6 +33,7 @@ export type GlobalState = {
     project:Project;
     konteksStrategis:KonteksStrategis;
     kebijakanOption:string[];
+    rpjmn:number[];
     snackbar:SnackbarType;
 }
 

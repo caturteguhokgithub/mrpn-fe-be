@@ -1,201 +1,184 @@
-import React, { Fragment } from "react";
-import Image from "next/image";
+import React from "react";
 import {
- Typography,
- Button,
- DialogActions,
- Box,
- Tooltip,
- Zoom,
+    Button,
+    DialogActions, Skeleton
 } from "@mui/material";
 import EmptyState from "@/app/components/empty";
 import { IconEmptyData } from "@/app/components/icons";
 import CardItem from "@/app/components/cardTabItem";
 import DialogComponent from "@/app/components/dialog";
-import dynamic from "next/dynamic";
-import { dataTema } from "../../dataTema";
-import GanttChart from "@/app/penetapan-konteks/konteks-strategis/form/partials/gantt/gantt";
-import { tasks } from "@/app/penetapan-konteks/konteks-strategis/setting";
 import FormMilestone from "@/app/penetapan-konteks/konteks-strategis/form/partials/form-milestone";
-import { Chart } from "react-google-charts";
-import { dataCritical1, dataRowCritical } from "../../data";
-import { GanttDefault } from "./gantt";
+import GanttChart from "./gantt-critical";
+import { useGlobalStore } from "@/provider";
+import { useExsumStore } from "@/app/executive-summary/provider";
+import { CrudRepository } from "@/utils/fetcher";
+import { checkPermission, ListPermission } from "@/config/permission";
+import { Task } from "@/app/executive-summary/partials/tabPolicy/gantt-critical/data";
+
+type RequestData = {
+    id:number;
+    exsum_id:string;
+    program:string;
+    sumber_anggaran:string;
+    pj:string;
+    start_date:string;
+    end_date:string;
+    progress:string;
+}
+
+const initRequest:RequestData = {
+    id:0,
+    exsum_id:"",
+    program:"",
+    sumber_anggaran:"",
+    pj:"",
+    start_date:"",
+    end_date:"",
+    progress:"",
+}
+
 
 export default function CardCritical({ project }: { project: string }) {
- const [modalOpenCritical, setModalOpenCritical] = React.useState(false);
- const [value, setValue] = React.useState("");
- const [modalOpenImgCritical, setModalOpenImgCritical] = React.useState(false);
- const handleModalOpenCritical = () => {
-  setModalOpenCritical(true);
- };
- const handleModalImgCritical = () => {
-  setModalOpenImgCritical(true);
- };
 
- const handleModalClose = () => {
-  setModalOpenCritical(false);
-  setModalOpenImgCritical(false);
- };
- const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+    const { userdata,rpjmn } = useGlobalStore((state) => state)
+    const { permission } = userdata
+    const { id } = useExsumStore((state) => state);
 
- const isEmpty = false;
+    const [modalForm, setModalForm] = React.useState(false);
+    const [request, setRequest] = React.useState<RequestData>({...initRequest});
+    const [data, setData] = React.useState<Task[]>()
+    const [loading, setLoading] = React.useState<boolean>(false);
 
- const options = {
-  gantt: {
-   trackHeight: 50,
-   criticalPathEnabled: true,
-   criticalPathStyle: {
-    stroke: "#e64a19",
-    strokeWidth: 5,
-   },
-   arrow: {
-    angle: 100,
-    width: 5,
-    color: "green",
-    radius: 0,
-   },
-   labelStyle: {
-    fontFamily: "'Inter',sans-serif",
-    fontSize: 16,
-    color: "black !important",
-   },
-   innerGridHorizLine: {
-    stroke: "#e0e0e0",
-    strokeWidth: 1,
-   },
-   innerGridTrack: { fill: "#f1f8e9" },
-   innerGridDarkTrack: { fill: "#dcedc8" },
-   showRowLabels: true,
-   showTaskLabels: true,
-  },
-  timeline: {
-   showBarLabels: true,
-  },
-  hAxis: {
-   format: "yyyy",
-   gridlines: { count: -1 },
-  },
-  vAxis: {
-   title: "yyyy",
-  },
-  tooltip: {
-   isHtml: true,
-  },
- };
+    const { showData, createData, updateData, deleteData } = CrudRepository({
+        showUri: "/api/exsum/critical-path/critical-path-show",
+        createUri: "/api/exsum/critical-path/critical-path-create",
+        updateUri: "/api/exsum/critical-path/critical-path-update",
+        deleteUri: "/api/exsum/critical-path/critical-path-delete"
+    });
+    const { triggerShowData, showDataMutating } = showData()
+    const { triggerCreateData, createDataMutating } = createData()
+    const { triggerUpdateData, updateDataMutating } = updateData()
+    const { triggerDeleteData, deleteDataMutating } = deleteData()
 
- console.log({ project });
+    React.useEffect(() => {
+        if (showDataMutating || createDataMutating || updateDataMutating || deleteDataMutating) {
+            setLoading(true)
+        } else {
+            setLoading(false)
+        }
+    }, [showDataMutating, createDataMutating, updateDataMutating, deleteDataMutating]);
 
- const dataCritical = [dataRowCritical, ...dataCritical1];
-
- return (
-  <CardItem
-   title="Critical Path Prioritas Proyek"
-   setting
-   settingEditOnclick={handleModalOpenCritical}
-  >
-   {isEmpty || project === "4" ? (
-    <EmptyState
-     dense
-     icon={<IconEmptyData width={100} />}
-     title="Data Kosong"
-     description="Silahkan isi konten halaman ini"
-    />
-   ) : (
-    <>
-     <Box width="100%" textAlign="center">
-      <GanttChart tasks={tasks} />
-      {/* {dataTema.map((itemCritical) => (
-       <>
-        {project === itemCritical.temaId && (
-         <>
-          {itemCritical.criticalPath.length < 1 ? (
-           <EmptyState
-            dense
-            icon={<IconEmptyData width={100} />}
-            title="Data Kosong"
-            description="Silahkan isi konten halaman ini"
-           />
-          ) : (
-           <>
-            {itemCritical.criticalPath.map((detailCritical, index) => (
-             <>
-              <Tooltip
-               key={index}
-               title="Klik untuk perbesar gambar"
-               placement="right"
-               followCursor
-               TransitionComponent={Zoom}
-              >
-               <Image
-                alt="Critical Path Prioritas Proyek"
-                src={detailCritical}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{
-                 width: "70%",
-                 height: "auto",
-                 margin: "0 auto",
-                 cursor: "pointer",
-                }}
-                onClick={handleModalImgCritical}
-               />
-              </Tooltip>
-              <DialogComponent
-               width="80%"
-               dialogOpen={modalOpenImgCritical}
-               dialogClose={handleModalClose}
-              >
-               <Image
-                alt="Critical Path Prioritas Proyek"
-                src={detailCritical}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{
-                 width: "100%",
-                 height: "auto",
-                 margin: "0 auto",
-                }}
-               />
-              </DialogComponent>
-             </>
-            ))}
-           </>
-          )}
-         </>
-        )}
-       </>
-      ))} */}
-     </Box>
-    </>
-   )}
-   <Chart
-    chartType="Gantt"
-    width="100%"
-    height="300px"
-    // data={project === "1" ? dataCritical1 : dataCritical1}
-    options={options}
-    data={dataCritical}
-   />
-   {/* <GanttDefault /> */}
-   <DialogComponent
-    dialogOpen={modalOpenCritical}
-    dialogClose={handleModalClose}
-    title="Critical Path Prioritas Proyek"
-    dialogFooter={
-     <DialogActions sx={{ p: 2, px: 3 }}>
-      <Button variant="outlined" onClick={handleModalClose}>
-       Batal
-      </Button>
-      <Button variant="contained" type="submit">
-       Simpan
-      </Button>
-     </DialogActions>
+    const setDataState = async () => {
+        let data = null
+        try {
+            data = await triggerShowData({exsum_id: id});
+            console.log(data)
+            if (data != undefined) {
+                let genData:Task[] = []
+                let startDate = new Date(data.start_date);
+                let endDate = new Date(data.end_date);
+                genData.push({
+                    id: data.id,
+                    name: data.program,
+                    start: startDate,
+                    end: endDate,
+                    progress: data.progress,
+                    pj:data.pj,
+                    sumber_anggaran:data.sumber_anggaran,
+                    type: "task",
+                    dependencies: [],
+                })
+                setData(genData)
+            } else {
+                setData(undefined)
+            }
+        } catch (error) {
+            // window.location.reload()
+        }
     }
-   >
-    <FormMilestone mode="edit" />
-   </DialogComponent>
-  </CardItem>
- );
+
+    React.useEffect(() => {
+        if (id > 0) {
+            setDataState()
+        }
+    }, [id]);
+
+    const handleCreateOrUpdateData = async () => {
+        try {
+            if (data.id == 0){
+                await triggerCreateData(data);
+            } else {
+                await triggerUpdateData(data);
+            }
+            await setDataState()
+            setModalForm(false);
+        } catch (error) {
+            // window.location.reload()
+        }
+    };
+
+    const handleDeleteData = async () => {
+        try {
+            await triggerDeleteData(data);
+            await setDataState();
+            setModalForm(false);
+        } catch (error) {
+            // window.location.reload()
+        }
+    };
+
+    return loading ? (
+        <Skeleton animation="wave" variant="rounded" height={200} width={"100%"} style={{ borderRadius: 20 }} />
+    ) : (
+        <CardItem
+            title="Critical Path Prioritas Proyek"
+            setting={
+                checkPermission(permission, ListPermission.EXSUM_CRITICAL_PATH_ADD)
+                || checkPermission(permission, ListPermission.EXSUM_CRITICAL_PATH_UPDATE)
+                || checkPermission(permission, ListPermission.EXSUM_CRITICAL_PATH_DELETE)
+                    ? true : undefined
+            }
+            settingEditOnclick={
+                checkPermission(permission, ListPermission.EXSUM_CRITICAL_PATH_ADD) || checkPermission(permission, ListPermission.EXSUM_CRITICAL_PATH_UPDATE)
+                    ?
+                    () => {setModalForm(true)}
+                    : undefined
+            }
+            settingDeleteOnclick={
+                checkPermission(permission, ListPermission.EXSUM_CRITICAL_PATH_DELETE)
+                    ?
+                    (data !== undefined ? handleDeleteData : undefined)
+                    :
+                    undefined
+            }
+        >
+            {data === undefined ? (
+                <EmptyState
+                    dense
+                    icon={<IconEmptyData width={100} />}
+                    title="Data Kosong"
+                    description="Silahkan isi konten halaman ini"
+                />
+            ) : (
+                <GanttChart tasks={data} />
+            )}
+            <DialogComponent
+                dialogOpen={modalForm}
+                dialogClose={() => setModalForm(false)}
+                title="Critical Path Prioritas Proyek"
+                dialogFooter={
+                    <DialogActions sx={{ p: 2, px: 3 }}>
+                        <Button variant="outlined" onClick={() => setModalForm(false)}>
+                            Batal
+                        </Button>
+                        <Button variant="contained" type="submit">
+                            Simpan
+                        </Button>
+                    </DialogActions>
+                }
+            >
+                <FormMilestone mode="edit" />
+            </DialogComponent>
+        </CardItem>
+    );
 }

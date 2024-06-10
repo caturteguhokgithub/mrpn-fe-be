@@ -224,7 +224,7 @@ export default function Aside({
     reflect
     label="keluar sistem"
     icon={<IconKeluar />}
-    url="/"
+    url="api/auth/signout"
    />
   </Stack>
  );

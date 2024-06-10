@@ -2,7 +2,6 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 
-import { Metadata } from "next";
 import { CssBaseline } from "@mui/material";
 import React from "react";
 import "./globals.css";
@@ -12,28 +11,7 @@ import { GlobalState, defaultInitGlobalState, GlobalStoreProvider } from "@/prov
 import { auth, UserData } from "@/config/authentication";
 import { redirect } from "next/navigation";
 import { instanceApi } from '@/config/apiClient'
-import { EXSUM, KEBIJAKAN_OPTION, RKP_LEVEL } from "@/constants/system-parameter-constant";
-// import Head from "next/head";
-
-export const metadata: Metadata = {
-	title: "MRPN 2024",
-	icons: {
-		icon: [
-			{
-				media: "(prefers-color-scheme: light)",
-				url: "https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
-				href:
-					"https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
-			},
-			{
-				media: "(prefers-color-scheme: dark)",
-				url: "https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
-				href:
-					"https://res.cloudinary.com/caturteguh/image/upload/v1708049745/mrpn/logo-2024_ne4yaj.png",
-			},
-		],
-	},
-};
+import { EXSUM, KEBIJAKAN_OPTION, RKP_LEVEL, ROADMAP_TAHUN } from "@/constants/system-parameter-constant";
 
 export default async function RootLayout(props: any) {
 
@@ -55,6 +33,12 @@ export default async function RootLayout(props: any) {
 			return res.data == null ? [] : JSON.parse(res.data.data);
 		});
 
+	const rpjmnYear: number[] = await instanceApi(userData.token)
+		.post("misc/system_parameter/getByModuleAndName", { module: EXSUM, name: ROADMAP_TAHUN })
+		.then(res => {
+			return res.data == null ? [2025,2026,2027,2028,2029] : JSON.parse(res.data.data);
+		});
+
 	const globalState: GlobalState = {
 		...defaultInitGlobalState,
 		userdata: userData,
@@ -62,6 +46,7 @@ export default async function RootLayout(props: any) {
 			...defaultInitGlobalState.project,
 			level: projectLevel
 		},
+		rpjmn:rpjmnYear,
 		kebijakanOption: kebijakanOption
 	}
 
