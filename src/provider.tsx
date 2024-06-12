@@ -74,6 +74,7 @@ export const defaultInitGlobalState: GlobalState = {
         message: "",
         severity: "success"
     },
+    rpjmn:[]
 }
 
 export const createGlobalStore = (

@@ -64,11 +64,11 @@ const ImageGallery = (
     setData:any;
     images: any;
     searchTerm: any;
-    type,
+    type:any,
     project?: string;
 }) => {
 
-    let initData = []
+    let initData:any = []
     if (type && data && data.hasOwnProperty(type)){
         data[type].map((x:any) => {
             initData.push(x.stakeholder.id)

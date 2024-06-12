@@ -4,11 +4,6 @@ import { Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
 import CustomTooltip from "./tooltip";
 import { Box } from "@mui/material";
-import {
-    TasksCriticalPariwisata,
-    TasksCriticalSampah,
-    TasksCriticalStunting
-} from "./data";
 import theme from "@/theme";
 import { grey } from "@mui/material/colors";
 

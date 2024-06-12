@@ -3,7 +3,7 @@ import {instanceApi} from "@/config/apiClient";
 import {NextResponse} from "next/server";
 
 
-export async function streamToArrayBuffer(stream: any): Promise<Uint8Array> {
+async function streamToArrayBuffer(stream: any): Promise<Uint8Array> {
     return new Uint8Array(await new Response(stream).arrayBuffer());
 }
 export const POST = auth(async (req) => {

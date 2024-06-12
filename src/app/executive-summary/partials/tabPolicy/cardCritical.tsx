@@ -103,20 +103,6 @@ export default function CardCritical({ project }: { project: string }) {
         }
     }, [id]);
 
-    const handleCreateOrUpdateData = async () => {
-        try {
-            if (data.id == 0){
-                await triggerCreateData(data);
-            } else {
-                await triggerUpdateData(data);
-            }
-            await setDataState()
-            setModalForm(false);
-        } catch (error) {
-            // window.location.reload()
-        }
-    };
-
     const handleDeleteData = async () => {
         try {
             await triggerDeleteData(data);

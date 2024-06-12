@@ -154,12 +154,12 @@ export default function CardFund(
     }, [showDataMutating, createDataMutating, updateDataMutating, deleteDataMutating]);
 
     const setDataState = async () => {
-        let data = null
+        let data:any = null
         try {
             data = await triggerShowData({exsum_id: id});
             if (data != null) {
                 setData((prev:InitData) => {
-                    let tahunObj = {}
+                    let tahunObj:any = {}
                     data.pendanaan_pertahun.map((x:any) => {
                         tahunObj[x.tahun] = { value:x.value };
                     })
@@ -174,7 +174,7 @@ export default function CardFund(
                     }
                 })
             } else {
-                let tahunObj = {}
+                let tahunObj:any = {}
                 rpjmn.map((x) => {
                     tahunObj[x] = {value:0}
                 })

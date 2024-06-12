@@ -155,7 +155,7 @@ export default function CardStakeholder({ project }: { project: string }) {
     }, [showDataMutating, createDataMutating, updateDataMutating, deleteDataMutating]);
 
     const setDataState = async () => {
-        let data = null
+        let data:any = null
         try {
             data = await triggerShowData({exsum_id: id});
             if (data != null) {
@@ -163,7 +163,7 @@ export default function CardStakeholder({ project }: { project: string }) {
                 let dt = [...helperValue]
                 STAKEHOLDER_EXSUM_TYPE.map(x => {
                     if (data[x.type]){
-                        data[x.type].map(x => {
+                        data[x.type].map((x:any) => {
                             let objIndex = dt.findIndex(obj => obj.type == x.type);
                             dt[objIndex].value = x.value
                         })
@@ -188,12 +188,12 @@ export default function CardStakeholder({ project }: { project: string }) {
     const handleCreateOrUpdateData = async () => {
         let req = {
             exsum_id: id,
-            stakeholder: []
+            stakeholder: [] as any
         }
         console.log(req)
         helperValue.map(item => {
             item.items.map((x:number) => {
-                let objIndex = req.stakeholder.findIndex(obj => obj.src_stakeholder_id == x);
+                let objIndex = req.stakeholder.findIndex((obj:any) => obj.src_stakeholder_id == x);
                 if (objIndex === -1){
                     let dataStakeholder:Stakeholder = {
                         src_stakeholder_id:x,

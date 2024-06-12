@@ -13,7 +13,7 @@ export default function ImageGalleryStakeholder(
     data,
     setData
 }: {
-    images?:any[];
+    images:any[];
     type:string;
     data:any;
     setData?:any;

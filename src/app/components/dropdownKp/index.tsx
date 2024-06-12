@@ -13,7 +13,7 @@ import useSWRMutation from 'swr/mutation'
 import { postRequest } from '@/utils/fetcher'
 import { useGlobalStore, defaultInitGlobalState } from "@/provider";
 
-const getListData = () => {
+const GetListData = () => {
 
     const {
         data,
@@ -39,7 +39,7 @@ export default function DropdownKp() {
     const [value, setValue] = React.useState<any>(initStateValue);
     const [data, setData] = React.useState<any[]>([]);
 
-    const { listDataLoading, fetchListData } = getListData()
+    const { listDataLoading, fetchListData } = GetListData()
 
     const setListData = async () => {
         let data = [];
